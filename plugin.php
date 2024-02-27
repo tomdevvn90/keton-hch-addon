@@ -59,7 +59,8 @@ class Plugin {
  			$this->widgets = array_merge(
  				$this->widgets, array(
 					'products-carousel',
-					'recipes-carousel'
+					'recipes-carousel',
+					'recipes-categories-1'
  				)
  			);
 
@@ -148,6 +149,11 @@ class Plugin {
 		// WooCommerce.
 		if ( $this->woocommerce_status() ) {
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Products_Carousel\Be_Products_Carousel() );
+		}
+
+		// Recipes Categories
+		if ( $this->woocommerce_status() ) {
+			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Recipes_Categories_1\Be_Recipes_Categories_1() );
 		}
 
 	}

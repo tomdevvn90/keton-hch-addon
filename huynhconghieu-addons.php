@@ -131,6 +131,8 @@ final class HuynhCongHieu_Addons {
 	public function hch_enqueue_scripts() {
 
 		wp_enqueue_style( 'hch-addons-elements', plugins_url( '/assets/css/elements.css', __FILE__ ) );
+
+		wp_enqueue_style( 'hch-addons-recipes-cat', plugins_url( '/assets/css/recipes-categories.css', __FILE__ ) );
 		
 	}
 
