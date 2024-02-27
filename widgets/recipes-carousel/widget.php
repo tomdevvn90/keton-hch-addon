@@ -1,5 +1,5 @@
 <?php
-namespace HuynhCongHieuAddons\Widgets\Products_Carousel;
+namespace HuynhCongHieuAddons\Widgets\Recipes_Carousel;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
@@ -8,14 +8,14 @@ use Elementor\Group_Control_Border;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class Be_Products_Carousel extends Widget_Base {
+class Be_Recipes_Carousel extends Widget_Base {
 
     public function get_name() {
-			return 'products-carousel-2';
+			return 'recipes-carousel';
     }
 
     public function get_title() {
-			return __( 'Products Carousel 2', 'hch-addons' );
+			return __( 'Recipes Carousel', 'hch-addons' );
     }
 
     public function get_icon() {
@@ -69,9 +69,9 @@ class Be_Products_Carousel extends Widget_Base {
 		}
 
 		/**
-		* Elementor Render Products
+		* Elementor Render Recipes
 		*/
-		protected function be_elementor_render_products($settings) {
+		protected function be_elementor_render_recipes($settings) {
 			$output = '';
 			
 			if ( get_query_var( 'paged' ) ) {
@@ -83,7 +83,7 @@ class Be_Products_Carousel extends Widget_Base {
 			}
 		
 			$args = array(
-				'post_type'      => 'product',
+				'post_type'      => 'recipe',
 				'post_status'    => 'publish',
 				'paged' 			   => $paged,
 				'posts_per_page' => $settings['post_count'],
@@ -97,7 +97,7 @@ class Be_Products_Carousel extends Widget_Base {
 			if($settings['hide_out_of_stock_items'] == 'true'){
 				$args['tax_query'] = array(
 					array(
-						'taxonomy' => 'product_visibility',
+						'taxonomy' => 'recipe_visibility',
 						'field'    => 'name',
 						'terms'    => 'outofstock',
 						'operator' => 'NOT IN',
@@ -107,7 +107,7 @@ class Be_Products_Carousel extends Widget_Base {
 
 			if($settings['cat_filter']){
 				$args['tax_query'][] = array(
-					'taxonomy' 	=> 'product_cat',
+					'taxonomy' 	=> 'recipe_cat',
 					'field' 	=> 'term_id',
 					'terms' 	=> $settings['cat_filter']
 				);
@@ -115,7 +115,7 @@ class Be_Products_Carousel extends Widget_Base {
 
 			if($settings['tag_filter']){
 				$args['tax_query'][] = array(
-					'taxonomy' 	=> 'product_tag',
+					'taxonomy' 	=> 'recipe_tag',
 					'field' 	=> 'term_id',
 					'terms' 	=> $settings['tag_filter']
 				);
@@ -132,7 +132,7 @@ class Be_Products_Carousel extends Widget_Base {
 				} else {
 					if($settings['show_featured_filter'] == 'true'){
 						$args['tax_query'] = array( array(
-							'taxonomy' => 'product_visibility',
+							'taxonomy' => 'recipe_visibility',
 							'field'    => 'name',
 							'terms'    => array( 'featured' ),
 								'operator' => 'IN',
@@ -147,17 +147,17 @@ class Be_Products_Carousel extends Widget_Base {
 			$loop = new \WP_Query( $args );
 			if ( $loop->have_posts() ) {
 				while ( $loop->have_posts() ) : $loop->the_post();
-					global $product;
+					global $recipe;
 					global $post;
 					global $woocommerce;
 
-					$output .= '<div class="slide-item"><div class="'.esc_attr( implode( ' ', wc_get_product_class( '', $product->get_id()))).'">';
-					if($settings['product_type'] == 'type4'){
-						$output .= bacola_product_type4();
-					}elseif($settings['product_type'] == 'type2'){
-						$output .= bacola_product_type2();
+					$output .= '<div class="slide-item"><div class="'.esc_attr( implode( ' ', wc_get_recipe_class( '', $recipe->get_id()))).'">';
+					if($settings['recipe_type'] == 'type4'){
+						$output .= bacola_recipe_type4();
+					}elseif($settings['recipe_type'] == 'type2'){
+						$output .= bacola_recipe_type2();
 					} else {
-						$output .= bacola_product_type1();
+						$output .= bacola_recipe_type1();
 					}
 					$output .= '</div></div>';
 				
@@ -188,15 +188,23 @@ class Be_Products_Carousel extends Widget_Base {
 					'label_block' => true,
 				]
 			);
-	
-			$this->add_control( 'subtitle',
-				[
-					'label' => esc_html__( 'Subtitle', 'hch-addons' ),
-					'type' => Controls_Manager::TEXTAREA,
-					'default' => 'Subtitle Text.',
-					'label_block' => true,
-				]
-			);
+
+      $this->add_control( 'btn_text',
+        [
+            'label' => esc_html__( 'Button Text', 'hch-addons' ),
+            'type' => Controls_Manager::TEXT,
+            'label_block' => true,
+            'default' => 'Vsi recepti',
+        ]
+      );
+  
+      $this->add_control( 'btn_link',
+        [
+            'label' => esc_html__( 'Button Link', 'hch-addons' ),
+            'type' => Controls_Manager::URL,
+            'label_block' => true,
+        ]
+      );
 
 			$this->add_control( 'auto_play',
 				[
@@ -327,9 +335,9 @@ class Be_Products_Carousel extends Widget_Base {
 				]
 			);
 		
-			$this->add_control( 'product_type',
+			$this->add_control( 'recipe_type',
 				[
-					'label' => esc_html__( 'Product Type', 'hch-addons' ),
+					'label' => esc_html__( 'Recipe Type', 'hch-addons' ),
 					'type' => Controls_Manager::SELECT,
 					'default' => 'type2',
 					'options' => [
@@ -375,7 +383,7 @@ class Be_Products_Carousel extends Widget_Base {
 					'label' => esc_html__( 'Posts Per Page', 'hch-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
-					'max' => count( get_posts( array('post_type' => 'product', 'post_status' => 'publish', 'fields' => 'ids', 'posts_per_page' => '-1') ) ),
+					'max' => count( get_posts( array('post_type' => 'recipe', 'post_status' => 'publish', 'fields' => 'ids', 'posts_per_page' => '-1') ) ),
 					'default' => 8
 				]
 			);
@@ -385,7 +393,7 @@ class Be_Products_Carousel extends Widget_Base {
 					'label' => esc_html__( 'Filter Category', 'hch-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
-					'options' => $this->be_cpt_taxonomies('product_cat'),
+					'options' => $this->be_cpt_taxonomies('recipe_cat'),
 					'description' => 'Select Category(s)',
 					'default' => '',
 					'label_block' => true,
@@ -397,7 +405,7 @@ class Be_Products_Carousel extends Widget_Base {
 					'label' => esc_html__( 'Filter Tag', 'hch-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
-					'options' => $this->be_cpt_taxonomies('product_tag'),
+					'options' => $this->be_cpt_taxonomies('recipe_tag'),
 					'description' => 'Select Tag(s)',
 					'default' => '',
 					'label_block' => true,
@@ -406,11 +414,11 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'post_include_filter',
 				[
-					'label' => esc_html__( 'Include Products', 'hch-addons' ),
+					'label' => esc_html__( 'Include Recipes', 'hch-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
-					'options' => $this->be_cpt_get_post_title('product'),
-					'description' => 'Select Product(s) to Include',
+					'options' => $this->be_cpt_get_post_title('recipe'),
+					'description' => 'Select Recipe(s) to Include',
 					'label_block' => true,
 				]
 			);
@@ -670,13 +678,174 @@ class Be_Products_Carousel extends Widget_Base {
 			$this->end_controls_tab();
 			$this->end_controls_tabs();
 			$this->end_controls_section();
+     	
+			$this->start_controls_section('btn_styling',
+				[
+					'label' => esc_html__( ' Button Style', 'hch-addons' ),
+					'tab' => Controls_Manager::TAB_STYLE
+				]
+			);
+		
+			$this->add_responsive_control( 'btn_padding',
+				[
+					'label' => esc_html__( 'Padding', 'hch-addons' ),
+					'type' => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px' ],
+					'selectors' => ['{{WRAPPER}}  .column a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};'],              
+				]
+			);
+  	    
+			$this->add_group_control(
+				Group_Control_Typography::get_type(),
+				[
+					'name' => 'btn_typo',
+					'label' => esc_html__( 'Typography', 'hch-addons' ),
+					'scheme' => Typography::TYPOGRAPHY_1,
+					'selector' => '{{WRAPPER}} .column a '
+				]
+			);
+		
+			$this->add_responsive_control( 'btn_right',
+				[
+					'label' => esc_html__( 'Right', 'hch-addons' ),
+					'type' => Controls_Manager::SLIDER,
+					'size_units' => [ 'px', 'vh' ],
+					'range' => [
+							'px' => [
+									'min' => 0,
+									'max' => 1000
+							],
+							'vh' => [
+									'min' => 0,
+									'max' => 100
+							]
+					],
+					'selectors' => [
+							'{{WRAPPER}}  .column a' => 'margin-right: {{SIZE}}{{UNIT}}',
+					]
+				]
+			);
+		
+			$this->add_responsive_control( 'btn_top',
+				[
+					'label' => esc_html__( 'Top', 'hch-addons' ),
+					'type' => Controls_Manager::SLIDER,
+					'size_units' => [ 'px', 'vh' ],
+					'range' => [
+							'px' => [
+									'min' => 0,
+									'max' => 1000
+							],
+							'vh' => [
+									'min' => 0,
+									'max' => 100
+							]
+					],
+					'selectors' => [
+							'{{WRAPPER}}  .column a' => 'margin-top: {{SIZE}}{{UNIT}}',
+					]
+				]
+			);
+		
+			$this->add_control( 'btn_opacity_important_style',
+				[
+					'label' => esc_html__( 'Opacity', 'hch-addons' ),
+					'type' => Controls_Manager::NUMBER,
+					'min' => 0,
+					'max' => 1,
+					'step' => 0.1,
+					'default' => '',
+					'selectors' => ['{{WRAPPER}} .column a' => 'opacity: {{VALUE}} ;'],
+				]
+			);
+
+			$this->start_controls_tabs('btn_tabs');
+        $this->start_controls_tab( 'btn_normal_tab',
+				[ 'label' => esc_html__( 'Normal', 'hch-addons' ) ]
+			);
+		
+			$this->add_control( 'btn_color',
+				[
+					'label' => esc_html__( 'Color', 'hch-addons' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => ['{{WRAPPER}} .column a ' => 'color: {{VALUE}};']
+				]
+			);
+       
+	    $this->add_group_control(
+				Group_Control_Border::get_type(),
+				[
+					'name' => 'btn_border',
+					'label' => esc_html__( 'Border', 'hch-addons' ),
+					'selector' => '{{WRAPPER}} .column a ',
+				]
+			);
+        
+			$this->add_responsive_control( 'btn_border_radius',
+				[
+					'label' => esc_html__( 'Border Radius', 'hch-addons' ),
+					'type' => Controls_Manager::DIMENSIONS,
+					'size_units' => [ 'px' ],
+					'selectors' => ['{{WRAPPER}} .column a ' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;'],
+				]
+			);
+       
+			$this->add_control( 'btn_bgclr',
+				[
+					'label' => esc_html__( 'Background Color', 'hch-addons' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						'{{WRAPPER}} .column a' => 'background-color: {{VALUE}};'
+					]
+				]
+			);
+       
+			$this->end_controls_tab();
+        $this->start_controls_tab('btn_hover_tab',
+					[ 'label' => esc_html__( 'Hover', 'hch-addons' ) ]
+        );
+       
+	    $this->add_control( 'btn_hvrcolor',
+				[
+					'label' => esc_html__( 'Color', 'hch-addons' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => ['{{WRAPPER}} .column a:hover ' => 'color: {{VALUE}};']
+				]
+			);
+       
+	    $this->add_group_control(
+				Group_Control_Border::get_type(),
+				[
+					'name' => 'btn_hvrborder',
+					'label' => esc_html__( 'Border', 'hch-addons' ),
+					'selector' => '{{WRAPPER}} .column a:hover',
+				]
+			);
+		
+			$this->add_control( 'btn_hvrbgclr',
+				[
+					'label' => esc_html__( 'Background Color', 'hch-addons' ),
+					'type' => Controls_Manager::COLOR,
+					'default' => '',
+					'selectors' => [
+						'{{WRAPPER}} .column a:hover' => 'background-color: {{VALUE}};'
+					]
+				]
+			);
+		
+			$this->end_controls_section();
 
 	}
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$products_html = $this->be_elementor_render_products($settings);
-		$more_products_url = "/shop-2/";
+		$recipes_html = $this->be_elementor_render_recipes($settings);
+
+    $target = $settings['btn_link']['is_external'] ? ' target="_blank"' : '';
+		$nofollow = $settings['btn_link']['nofollow'] ? ' rel="nofollow"' : '';
 		
 		$output = '<div class="site-module module-carousel">';
 
@@ -686,57 +855,29 @@ class Be_Products_Carousel extends Widget_Base {
 			$output .= '<h4 class="entry-title">'.esc_html($settings['title']).'</h4>';
 			$output .= '<div class="entry-description">'.esc_html($settings['subtitle']).'</div>';
 			$output .= '</div>';
+
+      $output .= '<div class="column">';
+      if($settings['btn_text']){
+      $output .= '<a class="button button-info-default xsmall rounded" href="'.esc_url($settings['btn_link']['url']).'" '.esc_attr($target.$nofollow).'>'.esc_html($settings['btn_text']).' <i class="klbth-icon-right-arrow"></i></a>';
+      }
+      $output .= '</div>';
+      
 			$output .= '</div>';
 		}
 
-		if($settings['show_on_sale_filter'] || $settings['show_featured_filter'] || $settings['show_best_selling_filter']){
-				$is_active_tab = false;
-				
-				$output .= '<div class="be-products-filter" data-settings=\''.json_encode($settings).'\'">';
-				if ( $settings['show_best_selling_filter'] ) {
-					$active_cl = '';
-					if ( ! $is_active_tab ) {
-						$more_products_url = "shop-2/?orderby=popularity";
-						$active_cl = 'active';
-						$is_active_tab = true;
-					}
-					$output .= '<div class="filter-tab '.$active_cl.'" data-filter-by="best_selling">'.esc_html($settings['best_selling_filter_title']).'</div>';
-				}
-				if ( $settings['show_on_sale_filter'] ) {
-					$active_cl = '';
-					if ( ! $is_active_tab ) {
-						$more_products_url = "/shop-2/?on_sale=onsale";
-						$active_cl = 'active';
-						$is_active_tab = true;
-					}
-					$output .= '<div class="filter-tab '.$active_cl.'" data-filter-by="on_sale">'.esc_html($settings['on_sale_filter_title']).'</div>';
-				}
-				if ( $settings['show_featured_filter'] ) {
-					$active_cl = '';
-					if ( ! $is_active_tab ) {
-						$more_products_url = "/shop-2/?orderby=rating";
-						$active_cl = 'active';
-						$is_active_tab = true;
-					}
-					$output .= '<div class="filter-tab '.$active_cl.'" data-filter-by="featured">'.esc_html($settings['featured_filter_title']).'</div>';
-				}
-				$output .= '</div>';
-		}
-
-		$output .= '<div class="be-products-wrapper">';
+		$output .= '<div class="be-recipes-wrapper">';
 		$output .= '<svg class="preloader" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
-		$output .= '<div class="be-products-ls">';
-		if ( $products_html ) {
+		$output .= '<div class="be-recipes-ls">';
+		if ( $recipes_html ) {
 			$output .= '<div class="module-body">';
 			$output .= '<div class="slider-wrapper">';
-			$output .= '<div class="products be-slider" style="grid-template-columns: repeat('.$settings['column'].', 1fr);" data-mobile="'.esc_attr($settings['mobile_column']).'" data-slidespeed="'.esc_attr($settings['slide_speed']).'" data-arrows="'.esc_attr($settings['arrows']).'" data-autoplay="'.esc_attr($settings['auto_play']).'" data-autospeed="'.esc_attr($settings['auto_speed']).'" data-dots="'.esc_attr($settings['dots']).'">';
-			$output .= $products_html;
+			$output .= '<div class="recipes be-slider" style="grid-template-columns: repeat('.$settings['column'].', 1fr);" data-mobile="'.esc_attr($settings['mobile_column']).'" data-slidespeed="'.esc_attr($settings['slide_speed']).'" data-arrows="'.esc_attr($settings['arrows']).'" data-autoplay="'.esc_attr($settings['auto_play']).'" data-autospeed="'.esc_attr($settings['auto_speed']).'" data-dots="'.esc_attr($settings['dots']).'">';
+			$output .= $recipes_html;
 			$output .= '</div>';
 			$output .= '</div>';
 			$output .= '</div>';
-			$output .= '<div class="more-products"><a href="'.$more_products_url.'">Prikaži več izdelkov</a></div>';
 		} else {
-			$output .= '<div class="no-product"><h3>Ujemajočih izdelkov ni mogoče najti.</h3></div>';
+			$output .= '<div class="no-recipe"><h3>Ujemajočih izdelkov ni mogoče najti.</h3></div>';
 		}
 		$output .= '</div>';
 		$output .= '</div>';

@@ -8,7 +8,7 @@ jQuery.noConflict();
    */
 
   /* Handler for Sliders */
-  var BeFilterProductOnCarousel = function ($scope, $) {
+  var BeFilterProductsOnCarousel = function ($scope, $) {
     $(".be-products-filter .filter-tab").click(function () {
       $(".be-products-filter .filter-tab").removeClass("active");
       $(this).addClass("active");
@@ -55,7 +55,7 @@ jQuery.noConflict();
   };
 
   /* Handler for Sliders */
-  var BeSliderHandler = function ($scope, $) {
+  var BeProductsSliderHandler = function ($scope, $) {
     var container = $(".be-slider");
 
     container.each(function () {
@@ -122,7 +122,7 @@ jQuery.noConflict();
   $(window).on("elementor/frontend/init", function () {
     // Products Carousel 2.
     elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", beProductHover);
-    elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", BeSliderHandler);
-    elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", BeFilterProductOnCarousel);
+    elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", BeProductsSliderHandler);
+    elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", BeFilterProductsOnCarousel);
   });
 })(jQuery);

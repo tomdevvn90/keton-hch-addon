@@ -59,6 +59,7 @@ class Plugin {
  			$this->widgets = array_merge(
  				$this->widgets, array(
 					'products-carousel',
+					'recipes-carousel'
  				)
  			);
 
@@ -125,7 +126,7 @@ class Plugin {
 		$elements_manager->add_category(
 			'hch-addons',
 			[
-				'title' => esc_html__( 'Test WP Instructions', 'hch-addons' )
+				'title' => esc_html__( 'HCH Addons', 'hch-addons' )
 			]
 		);
 	}
@@ -141,6 +142,8 @@ class Plugin {
 	public function register_widgets() {
 		// Its is now safe to include Widgets files
 		$this->include_widgets_files();
+
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Recipes_Carousel\Be_Recipes_Carousel() );
 
 		// WooCommerce.
 		if ( $this->woocommerce_status() ) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Test WP Instructions
+ * Plugin Name: HCH Addons
  * Description: Create new elements for Elementor.
  * Plugin URI:  https://keton.4web.si
  * Version:     1.0.0
