@@ -48,8 +48,8 @@ if ( ! function_exists( 'hch_custom_post_type_recipes' ) ) {
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
 			'taxonomies'          => array( 'recipes_taxonomy' ),
-			'hierarchical'        => false,
-			'public'              => false,
+			'hierarchical'        => true,
+			'public'              => true,
 			'show_ui'             => true,
 			'query_var'           => true,
 			'show_in_menu'        => true,
@@ -58,7 +58,7 @@ if ( ! function_exists( 'hch_custom_post_type_recipes' ) ) {
 			'show_in_admin_bar'   => true,
 			'show_in_nav_menus'   => true,
 			'can_export'          => true,
-			'has_archive'         => false,
+			'has_archive'         => true,
 			'exclude_from_search' => false,
 			'publicly_queryable'  => false,
 			'rewrite'             => false, //$rewrite,
@@ -112,7 +112,7 @@ if ( ! function_exists( 'hch_custom_taxonomy_recipes' ) ) {
 			'rewrite'           => $rewrite,
 			'show_in_rest'      => true,
 		);
-		register_taxonomy( 'recipes_taxonomy', array( 'recipe' ), $args );
+		register_taxonomy( 'recipe-cat', array( 'recipe' ), $args );
 
 	}
 	add_action( 'init', 'hch_custom_taxonomy_recipes', 0 );

@@ -1,23 +1,25 @@
-.be-products-filter {
+.be-filter {
   display: flex;
-  align-items: center;
-  margin-bottom: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
 }
-
-.be-products-filter > div {
-  padding: 8px 20px;
+.be-filter .filter-tab {
+  border-radius: 100px;
   border: 1px solid transparent;
-  border-radius: 20px;
-  font-weight: 600;
-  line-height: 120%;
+  padding: 8px 12px;
+  color: #bababa;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  text-transform: uppercase;
   cursor: pointer;
-  color: var(--color-info-dark);
+  transition: ease 0.25s all;
 }
-
-.be-products-filter > div.active {
-  border: 1px solid #000;
+.be-filter .filter-tab.active {
+  border: 1px solid #444;
+  color: #444;
   pointer-events: none;
-  color: #000;
+  padding: 8px 24px;
 }
 
 .more-products {
@@ -57,11 +59,13 @@
   border-left: 0;
   border-radius: 0;
 }
-.module-carousel .be-products-wrapper .preloader {
+.module-carousel .be-products-wrapper .preloader,
+.module-carousel .be-recipes-wrapper .preloader {
   top: -20px;
   display: none;
 }
-.module-carousel .be-products-wrapper .preloader.show {
+.module-carousel .be-products-wrapper .preloader.show,
+.module-carousel .be-recipes-wrapper .preloader.show {
   display: block;
 }
 .module-carousel .be-slider.slick-initialized .slick-slide {
@@ -96,6 +100,34 @@
   justify-content: center;
   margin-top: -20px;
   margin-bottom: 20px;
+}
+
+.be-normal-carousel .head-icon {
+  border-radius: 5px;
+  background: #ea2b0f;
+  min-height: 52px;
+  min-width: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12px;
+}
+.be-normal-carousel .slider-inner {
+  display: block;
+  margin: 15px;
+}
+.module-carousel.be-normal-carousel .module-body {
+  margin: 0 -15px;
+  width: calc(100% + 30px);
+}
+.module-carousel.be-normal-carousel .module-body::before {
+  display: none;
+}
+.module-carousel.be-normal-carousel .module-carousel .slick-prev {
+  left: -5px !important;
+}
+.module-carousel.be-normal-carousel .module-carousel .slick-next {
+  right: -5px !important;
 }
 
 @media (max-width: 991px) {

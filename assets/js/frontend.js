@@ -7,7 +7,6 @@ jQuery.noConflict();
    * @param $ The jQuery alias
    */
 
-  /* Handler for Sliders */
   var BeFilterProductsOnCarousel = function ($scope, $) {
     $(".be-products-filter .filter-tab").click(function () {
       $(".be-products-filter .filter-tab").removeClass("active");
@@ -118,11 +117,80 @@ jQuery.noConflict();
     });
   };
 
+  var BeSliderHandler = function ($scope, $) {
+    var container = $(".be-normal-slider");
+
+    container.each(function () {
+      var self = $(this);
+
+      var sliderItems = $(".slider-item");
+      sliderItems.imagesLoaded(function () {
+        self.closest(".slider-wrapper").addClass("slider-loaded");
+      });
+
+      var autoplay = $(this).data("autoplay");
+      var autospeed = $(this).data("autospeed");
+      var arrows = $(this).data("arrows");
+      var dots = $(this).data("dots");
+      var slideshow = $(this).data("slideshow");
+      var slidescroll = $(this).data("slidescroll");
+      var slidespeed = $(this).data("slidespeed");
+      var asnav = $(this).data("asnav");
+      var focusselect = $(this).data("focusselect");
+      var vertical = $(this).data("vertical");
+      var mobileslide = $(this).data("mobile");
+
+      self.not(".slick-initialized").slick({
+        autoplay: autoplay,
+        autoplaySpeed: autospeed,
+        arrows: arrows,
+        dots: dots,
+        slidesToShow: slideshow,
+        slidesToScroll: slidescroll,
+        speed: slidespeed,
+        asNavFor: asnav,
+        focusOnSelect: focusselect,
+        centerPadding: false,
+        cssEase: "cubic-bezier(.48,0,.12,1)",
+        vertical: vertical,
+        responsive: [
+          {
+            breakpoint: 1200,
+            settings: {
+              slidesToShow: slideshow < 5 ? slideshow : 4,
+            },
+          },
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: slideshow < 4 ? slideshow : 3,
+            },
+          },
+          {
+            breakpoint: 991,
+            settings: {
+              slidesToShow: slideshow < 3 ? slideshow : 2,
+            },
+          },
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: slideshow < 2 ? slideshow : mobileslide,
+            },
+          },
+        ],
+      });
+    });
+  };
+
   // Make sure you run this code under Elementor.
   $(window).on("elementor/frontend/init", function () {
     // Products Carousel 2.
     elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", beProductHover);
     elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", BeProductsSliderHandler);
     elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", BeFilterProductsOnCarousel);
+
+    // Recipes Carousel
+    elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeSliderHandler);
   });
 })(jQuery);

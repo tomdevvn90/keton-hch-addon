@@ -211,11 +211,10 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'auto_speed',
 				[
-					'label' => esc_html__( 'Auto Speed', 'chakta' ),
+					'label' => esc_html__( 'Auto Speed', 'hch-addons' ),
 					'type' => Controls_Manager::TEXT,
 					'label_block' => true,
 					'default' => '1600',
-					'pleaceholder' => esc_html__( 'Set auto speed.', 'chakta' ),
 					'condition' => ['auto_play' => 'true']
 				]
 			);
@@ -247,7 +246,6 @@ class Be_Products_Carousel extends Widget_Base {
 					'label' => esc_html__( 'Slide Speed', 'hch-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'default' => '1200',
-					'pleaceholder' => esc_html__( 'Set slide speed.', 'hch-addons' ),
 				]
 			);
 
@@ -692,7 +690,7 @@ class Be_Products_Carousel extends Widget_Base {
 		if($settings['show_on_sale_filter'] || $settings['show_featured_filter'] || $settings['show_best_selling_filter']){
 				$is_active_tab = false;
 				
-				$output .= '<div class="be-products-filter" data-settings=\''.json_encode($settings).'\'">';
+				$output .= '<div class="be-filter be-products-filter" data-settings=\''.json_encode($settings).'\'">';
 				if ( $settings['show_best_selling_filter'] ) {
 					$active_cl = '';
 					if ( ! $is_active_tab ) {
@@ -734,9 +732,9 @@ class Be_Products_Carousel extends Widget_Base {
 			$output .= '</div>';
 			$output .= '</div>';
 			$output .= '</div>';
-			$output .= '<div class="more-products"><a href="'.$more_products_url.'">Prikaži več izdelkov</a></div>';
+			$output .= '<div class="more-products"><a href="'.$more_products_url.'">'. __( "Prikaži več izdelkov", "hch-addons" ) .'</a></div>';
 		} else {
-			$output .= '<div class="no-product"><h3>Ujemajočih izdelkov ni mogoče najti.</h3></div>';
+			$output .= '<div class="no-product"><h3>'. __( "Ujemajočih izdelkov ni mogoče najti.", "hch-addons" ) .'</h3></div>';
 		}
 		$output .= '</div>';
 		$output .= '</div>';
