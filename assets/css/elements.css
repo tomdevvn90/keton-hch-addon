@@ -8,6 +8,7 @@
   border: 1px solid transparent;
   padding: 8px 12px;
   color: #bababa;
+  font-family: "Barlow Semi Condensed";
   font-size: 16px;
   font-weight: 500;
   line-height: 16px;
@@ -116,6 +117,31 @@
   display: block;
   margin: 15px;
 }
+.be-normal-carousel .slider-inner img {
+  height: 206px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+.be-normal-carousel .slider-inner .cats,
+.be-normal-carousel .slider-inner .crt-date {
+  color: #bababa;
+  font-family: "Barlow Semi Condensed";
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 22.95px;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+.be-normal-carousel .slider-inner h3 {
+  color: #444;
+  font-family: "Barlow Semi Condensed";
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 120%;
+  margin-top: 8px;
+}
 .module-carousel.be-normal-carousel .module-body {
   margin: 0 -15px;
   width: calc(100% + 30px);
@@ -123,10 +149,13 @@
 .module-carousel.be-normal-carousel .module-body::before {
   display: none;
 }
-.module-carousel.be-normal-carousel .module-carousel .slick-prev {
+.module-carousel.be-normal-carousel .slick-arrow {
+  top: 26%;
+}
+.module-carousel.be-normal-carousel .slick-prev {
   left: -5px !important;
 }
-.module-carousel.be-normal-carousel .module-carousel .slick-next {
+.module-carousel.be-normal-carousel .slick-next {
   right: -5px !important;
 }
 

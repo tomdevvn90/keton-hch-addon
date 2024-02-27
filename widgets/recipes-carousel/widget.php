@@ -111,10 +111,10 @@ class Be_Recipes_Carousel extends Widget_Base {
 					$output .= '<div class="slide-item"><a href="'.get_permalink($post->ID).'" class="slider-inner">';
           $output .= get_the_post_thumbnail( $post->ID, 'medium' );
           if ( !empty( $terms ) ){
-            $output .= join(', ', wp_list_pluck($terms, 'name'));
+            $output .= '<div class="cats">' . join(', ', wp_list_pluck($terms, 'name')) . '</div>';
           }
           $output .= '<h3>'.$post->post_title.'</h3>';
-          $output .= get_the_date( 'F j, Y' );
+          $output .= '<div class="crt-date">' . get_the_date( 'F j, Y' ) . '</div>';
 					$output .= '</a></div>';
 				
 				endwhile;
@@ -430,108 +430,6 @@ class Be_Recipes_Carousel extends Widget_Base {
 					'label' => esc_html__( 'Typography', 'hch-addons' ),
 					'scheme' => Typography::TYPOGRAPHY_1,
 					'selector' => '{{WRAPPER}} .column .entry-title'
-				]
-			);
-		
-			$this->add_control( 'subtitle_heading',
-				[
-					'label' => esc_html__( 'SUBTITLE', 'hch-addons' ),
-					'type' => Controls_Manager::HEADING,
-					'separator' => 'before'
-				]
-			);
-		
-			$this->add_control( 'subtitle_color',
-				[
-					'label' => esc_html__( 'Subtitle Color', 'hch-addons' ),
-					'type' => Controls_Manager::COLOR,
-					'default' => '',
-					'selectors' => ['{{WRAPPER}} .column .entry-description' => 'color: {{VALUE}};']
-				]
-			);
-		
-			$this->add_control( 'subtitle_hvrcolor',
-				[
-					'label' => esc_html__( 'Subtitle Hover Color', 'hch-addons' ),
-					'type' => Controls_Manager::COLOR,
-					'default' => '',
-					'selectors' => ['{{WRAPPER}} .column .entry-description:hover' => 'color: {{VALUE}};']
-				]
-			);
-		
-			$this->add_control( 'subtitle_size',
-				[
-					'label' => esc_html__( 'Subtitle Size', 'hch-addons' ),
-					'type' => Controls_Manager::NUMBER,
-					'min' => 0,
-					'max' => 100,
-					'step' => 1,
-					'default' => '',
-					'selectors' => [ '{{WRAPPER}} .column .entry-description' => 'font-size: {{SIZE}}px;' ],
-				]
-			);
-		
-			$this->add_responsive_control( 'subtitle_left',
-				[
-					'label' => esc_html__( 'Left', 'hch-addons' ),
-					'type' => Controls_Manager::SLIDER,
-					'size_units' => [ 'px', 'vh' ],
-					'range' => [
-							'px' => [
-									'min' => 0,
-									'max' => 1000
-							],
-							'vh' => [
-									'min' => 0,
-									'max' => 100
-							]
-					],
-					'selectors' => [
-							'{{WRAPPER}} .column .entry-description' => 'padding-left: {{SIZE}}{{UNIT}}',
-					]
-				]
-			);
-		
-			$this->add_responsive_control( 'subtitle_top',
-				[
-					'label' => esc_html__( 'Top', 'hch-addons' ),
-					'type' => Controls_Manager::SLIDER,
-					'size_units' => [ 'px', 'vh' ],
-					'range' => [
-							'px' => [
-									'min' => 0,
-									'max' => 1000
-							],
-							'vh' => [
-									'min' => 0,
-									'max' => 100
-							]
-					],
-					'selectors' => [
-							'{{WRAPPER}} .column .entry-description' => 'padding-top: {{SIZE}}{{UNIT}}',
-					]
-				]
-			);
-		
-			$this->add_control( 'subtitle_opacity_important_style',
-				[
-					'label' => esc_html__( 'Opacity', 'hch-addons' ),
-					'type' => Controls_Manager::NUMBER,
-					'min' => 0,
-					'max' => 1,
-					'step' => 0.1,
-					'default' => '',
-					'selectors' => ['{{WRAPPER}} .column .entry-description' => 'opacity: {{VALUE}} ;'],
-				]
-			);
-		
-			$this->add_group_control(
-				Group_Control_Typography::get_type(),
-				[
-					'name' => 'subtitle_typo',
-					'label' => esc_html__( 'Typography', 'hch-addons' ),
-					'scheme' => Typography::TYPOGRAPHY_1,
-					'selector' => '{{WRAPPER}} .column .entry-description'
 				]
 			);
 		

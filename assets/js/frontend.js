@@ -183,6 +183,33 @@ jQuery.noConflict();
     });
   };
 
+  var BeFilterRecipesOnCarousel = function ($scope, $) {
+    $(".be-recipes-filter .filter-tab").click(function () {
+      $(".be-recipes-filter .filter-tab").removeClass("active");
+      $(this).addClass("active");
+
+      let $settings = $(this).parent().data("settings");
+      let $filter_by = $(this).data("filter-by");
+
+      // $.ajax({
+      //   type: "POST",
+      //   url: hch_objs.ajax_url,
+      //   data: {
+      //     action: "be_filter_recipes_on_carousel",
+      //     settings: $settings,
+      //     filter_by: $filter_by,
+      //   },
+      //   beforeSend: function (xhr) {
+      //     $(".be-recipes-wrapper .preloader").addClass("show");
+      //   },
+      //   success: function (response) {
+      //     $(".be-recipes-wrapper .preloader").removeClass("show");
+      //     $(".be-recipes-ls").html(response);
+      //   },
+      // });
+    });
+  };
+
   // Make sure you run this code under Elementor.
   $(window).on("elementor/frontend/init", function () {
     // Products Carousel 2.
@@ -192,5 +219,6 @@ jQuery.noConflict();
 
     // Recipes Carousel
     elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeSliderHandler);
+    elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeFilterRecipesOnCarousel);
   });
 })(jQuery);
