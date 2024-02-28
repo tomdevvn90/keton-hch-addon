@@ -92,3 +92,121 @@
         }
     }
 }
+
+.wrapper-recipes-tax {
+    padding-top: 42px;
+    padding-bottom: 90px;
+    * {
+        font-family: "Barlow Semi Condensed";
+    }
+    .container-tax {
+        max-width: 1360px;
+        margin: auto;
+        @media(max-width:1360px) {
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .list-filter-recipes-tax {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            column-gap: 31px;
+            row-gap:10px;
+            margin-bottom: 21px;
+            .item-filter-cat.current_tax {
+                a {
+                    padding: 8px 24px;
+                    color: #444;
+                    border-radius: 100px;
+                    border: 1px solid #444;
+                }
+            }
+            .item-filter-cat  {
+                a {
+                    display: inline-flex;
+                    color: #BABABA;
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 100%;
+                    text-transform: uppercase;
+                    text-decoration: none;
+                }
+
+            }
+        }
+        .site-posts {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            row-gap: 50px;
+            column-gap: 35px;
+            @media(max-width:1200px) {
+                grid-template-columns: 1fr 1fr 1fr;
+                grid-gap:30px;
+            }
+            @media(max-width:992px) {
+                grid-template-columns: 1fr 1fr;
+            }
+            @media(max-width:600px) {
+                grid-template-columns: 1fr;
+            }
+            .item-recipe {
+                a {
+                    text-decoration: none;
+                    .thumb {
+                        border-radius: 5px;
+                        overflow: hidden;
+                        margin-bottom: 17px;
+                    }
+                    .tax-recipe {
+                        color: #BABABA;
+                        font-size: 15px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 153%;
+                        text-transform: uppercase;
+                        min-height: 23px;
+                        margin-bottom: 8px;
+                    }
+                    .title {
+                        color: #444;
+                        font-size: 30px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 83.333% ;
+                        margin-bottom: 17px;
+                    }
+                    .date {
+                        color: #BABABA;
+                        font-size: 15px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 153%;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.pagination-custom {
+    padding-top: 60px;
+    .site-pagination {
+        .page-numbers {
+            li {
+                .page-numbers.current {
+                    background: #F00 !important;
+                    color: #fff;
+                    border-radius: 0;
+                }
+                .page-numbers {
+                    border-radius: 0 !important;
+                    // &:hover {
+                    //     background-color: transparent;
+                    // }
+                }
+            }
+        }
+    }
+}

@@ -114,6 +114,10 @@ final class HuynhCongHieu_Addons {
 			return;
 		}
 
+		/* Hook */
+
+		require_once( plugin_dir_path(__FILE__) . '/inc/hook.php' );
+
 		/* Add new custom post type */
 		require_once( plugin_dir_path(__FILE__) . '/inc/new-custom-posttype.php' );
 
