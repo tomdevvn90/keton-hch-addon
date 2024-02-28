@@ -117,7 +117,7 @@ jQuery.noConflict();
     });
   };
 
-  var BeSliderHandler = function ($scope, $) {
+  var BeNormalSliderHandler = function ($scope, $) {
     var container = $(".be-normal-slider");
 
     container.each(function () {
@@ -191,22 +191,22 @@ jQuery.noConflict();
       let $settings = $(this).parent().data("settings");
       let $filter_by = $(this).data("filter-by");
 
-      // $.ajax({
-      //   type: "POST",
-      //   url: hch_objs.ajax_url,
-      //   data: {
-      //     action: "be_filter_recipes_on_carousel",
-      //     settings: $settings,
-      //     filter_by: $filter_by,
-      //   },
-      //   beforeSend: function (xhr) {
-      //     $(".be-recipes-wrapper .preloader").addClass("show");
-      //   },
-      //   success: function (response) {
-      //     $(".be-recipes-wrapper .preloader").removeClass("show");
-      //     $(".be-recipes-ls").html(response);
-      //   },
-      // });
+      $.ajax({
+        type: "POST",
+        url: hch_objs.ajax_url,
+        data: {
+          action: "be_filter_recipes_on_carousel",
+          settings: $settings,
+          filter_by: $filter_by,
+        },
+        beforeSend: function (xhr) {
+          $(".be-recipes-wrapper .preloader").addClass("show");
+        },
+        success: function (response) {
+          $(".be-recipes-wrapper .preloader").removeClass("show");
+          $(".be-recipes-ls").html(response);
+        },
+      });
     });
   };
 
@@ -218,7 +218,7 @@ jQuery.noConflict();
     elementorFrontend.hooks.addAction("frontend/element_ready/products-carousel-2.default", BeFilterProductsOnCarousel);
 
     // Recipes Carousel
-    elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeSliderHandler);
+    elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeNormalSliderHandler);
     elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeFilterRecipesOnCarousel);
   });
 })(jQuery);

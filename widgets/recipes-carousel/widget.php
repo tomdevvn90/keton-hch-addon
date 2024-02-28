@@ -87,20 +87,20 @@ class Be_Recipes_Carousel extends Widget_Base {
 				'post_status'    => 'publish',
 				'paged' 			   => $paged,
 				'posts_per_page' => $settings['post_count'],
-				'post__in'       => $settings['post_include_filter'],
+				// 'post__in'       => $settings['post_include_filter'],
 				'order'          => $settings['order'],
-				'orderby'        => $settings['orderby']
+				'orderby'        => 'rand', // => $settings['orderby']
 			);
 		
 			$args['klb_special_query'] = true;
 
-			if($settings['cat_filter']){
-				$args['tax_query'][] = array(
-					'taxonomy' 	=> 'recipe-cat',
-					'field' 	=> 'term_id',
-					'terms' 	=> $settings['cat_filter']
-				);
-			}
+			// if($settings['cat_filter']){
+			// 	$args['tax_query'][] = array(
+			// 		'taxonomy' 	=> 'recipe-cat',
+			// 		'field' 	=> 'term_id',
+			// 		'terms' 	=> $settings['cat_filter']
+			// 	);
+			// }
 			
 			$loop = new \WP_Query( $args );
 			if ( $loop->have_posts() ) {
@@ -271,28 +271,28 @@ class Be_Recipes_Carousel extends Widget_Base {
 				]
 			);
 		
-			$this->add_control( 'cat_filter',
-				[
-					'label' => esc_html__( 'Filter Category', 'hch-addons' ),
-					'type' => Controls_Manager::SELECT2,
-					'multiple' => true,
-					'options' => $this->be_cpt_taxonomies('recipe-cat'),
-					'description' => 'Select Category(s)',
-					'default' => '',
-					'label_block' => true,
-				]
-			);
+			// $this->add_control( 'cat_filter',
+			// 	[
+			// 		'label' => esc_html__( 'Filter Category', 'hch-addons' ),
+			// 		'type' => Controls_Manager::SELECT2,
+			// 		'multiple' => true,
+			// 		'options' => $this->be_cpt_taxonomies('recipe-cat'),
+			// 		'description' => 'Select Category(s)',
+			// 		'default' => '',
+			// 		'label_block' => true,
+			// 	]
+			// );
 
-			$this->add_control( 'post_include_filter',
-				[
-					'label' => esc_html__( 'Include Recipes', 'hch-addons' ),
-					'type' => Controls_Manager::SELECT2,
-					'multiple' => true,
-					'options' => $this->be_cpt_get_post_title('recipe'),
-					'description' => 'Select Recipe(s) to Include',
-					'label_block' => true,
-				]
-			);
+			// $this->add_control( 'post_include_filter',
+			// 	[
+			// 		'label' => esc_html__( 'Include Recipes', 'hch-addons' ),
+			// 		'type' => Controls_Manager::SELECT2,
+			// 		'multiple' => true,
+			// 		'options' => $this->be_cpt_get_post_title('recipe'),
+			// 		'description' => 'Select Recipe(s) to Include',
+			// 		'label_block' => true,
+			// 	]
+			// );
 
 			$this->add_control( 'order',
 				[
@@ -357,17 +357,17 @@ class Be_Recipes_Carousel extends Widget_Base {
 				]
 			);
 		
-			$this->add_control( 'title_size',
-				[
-					'label' => esc_html__( 'Size', 'hch-addons' ),
-					'type' => Controls_Manager::NUMBER,
-					'min' => 0,
-					'max' => 100,
-					'step' => 1,
-					'default' => '',
-					'selectors' => [ '{{WRAPPER}} .column .entry-title' => 'font-size: {{SIZE}}px;' ],
-				]
-			);
+			// $this->add_control( 'title_size',
+			// 	[
+			// 		'label' => esc_html__( 'Size', 'hch-addons' ),
+			// 		'type' => Controls_Manager::NUMBER,
+			// 		'min' => 0,
+			// 		'max' => 100,
+			// 		'step' => 1,
+			// 		'default' => '',
+			// 		'selectors' => [ '{{WRAPPER}} .column .entry-title' => 'font-size: {{SIZE}}px;' ],
+			// 	]
+			// );
 		
 			$this->add_responsive_control( 'title_left',
 				[
@@ -628,7 +628,7 @@ class Be_Recipes_Carousel extends Widget_Base {
       $all_recipe_cats = $this->be_cpt_taxonomies('recipe-cat');
 
       $output .= '<div class="be-filter be-recipes-filter" data-settings=\''.json_encode($settings).'\'" >';
-      $output .= '<div class="filter-tab active" data-filter-by="all">'.__( 'VSI RECEPTI', 'hch-addons' ).'</div>';
+      $output .= '<div class="filter-tab active" data-filter-by="">'.__( 'VSI RECEPTI', 'hch-addons' ).'</div>';
 
       foreach ($all_recipe_cats as $key => $value) {
         $output .= '<div class="filter-tab" data-filter-by="'.$key.'">'.$value.'</div>';
@@ -648,7 +648,7 @@ class Be_Recipes_Carousel extends Widget_Base {
 			$output .= '</div>';
 			$output .= '</div>';
 		} else {
-			$output .= '<div class="no-recipe"><h3>Ujemajočih izdelkov ni mogoče najti.</h3></div>';
+			$output .= '<div class="no-recipe"><h3>'. __( "Ni ustreznih receptov.", "hch-addons" ) .'</h3></div>';
 		}
 		$output .= '</div>';
 		$output .= '</div>';
