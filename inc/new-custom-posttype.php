@@ -38,7 +38,7 @@ if ( ! function_exists( 'hch_custom_post_type_recipes' ) ) {
 		);
 		$rewrite = array(
 			'slug'       => 'recipe',
-			'with_front' => false,
+			'with_front' => true,
 			'pages'      => true,
 			'feeds'      => true,
 		);
@@ -61,7 +61,7 @@ if ( ! function_exists( 'hch_custom_post_type_recipes' ) ) {
 			'has_archive'         => true,
 			'exclude_from_search' => false,
 			'publicly_queryable'  => false,
-			'rewrite'             => false, //$rewrite,
+			'rewrite'             => true, //$rewrite,
 			'capability_type'     => 'post',
 			'show_in_rest'        => true,
 		);
@@ -104,7 +104,7 @@ if ( ! function_exists( 'hch_custom_taxonomy_recipes' ) ) {
 		$args    = array(
 			'labels'            => $labels,
 			'hierarchical'      => true,
-			'public'            => false,
+			'public'            => true,
 			'show_ui'           => true,
 			'show_admin_column' => true,
 			'show_in_nav_menus' => true,

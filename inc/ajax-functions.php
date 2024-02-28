@@ -7,6 +7,8 @@
 /**
  * Filter products on carousel
  */
+
+
 add_action( 'wp_ajax_nopriv_be_filter_products_on_carousel', 'be_filter_products_on_carousel_callback' );
 add_action( 'wp_ajax_be_filter_products_on_carousel', 'be_filter_products_on_carousel_callback' );
 function be_filter_products_on_carousel_callback() {
@@ -221,3 +223,5 @@ function be_filter_products_on_carousel_callback() {
 	wp_die();
 
 }
+
+
