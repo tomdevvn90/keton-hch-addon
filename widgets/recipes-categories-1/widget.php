@@ -66,7 +66,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 
 		
 			$this->start_controls_section(
-				'be_section_post__filters',
+				'be_section_cat_recipes_categories',
 				[
 					'label' => esc_html__('Content', 'hch-addons'),
 				]
@@ -77,7 +77,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 					'label' => esc_html__( 'Select the categories of featured recipes.', 'hch-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
-					'options' => $this->be_get_taxonomies('recipes_taxonomy'),
+					'options' => $this->be_get_taxonomies('recipe-cat'),
 					'description' => 'Select Category(s)',
 					'default' => '',
 					'label_block' => true,
@@ -96,7 +96,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 			$cat_feature = array();
 			$cat_not_feature = array();
 			$args = array(
-				   'taxonomy'     => 'recipes_taxonomy',
+				   'taxonomy'     => 'recipe-cat',
 				   'orderby'      => 'name',
 				   'hide_empty'   => 0
 			);
@@ -116,7 +116,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 						<?php 
 							if(!empty($cat_feature)) {
 								foreach ($cat_feature as $cat_f) {
-									$thumbnail = get_field('image_background','recipes_taxonomy'. '_'.$cat_f);
+									$thumbnail = get_field('image_background','recipe-cat'. '_'.$cat_f);
 									?>
 										<a href="<?php echo get_term_link(intval($cat_f))?>" class="item-recipes-cat" style="background-image:url(<?php echo $thumbnail?>)">
 											<div class="overlay">
@@ -138,7 +138,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 						<?php 
 							if(!empty($cat_not_feature)) {
 								foreach ($cat_not_feature as $cat_f) {
-									$thumbnail = get_field('image_background','recipes_taxonomy'. '_'.$cat_f);
+									$thumbnail = get_field('image_background','recipe-cat'. '_'.$cat_f);
 									?>
 										<a href="<?php echo get_term_link(intval($cat_f))?>" class="item-recipes-cat" style="background-image:url(<?php echo $thumbnail?>)">
 											<div class="overlay">
@@ -160,7 +160,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 			<?php
 		}else{
 			$args = array(
-				'taxonomy'     => 'recipes_taxonomy',
+				'taxonomy'     => 'recipe-cat',
 				'orderby'      => 'name',
 				'hide_empty'   => 0,
 				'exclude' => $cat_feature_setting 
@@ -173,7 +173,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 						if(!empty($cat_feature_setting)) {
 							foreach ($cat_feature_setting as $id) {
 								$id_cat = intval($id);
-								$thumbnail = get_field('image_background','recipes_taxonomy'. '_'.$id_cat);
+								$thumbnail = get_field('image_background','recipe-cat'. '_'.$id_cat);
 								?>
 									<a href="<?php echo get_term_link($id_cat)?>" class="item-recipes-cat" style="background-image:url(<?php echo $thumbnail?>)">
 										<div class="overlay">
@@ -194,7 +194,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 					<?php 
 						if(!empty($recipes_cat_not_feature)) {
 							foreach ($recipes_cat_not_feature as $cat) {
-								$thumbnail = get_field('image_background','recipes_taxonomy'. '_'.$cat->term_id);
+								$thumbnail = get_field('image_background','recipe-cat'. '_'.$cat->term_id);
 								?>
 									<a href="<?php echo get_term_link(intval($cat->term_id))?>" class="item-recipes-cat" style="background-image:url(<?php echo $thumbnail?>)">
 										<div class="overlay">

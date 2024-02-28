@@ -22,6 +22,9 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * Any custom code should go inside Plugin Class in the plugin.php file.
  * @since 1.0.0
  */
+
+define('B_HELPERS_DIR', plugin_dir_path(__FILE__)); 
+
 final class HuynhCongHieu_Addons {
 
 	/**
@@ -115,7 +118,7 @@ final class HuynhCongHieu_Addons {
 		require_once( plugin_dir_path(__FILE__) . '/inc/new-custom-posttype.php' );
 
 		/* Helper functions */
-		// require_once( plugin_dir_path(__FILE__) . '/inc/helper-functions.php' );
+		require_once( plugin_dir_path(__FILE__) . '/inc/helper-functions.php' );
 
 		/* Ajax functions */
 		require_once( plugin_dir_path(__FILE__) . '/inc/ajax-functions.php' );
