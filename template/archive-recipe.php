@@ -2,11 +2,12 @@
 
 get_header();
 $active_class = '';
-if(get_queried_object()->name == 'recipe') {
-	$active_class = 'current_tax';
+if(!empty(get_queried_object()->name)) {
+	if(get_queried_object()->name == 'recipe') {
+		$active_class = 'current_tax';
+	}
 }
 ?>
-
 <div class="wrapper-recipes-tax">
 	<div class="container-tax">
 		<div class="list-filter-recipes-tax">
@@ -28,7 +29,6 @@ if(get_queried_object()->name == 'recipe') {
 								$active_class = 'current_tax';
 							}
 						}
-						
 						?>
 							<div class="item-filter-cat <?php echo $active_class?>">
 								<a href="<?php echo get_term_link($id_term)?>">
@@ -39,14 +39,9 @@ if(get_queried_object()->name == 'recipe') {
 					}
 				}
 			?>
-			<?php 
-
-			?>
-
 		</div>
 		<div class="site-posts">
 			<?php if (have_posts()) : while (have_posts()) : the_post(); 
-
 				$id_post = get_the_ID();
 				$url_thumb = get_the_post_thumbnail_url($id_post,'full');
 				$link = get_permalink($id_post);
@@ -70,8 +65,6 @@ if(get_queried_object()->name == 'recipe') {
 				}else{
 					$name_term = $term[0]->name;
 				}
-
-				
 			?>
 				<div class="item-recipe">
 					<a href="<?php echo $link?>">
@@ -97,7 +90,6 @@ if(get_queried_object()->name == 'recipe') {
 				</div>
 			<?php
 				endwhile; 
-				
 				wp_reset_query();
 			?>
 			<?php else : ?>

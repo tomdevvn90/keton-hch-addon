@@ -62,6 +62,66 @@ if ( ! function_exists( 'hch_custom_post_type_recipes' ) ) {
 	add_action( 'init', 'hch_custom_post_type_recipes', 0 );
 }
 
+
+
+if ( ! function_exists( 'hch_custom_post_type_video_recipes' ) ) {
+
+	// Register Recipes Post Type
+	function hch_custom_post_type_video_recipes() {
+		$labels  = array(
+			'name'                  => _x( 'Recipes Video', 'Post Type General Name', 'hch-addons' ),
+			'singular_name'         => _x( 'Recipes Video', 'Post Type Singular Name', 'hch-addons' ),
+			'menu_name'             => __( 'Recipes Video', 'hch-addons' ),
+			'name_admin_bar'        => __( 'Recipes Video', 'hch-addons' ),
+			'archives'              => __( 'Item Archives', 'hch-addons' ),
+			'attributes'            => __( 'Item Attributes', 'hch-addons' ),
+			'parent_item_colon'     => __( 'Parent Item:', 'hch-addons' ),
+			'all_items'             => __( 'All Items', 'hch-addons' ),
+			'add_new_item'          => __( 'Add New Item', 'hch-addons' ),
+			'add_new'               => __( 'Add New', 'hch-addons' ),
+			'new_item'              => __( 'New Item', 'hch-addons' ),
+			'edit_item'             => __( 'Edit Item', 'hch-addons' ),
+			'update_item'           => __( 'Update Item', 'hch-addons' ),
+			'view_item'             => __( 'View Item', 'hch-addons' ),
+			'view_items'            => __( 'View Items', 'hch-addons' ),
+			'search_items'          => __( 'Search Item', 'hch-addons' ),
+			'not_found'             => __( 'Not found', 'hch-addons' ),
+			'not_found_in_trash'    => __( 'Not found in Trash', 'hch-addons' ),
+			'featured_image'        => __( 'Featured Image', 'hch-addons' ),
+			'set_featured_image'    => __( 'Set featured image', 'hch-addons' ),
+			'remove_featured_image' => __( 'Remove featured image', 'hch-addons' ),
+			'use_featured_image'    => __( 'Use as featured image', 'hch-addons' ),
+			'insert_into_item'      => __( 'Insert into item', 'hch-addons' ),
+			'uploaded_to_this_item' => __( 'Uploaded to this item', 'hch-addons' ),
+			'items_list'            => __( 'Items list', 'hch-addons' ),
+			'items_list_navigation' => __( 'Items list navigation', 'hch-addons' ),
+			'filter_items_list'     => __( 'Filter items list', 'hch-addons' ),
+		);
+		$rewrite = array(
+			'slug'       => 'recipe-video',
+		);
+		$args    = array(
+			'label'               => __( 'Recipes Video', 'hch-addons' ),
+			'description'         => __( 'Post Type Description', 'hch-addons' ),
+			'labels'              => $labels,
+			'supports'            => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
+			'hierarchical'        => true,
+			'public'              => true,
+			'show_ui'             => true,
+			'query_var'           => true,
+			'show_in_menu'        => true,
+			'menu_position'       => 6,
+			'menu_icon'           => 'dashicons-format-video',
+			'has_archive'         => true,
+			'exclude_from_search' => false,
+			'rewrite'             => $rewrite,
+			'capability_type'     => 'post',
+		);
+		register_post_type( 'recipe-video', $args );
+	}
+	add_action( 'init', 'hch_custom_post_type_video_recipes', 0 );
+}
+
 if ( ! function_exists( 'hch_custom_taxonomy_recipes' ) ) {
 
 	// Register Recipes Categories
