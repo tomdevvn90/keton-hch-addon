@@ -225,11 +225,27 @@
   width: 100%;
   height: 31.25vw;
 }
-.wrapper-single-recipes-video .recipes-video-relation {
+.wrapper-single-recipes-video .recipes-video-relation #result_ajaxp .list-recipes-videos {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   column-gap: 33px;
   row-gap: 45px;
+}
+@media (max-width: 1200px) {
+  .wrapper-single-recipes-video .recipes-video-relation #result_ajaxp .list-recipes-videos {
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 30px;
+  }
+}
+@media (max-width: 768px) {
+  .wrapper-single-recipes-video .recipes-video-relation #result_ajaxp .list-recipes-videos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .wrapper-single-recipes-video .recipes-video-relation #result_ajaxp .list-recipes-videos {
+    grid-template-columns: 1fr;
+  }
 }
 .wrapper-single-recipes-video .recipes-video-relation .item-recipe-video a {
   text-decoration: none;

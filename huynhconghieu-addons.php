@@ -113,7 +113,7 @@ final class HuynhCongHieu_Addons {
 			add_action( 'admin_notices', array( $this, 'admin_notice_minimum_php_version' ) );
 			return;
 		}
-
+		
 		/* Hook */
 
 		require_once( plugin_dir_path(__FILE__) . '/inc/hook.php' );
@@ -126,6 +126,9 @@ final class HuynhCongHieu_Addons {
 
 		/* Ajax functions */
 		require_once( plugin_dir_path(__FILE__) . '/inc/ajax-functions.php' );
+
+		/* Ajax pagination */
+		require_once( plugin_dir_path(__FILE__) . '/AjaxPagination/ajax_pagination_wp.php' );
 
 		// Once we get here, We have passed all validation checks so we can safely include our plugin
 		require_once( plugin_dir_path(__FILE__) . '/plugin.php' );
@@ -140,6 +143,8 @@ final class HuynhCongHieu_Addons {
 		wp_enqueue_style( 'hch-addons-elements', plugins_url( '/assets/css/elements.css', __FILE__ ) );
 
 		wp_enqueue_style( 'hch-addons-recipes-cat', plugins_url( '/assets/css/recipes-categories.css', __FILE__ ) );
+
+		wp_enqueue_style( 'hch-addons-ajax-pagination', plugins_url( '/AjaxPagination/Ajax_pagination.css', __FILE__ ) );
 		
 
 		// wp_enqueue_style( 'hch-addons-magnific', plugins_url('/assets/libs/magnific/magnific-popup.css',__FILE__), false, '1.1' );
@@ -149,6 +154,13 @@ final class HuynhCongHieu_Addons {
 		// wp_enqueue_script( 'hch-addons-vimeo-video','https://player.vimeo.com/api/player.js' , ['jquery'], '1.1', true  );
 
 		wp_enqueue_script( 'hch-addons-video-recipes', plugins_url('/assets/js/video-recipes.js',__FILE__) , ['jquery'], time(), true  );
+
+		wp_enqueue_script( 'hch-addons-ajax-pagination', plugins_url('/AjaxPagination/ajax_pagination.js',__FILE__) , ['jquery'], time(), true  );
+
+		$php_array = array(
+			'admin_ajax' => admin_url( 'admin-ajax.php' )
+		);
+		wp_localize_script( 'hch-addons-ajax-pagination', 'svl_array_ajaxp', $php_array );
 	}
 
 	/**

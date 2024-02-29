@@ -231,10 +231,26 @@
         }
     }
     .recipes-video-relation {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        column-gap: 33px;
-        row-gap:45px;
+        #result_ajaxp {
+            .list-recipes-videos {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
+                column-gap: 33px;
+                row-gap:45px;
+                @media(max-width:1200px) {
+                    grid-template-columns: 1fr 1fr 1fr;
+                    column-gap: 30px;
+                }
+
+                @media(max-width:768px) {
+                    grid-template-columns: 1fr 1fr;
+                }
+                @media(max-width:600px) {
+                    grid-template-columns: 1fr;
+                }
+            }
+        }
+       
         .item-recipe-video {
             a {
                 text-decoration: none;
