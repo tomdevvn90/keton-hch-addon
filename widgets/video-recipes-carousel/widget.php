@@ -1,5 +1,5 @@
 <?php
-namespace HuynhCongHieuAddons\Widgets\Recipes_Carousel;
+namespace HuynhCongHieuAddons\Widgets\Video_Recipes_Carousel;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
@@ -8,14 +8,14 @@ use Elementor\Group_Control_Border;
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-class Be_Recipes_Carousel extends Widget_Base {
+class Be_Video_Recipes_Carousel extends Widget_Base {
 
     public function get_name() {
-			return 'recipes-carousel';
+			return 'video-recipes-carousel';
     }
 
     public function get_title() {
-			return __( 'Recipes Carousel', 'hch-addons' );
+			return __( 'Video Recipes Carousel', 'hch-addons' );
     }
 
     public function get_icon() {
@@ -31,47 +31,9 @@ class Be_Recipes_Carousel extends Widget_Base {
 		}
 
 		/**
-    * Get Custom Post Type Taxonomies
-    * @return array
-    */
-		protected function be_cpt_taxonomies($post_type, $value='id') {
-			$options = array();
-			$terms = get_terms( $post_type );
-			if (!empty($terms) && !is_wp_error($terms)) {
-				foreach ($terms as $term) {
-					if ('name' == $value) {
-							$options[$term->name] = $term->name;
-					} else {
-							$options[$term->term_id] = $term->name;
-					}
-				}
-			}
-			return $options;
-		}
-	
-		/**
-		 * Get Custom Post Type Title
-		 */
-		protected function be_cpt_get_post_title($cpt_name='') {
-			if ( $cpt_name ) {
-				$list = get_posts( array(
-						'post_type'         => $cpt_name,
-						'posts_per_page'    => 100,
-				) );
-				$options = array();
-				if ( ! empty( $list ) && ! is_wp_error( $list ) ) {
-					foreach ( $list as $post ) {
-							$options[ $post->ID ] = $post->post_title;
-					}
-				}
-				return $options;
-			}
-		}
-
-		/**
-		* Elementor Render Recipes
+		* Elementor Render Video Recipes
 		*/
-		protected function be_elementor_render_recipes($settings) {
+		protected function be_elementor_render_video_recipes($settings) {
 			$output = '';
 			
 			if ( get_query_var( 'paged' ) ) {
@@ -83,36 +45,24 @@ class Be_Recipes_Carousel extends Widget_Base {
 			}
 		
 			$args = array(
-				'post_type'      => 'recipe',
+				'post_type'      => 'recipe-video',
 				'post_status'    => 'publish',
 				'paged' 			   => $paged,
 				'posts_per_page' => $settings['post_count'],
 				// 'post__in'       => $settings['post_include_filter'],
 				'order'          => $settings['order'],
-				'orderby'        => 'rand', // => $settings['orderby']
+				'orderby'        => $settings['orderby']
 			);
 		
 			$args['klb_special_query'] = true;
-
-			// if($settings['cat_filter']){
-			// 	$args['tax_query'][] = array(
-			// 		'taxonomy' 	=> 'recipe-cat',
-			// 		'field' 	=> 'term_id',
-			// 		'terms' 	=> $settings['cat_filter']
-			// 	);
-			// }
 			
 			$loop = new \WP_Query( $args );
 			if ( $loop->have_posts() ) {
 				while ( $loop->have_posts() ) : $loop->the_post();
 					global $post;
-          $terms = get_the_terms( $post->ID, 'recipe-cat' );
 
 					$output .= '<div class="slide-item"><a href="'.get_permalink($post->ID).'" class="slider-inner">';
-          $output .= get_the_post_thumbnail( $post->ID, 'medium' );
-          if ( !empty( $terms ) ){
-            $output .= '<div class="cats">' . join(', ', wp_list_pluck($terms, 'name')) . '</div>';
-          }
+          $output .= '<div class="thumbnail">' . get_the_post_thumbnail( $post->ID, 'medium' ) . '</div>';
           $output .= '<h3>'.$post->post_title.'</h3>';
           $output .= '<div class="crt-date">' . get_the_date( 'F j, Y' ) . '</div>';
 					$output .= '</a></div>';
@@ -140,19 +90,8 @@ class Be_Recipes_Carousel extends Widget_Base {
 				[
 					'label' => esc_html__( 'Title', 'hch-addons' ),
 					'type' => Controls_Manager::TEXT,
-					'default' => 'Recepti',
+					'default' => 'Kuhinja izzivov',
 					'label_block' => true,
-				]
-			);
-
-      $this->add_control( 'show_categories_filter',
-				[
-					'label' => esc_html__( 'Categories Filter', 'hch-addons' ),
-					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'hch-addons' ),
-					'label_off' => esc_html__( 'Hide', 'hch-addons' ),
-					'return_value' => 'true',
-					'default' => 'true',
 				]
 			);
 
@@ -249,33 +188,10 @@ class Be_Recipes_Carousel extends Widget_Base {
 					'label' => esc_html__( 'Posts Per Page', 'hch-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
-					'max' => count( get_posts( array('post_type' => 'recipe', 'post_status' => 'publish', 'fields' => 'ids', 'posts_per_page' => '-1') ) ),
+					'max' => count( get_posts( array('post_type' => 'recipe-video', 'post_status' => 'publish', 'fields' => 'ids', 'posts_per_page' => '-1') ) ),
 					'default' => 8
 				]
 			);
-		
-			// $this->add_control( 'cat_filter',
-			// 	[
-			// 		'label' => esc_html__( 'Filter Category', 'hch-addons' ),
-			// 		'type' => Controls_Manager::SELECT2,
-			// 		'multiple' => true,
-			// 		'options' => $this->be_cpt_taxonomies('recipe-cat'),
-			// 		'description' => 'Select Category(s)',
-			// 		'default' => '',
-			// 		'label_block' => true,
-			// 	]
-			// );
-
-			// $this->add_control( 'post_include_filter',
-			// 	[
-			// 		'label' => esc_html__( 'Include Recipes', 'hch-addons' ),
-			// 		'type' => Controls_Manager::SELECT2,
-			// 		'multiple' => true,
-			// 		'options' => $this->be_cpt_get_post_title('recipe'),
-			// 		'description' => 'Select Recipe(s) to Include',
-			// 		'label_block' => true,
-			// 	]
-			// );
 
 			$this->add_control( 'order',
 				[
@@ -339,18 +255,6 @@ class Be_Recipes_Carousel extends Widget_Base {
 						'selectors' => ['{{WRAPPER}} .column .entry-title:hover' => 'color: {{VALUE}};']
 				]
 			);
-		
-			// $this->add_control( 'title_size',
-			// 	[
-			// 		'label' => esc_html__( 'Size', 'hch-addons' ),
-			// 		'type' => Controls_Manager::NUMBER,
-			// 		'min' => 0,
-			// 		'max' => 100,
-			// 		'step' => 1,
-			// 		'default' => '',
-			// 		'selectors' => [ '{{WRAPPER}} .column .entry-title' => 'font-size: {{SIZE}}px;' ],
-			// 	]
-			// );
 		
 			$this->add_responsive_control( 'title_left',
 				[
@@ -424,45 +328,33 @@ class Be_Recipes_Carousel extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$recipes_html = $this->be_elementor_render_recipes($settings);
+		$video_recipes_html = $this->be_elementor_render_video_recipes($settings);
 		
 		$output = '<div class="site-module module-carousel be-normal-carousel">';
 
 		if($settings['title'] || $settings['subtitle']){
 			$output .= '<div class="module-header">';
 			$output .= '<div class="column">';
-      $output .= '<div class="head-icon"><svg width="30" height="23" viewBox="0 0 30 23" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_7_644)">
-      <path d="M14.9991 6.13648C21.5924 6.13648 26.9557 11.6002 26.9557 18.3168H28.8109C28.8109 10.8744 23.1062 4.76631 15.9193 4.2825V1.89178H18.5518V0H11.4465V1.88989H14.0623V4.2825C6.88273 4.77387 1.18921 10.8782 1.18921 18.3168H3.04438C3.04438 11.6002 8.40769 6.13648 15.001 6.13648H14.9991Z" fill="white"/>
-      <path d="M30 20.1689H0V22.0588H30V20.1689Z" fill="white"/></g><defs><clipPath id="clip0_7_644"><rect width="30" height="22.0588" fill="white"/>
-      </clipPath></defs></svg></div>';
+      $output .= '<div class="head-icon"><svg width="29" height="30" viewBox="0 0 29 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<g clip-path="url(#clip0_7_641)"><path d="M23.07 28.0621H6.09257V23.2407H4.18091V30H24.9817V23.2407H23.07V28.0621Z" fill="white"/>
+									<path d="M26.4842 2.88943C25.6106 2.28482 23.3472 1.21512 20.2159 3.36614C18.6273 1.11241 16.5799 -0.0968137 14.4828 0.00589288C12.3876 -0.0987515 10.3402 1.11241 8.7497 3.3642C5.6184 1.21318 3.35499 2.28288 2.48136 2.88749C0.468379 4.28275 -0.506569 7.22636 0.261919 9.58861C0.911885 11.5846 3.72585 19.5221 3.84629 19.8593L4.07377 20.5007H24.8918L25.1193 19.8593C25.2378 19.5221 28.0537 11.5846 28.7036 9.58861C29.4721 7.22636 28.4972 4.28275 26.4842 2.88943ZM26.8876 8.98206C26.3523 10.6273 24.2476 16.5862 23.5479 18.5628H20.4414L22.4315 9.36382H20.4739L18.4839 18.5628H15.4386V8.25148H13.5269V18.5628H10.4817L8.49163 9.36382H6.53409L8.52413 18.5628H5.41767C4.71801 16.5862 2.61326 10.6273 2.078 8.98206C1.57905 7.44921 2.2577 5.3912 3.55954 4.4901C4.83271 3.60837 6.54556 3.97075 8.38266 5.50941L9.24482 6.23224L9.8145 5.25749C10.4243 4.21492 12.0932 1.80423 14.4254 1.94569L14.4828 1.94957L14.5401 1.94569C16.8685 1.80616 18.5412 4.21492 19.1511 5.25749L19.7207 6.23224L20.5829 5.50941C22.42 3.97075 24.1329 3.60837 25.406 4.4901C26.7079 5.3912 27.3865 7.44921 26.8876 8.98206Z" fill="white"/>
+									</g><defs><clipPath id="clip0_7_641"><rect width="28.9655" height="30" fill="white"/></clipPath></defs></svg></div>';
 			$output .= '<h4 class="entry-title">'.esc_html($settings['title']).'</h4>';
 			$output .= '</div>';
       $output .= '<div class="column">';
-			$output .= '<a class="be-btn-link" href="/recipe" >'. __( "Vsi recepti", "hch-addons" ) .'</a>';
+			$output .= '<a class="be-btn-link" href="/recipe-video" >'. __( "Vse oddaje", "hch-addons" ) .'</a>';
       $output .= '</div>';
 			$output .= '</div>';
 		}
 
-    if ( $settings['show_categories_filter'] ) {
-      $all_recipe_cats = $this->be_cpt_taxonomies('recipe-cat');
-
-      $output .= '<div class="be-filter be-recipes-filter" data-settings=\''.json_encode($settings).'\'" >';
-      $output .= '<div class="filter-tab active" data-filter-by="">'.__( 'VSI RECEPTI', 'hch-addons' ).'</div>';
-
-      foreach ($all_recipe_cats as $key => $value) {
-        $output .= '<div class="filter-tab" data-filter-by="'.$key.'">'.$value.'</div>';
-      }
-      $output .= '</div>';
-    }
-
-		$output .= '<div class="be-wrapper be-recipes-wrapper">';
+		$output .= '<div class="be-wrapper be-video-recipes-wrapper">';
 		$output .= '<svg class="preloader" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
-		$output .= '<div class="be-recipes-ls">';
-		if ( $recipes_html ) {
+		$output .= '<div class="be-video-recipes-ls">';
+		if ( $video_recipes_html ) {
 			$output .= '<div class="module-body">';
 			$output .= '<div class="slider-wrapper">';
-			$output .= '<div class="recipes be-normal-slider" data-slideshow="'.esc_attr($settings['column']).'" data-mobile="'.esc_attr($settings['mobile_column']).'" data-slidespeed="'.esc_attr($settings['slide_speed']).'" data-arrows="'.esc_attr($settings['arrows']).'" data-autoplay="'.esc_attr($settings['auto_play']).'" data-autospeed="'.esc_attr($settings['auto_speed']).'" data-dots="'.esc_attr($settings['dots']).'">';
-			$output .= $recipes_html;
+			$output .= '<div class="video-recipes be-normal-slider" data-slideshow="'.esc_attr($settings['column']).'" data-mobile="'.esc_attr($settings['mobile_column']).'" data-slidespeed="'.esc_attr($settings['slide_speed']).'" data-arrows="'.esc_attr($settings['arrows']).'" data-autoplay="'.esc_attr($settings['auto_play']).'" data-autospeed="'.esc_attr($settings['auto_speed']).'" data-dots="'.esc_attr($settings['dots']).'">';
+			$output .= $video_recipes_html;
 			$output .= '</div>';
 			$output .= '</div>';
 			$output .= '</div>';

@@ -60,6 +60,7 @@ class Plugin {
  				$this->widgets, array(
 					'products-carousel',
 					'recipes-carousel',
+					'video-recipes-carousel',
 					'recipes-categories-1'
  				)
  			);
@@ -144,9 +145,13 @@ class Plugin {
 		// Its is now safe to include Widgets files
 		$this->include_widgets_files();
 
+		// Recipe Widgets
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Recipes_Carousel\Be_Recipes_Carousel() );
 
-		// WooCommerce.
+		// Video Recipe Widgets
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Video_Recipes_Carousel\Be_Video_Recipes_Carousel() );
+
+		// WooCommerce Widgets.
 		if ( $this->woocommerce_status() ) {
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Products_Carousel\Be_Products_Carousel() );
 		}

@@ -220,5 +220,8 @@ jQuery.noConflict();
     // Recipes Carousel
     elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeNormalSliderHandler);
     elementorFrontend.hooks.addAction("frontend/element_ready/recipes-carousel.default", BeFilterRecipesOnCarousel);
+
+    // Video Recipes Carousel
+    elementorFrontend.hooks.addAction("frontend/element_ready/video-recipes-carousel.default", BeNormalSliderHandler);
   });
 })(jQuery);

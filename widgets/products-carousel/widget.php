@@ -721,7 +721,7 @@ class Be_Products_Carousel extends Widget_Base {
 				$output .= '</div>';
 		}
 
-		$output .= '<div class="be-products-wrapper">';
+		$output .= '<div class="be-wrapper be-products-wrapper">';
 		$output .= '<svg class="preloader" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"><circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle></svg>';
 		$output .= '<div class="be-products-ls">';
 		if ( $products_html ) {
@@ -732,9 +732,9 @@ class Be_Products_Carousel extends Widget_Base {
 			$output .= '</div>';
 			$output .= '</div>';
 			$output .= '</div>';
-			$output .= '<div class="more-products"><a href="'.$more_products_url.'">'. __( "Prikaži več izdelkov", "hch-addons" ) .'</a></div>';
+			$output .= '<div class="more-products"><a class="be-btn-link" href="'.$more_products_url.'">'. __( "Prikaži več izdelkov", "hch-addons" ) .'</a></div>';
 		} else {
-			$output .= '<div class="no-product"><h3>'. __( "Ujemajočih izdelkov ni mogoče najti.", "hch-addons" ) .'</h3></div>';
+			$output .= '<div class="no-item-found"><h3>'. __( "Ujemajočih izdelkov ni mogoče najti.", "hch-addons" ) .'</h3></div>';
 		}
 		$output .= '</div>';
 		$output .= '</div>';
