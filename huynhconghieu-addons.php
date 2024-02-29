@@ -141,6 +141,14 @@ final class HuynhCongHieu_Addons {
 
 		wp_enqueue_style( 'hch-addons-recipes-cat', plugins_url( '/assets/css/recipes-categories.css', __FILE__ ) );
 		
+
+		// wp_enqueue_style( 'hch-addons-magnific', plugins_url('/assets/libs/magnific/magnific-popup.css',__FILE__), false, '1.1' );
+        
+		// wp_enqueue_script( 'hch-addons-magnific', plugins_url('/assets/libs/magnific/jquery.magnific-popup.js',__FILE__) , ['jquery'], '1.1', true  );
+
+		// wp_enqueue_script( 'hch-addons-vimeo-video','https://player.vimeo.com/api/player.js' , ['jquery'], '1.1', true  );
+
+		wp_enqueue_script( 'hch-addons-video-recipes', plugins_url('/assets/js/video-recipes.js',__FILE__) , ['jquery'], time(), true  );
 	}
 
 	/**
