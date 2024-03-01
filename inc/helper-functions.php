@@ -25,9 +25,10 @@ function keton_force_template_recipe_cat( $template ) {
     if(is_singular('recipe-video')) {
         $template = B_HELPERS_DIR .'/template/single-recipe-video.php';
     }
-    // if(is_archive('recipe')) {
-    //     $template = B_HELPERS_DIR .'/template/archive-recipe.php';
-    // }
+    
+    if(is_archive('recipe-video')) {
+        $template = B_HELPERS_DIR .'/template/archive-recipe-video.php';
+    }
     return $template;
 }
 

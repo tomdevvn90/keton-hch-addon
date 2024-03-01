@@ -153,10 +153,35 @@
             .item-recipe {
                 a {
                     text-decoration: none;
+                    .thum-wrapper {
+                        position: relative;
+                        border-radius: 5px;
+                        overflow: hidden;
+                        margin-bottom: 16px;
+                        .icon-play {
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            -webkit-transform: translate(-50%, -50%);
+                            transform: translate(-50%,-50%);
+                            z-index: 2;
+                        }
+                        .ovelay {
+                            top:0;
+                            position: absolute;
+                            width: 100%;
+                            height: 100%;
+                            z-index: 1;
+                            background: rgba(0, 0, 0, 0.20);
+                        }
+                    }
                     .thumb {
                         border-radius: 5px;
                         overflow: hidden;
                         margin-bottom: 17px;
+                    }
+                    .thumb.thumb-video {
+                        margin-bottom: 0;
                     }
                     .tax-recipe {
                         color: #BABABA;
@@ -173,7 +198,7 @@
                         font-size: 30px;
                         font-style: normal;
                         font-weight: 400;
-                        line-height: 83.333% ;
+                        line-height: 130% ;
                         margin-bottom: 17px;
                     }
                     .date {
@@ -213,6 +238,18 @@
 
 .wrapper-single-recipes-video {
     .main-video-recipes-play {
+        .video-bg-hcp {
+            width: 100%;
+            margin-bottom: 150px;
+            height: 31.25vw;
+            @media(max-width:1360px) {
+                margin-bottom: 60px;
+                height: 52.25vw;
+            }
+            @media(max-width:600px) {
+                margin-bottom: 30px;
+            }
+        }
         .title {
             color: #252525;
             font-size: 35px;
@@ -224,9 +261,18 @@
         }
         .video-play {
             padding-bottom: 150px;
+            @media(max-width:1360px) {
+                padding-bottom: 60px;
+            }
+            @media(max-width:600px) {
+                padding-bottom: 30px;
+            }
             .video {
                 width: 100%;
                 height: 31.25vw;
+                @media(max-width:1360px) {
+                    height: 52.25vw;
+                }
             }
         }
     }
@@ -242,7 +288,7 @@
                     column-gap: 30px;
                 }
 
-                @media(max-width:768px) {
+                @media(max-width:992px) {
                     grid-template-columns: 1fr 1fr;
                 }
                 @media(max-width:600px) {
@@ -307,3 +353,4 @@
         }
     }
 }
+
