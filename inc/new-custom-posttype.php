@@ -66,7 +66,7 @@ if ( ! function_exists( 'hch_custom_post_type_recipes' ) ) {
 
 if ( ! function_exists( 'hch_custom_post_type_video_recipes' ) ) {
 
-	// Register Recipes Post Type
+	// Register Recipes Video Post Type
 	function hch_custom_post_type_video_recipes() {
 		$labels  = array(
 			'name'                  => _x( 'Recipes Video', 'Post Type General Name', 'hch-addons' ),

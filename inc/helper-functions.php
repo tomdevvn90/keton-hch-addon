@@ -18,16 +18,24 @@
 
 
 function keton_force_template_recipe_cat( $template ) {
-    if( is_tax('recipe-cat') || is_archive('recipe')) {
+    // echo '<pre>';
+    // print_r(get_queried_object());
+    // echo '</pre>';
+    if(!empty(get_queried_object())) {
+        if(get_queried_object()->name == 'recipe') {
+            $template = B_HELPERS_DIR .'/template/archive-recipe.php';
+        }
+        if(get_queried_object()->name == 'recipe-video') {
+            $template = B_HELPERS_DIR .'/template/archive-recipe-video.php';
+        }
+    }
+
+    if( is_tax('recipe-cat')) {
         $template = B_HELPERS_DIR .'/template/archive-recipe.php';
     }
 
     if(is_singular('recipe-video')) {
         $template = B_HELPERS_DIR .'/template/single-recipe-video.php';
-    }
-    
-    if(is_archive('recipe-video')) {
-        $template = B_HELPERS_DIR .'/template/archive-recipe-video.php';
     }
     return $template;
 }
