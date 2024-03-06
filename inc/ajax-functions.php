@@ -384,3 +384,91 @@ function be_filter_recipes_on_carousel_callback() {
 }
 
 
+
+
+/*Save data filter popular */
+
+add_action( 'wp_ajax_nopriv_SaveDataPopularFilter', 'be_save_data_popular_filter_callback' );
+add_action( 'wp_ajax_SaveDataPopularFilter', 'be_save_data_popular_filter_callback' );
+
+function be_save_data_popular_filter_callback() {
+	
+
+	$id_cat = $_POST['filter_cat'];
+	$min_max_price = $_POST['min_max_price'];
+	$status_product = $_POST['status_product'];
+
+
+	if(!empty($id_cat)) {
+		$data_filter_cat_init = get_field('cat_filter_popular','options');
+		if(!empty($data_filter_cat_init)) {
+			foreach ($data_filter_cat_init as $key => $value) {
+				$count = $value['count_popular_filter'];
+				if(intval($value['slug_cat_filter']) == intval($id_cat) ) {
+					$data_filter_cat_init[$key]['count_popular_filter'] = intval($count) + 1;
+					break;
+				}else{
+					array_push($data_filter_cat_init,['slug_cat_filter'=>$id_cat,'count_popular_filter'=>1]);
+					break;
+				}
+			}
+
+			// echo '<pre>';
+			// print_r($data_filter_cat_init);
+			// echo '</pre>';
+			update_field('cat_filter_popular',$data_filter_cat_init,'options');
+		}else{
+			$data_save = [];
+			array_push($data_save,['slug_cat_filter'=>$id_cat,'count_popular_filter'=>1]);
+			update_field('cat_filter_popular',$data_save,'options');
+		}
+
+	}
+
+	if(!empty($min_max_price)) {
+		$data_filter_min_max_init = get_field('price_filter_popular','options');
+		if(!empty($data_filter_min_max_init)) {
+			foreach ($data_filter_min_max_init as $key => $value) {
+				$count = $value['count_min_max_filter'];
+				if($value['price_filter_min_max'] == $min_max_price ) {
+					$data_filter_min_max_init[$key]['count_min_max_filter'] = intval($count) + 1;
+					break;
+				}else{
+					array_push($data_filter_min_max_init,['price_filter_min_max'=>$min_max_price,'count_min_max_filter'=>1]);
+					break;
+				}
+			}
+			update_field('price_filter_popular',$data_filter_min_max_init,'options');
+		}else{
+			$data_save = [];
+			array_push($data_save,['price_filter_min_max'=>$min_max_price,'count_min_max_filter'=>1]);
+			update_field('price_filter_popular',$data_save,'options');
+		}
+	}
+	
+
+	if(!empty($status_product)) {
+		$data_filter_status_product = get_field('product_status_filter_popular','options');
+		if(!empty($data_filter_status_product)) {
+
+			foreach ($data_filter_status_product as $key => $value) {
+				$count = $value['count_product_status_filter'];
+				if($value['slug_product_status_filter'] == $status_product ) {
+					$data_filter_status_product[$key]['count_product_status_filter'] = intval($count) + 1;
+					break;
+				}else{
+					array_push($data_filter_status_product,['slug_product_status_filter'=>$status_product,'count_product_status_filter'=>1]);
+					break;
+				}
+			}
+			update_field('product_status_filter_popular',$data_filter_status_product,'options');
+
+		}else{
+			$data_save = [];
+			array_push($data_save,['slug_product_status_filter'=>$status_product,'count_product_status_filter'=>1]);
+			update_field('product_status_filter_popular',$data_save,'options');
+		}
+	}
+
+
+}

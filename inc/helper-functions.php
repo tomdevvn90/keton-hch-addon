@@ -126,4 +126,9 @@ function getPostViews($postID){
     return $count.'. oddaja';
 }
 
+
+function custom_filter_price_widget() {
+    return 1;
+}
+
 ?>

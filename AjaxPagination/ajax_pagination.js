@@ -9,7 +9,7 @@
 			 $.ajax({
 				 cache: false,
 				 timeout: 8000,
-				 url: svl_array_ajaxp.admin_ajax,
+				 url: hch_array_ajaxp.admin_ajax,
 				 type: "POST",
 				 data: ({ 
 					 action			:	'LoadPostPagination', 

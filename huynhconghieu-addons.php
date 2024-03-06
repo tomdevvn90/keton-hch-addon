@@ -130,6 +130,10 @@ final class HuynhCongHieu_Addons {
 		/* Ajax pagination */
 		require_once( plugin_dir_path(__FILE__) . '/AjaxPagination/ajax_pagination_wp.php' );
 
+		/* widget block */
+		require_once( plugin_dir_path(__FILE__) . '/inc/widget.php' );
+
+
 		// Once we get here, We have passed all validation checks so we can safely include our plugin
 		require_once( plugin_dir_path(__FILE__) . '/plugin.php' );
 
@@ -145,6 +149,8 @@ final class HuynhCongHieu_Addons {
 		wp_enqueue_style( 'hch-addons-recipes-cat', plugins_url( '/assets/css/recipes-categories.css', __FILE__ ) );
 
 		wp_enqueue_style( 'hch-addons-ajax-pagination', plugins_url( '/AjaxPagination/Ajax_pagination.css', __FILE__ ) );
+
+		wp_enqueue_style( 'hch-addons-shop-page', plugins_url( '/assets/css/shop.css', __FILE__ ) );
 		
 
 		// wp_enqueue_style( 'hch-addons-magnific', plugins_url('/assets/libs/magnific/magnific-popup.css',__FILE__), false, '1.1' );
@@ -155,12 +161,17 @@ final class HuynhCongHieu_Addons {
 
 		wp_enqueue_script( 'hch-addons-video-recipes', plugins_url('/assets/js/video-recipes.js',__FILE__) , ['jquery'], time(), true  );
 
+		wp_enqueue_script( 'hch-addons-shop-page', plugins_url('/assets/js/shop.js',__FILE__) , ['jquery'], time(), true  );
+
 		wp_enqueue_script( 'hch-addons-ajax-pagination', plugins_url('/AjaxPagination/ajax_pagination.js',__FILE__) , ['jquery'], time(), true  );
 
 		$php_array = array(
 			'admin_ajax' => admin_url( 'admin-ajax.php' )
 		);
-		wp_localize_script( 'hch-addons-ajax-pagination', 'svl_array_ajaxp', $php_array );
+		wp_localize_script( 'hch-addons-ajax-pagination', 'hch_array_ajaxp', $php_array );
+
+		wp_localize_script( 'hch-addons-shop-page', 'hch_array_ajaxp', $php_array );
+
 	}
 
 	/**
