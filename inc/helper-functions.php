@@ -121,9 +121,9 @@ function getPostViews($postID){
     if($count==''){
         delete_post_meta($postID, $count_key);
         add_post_meta($postID, $count_key, '0');
-        return "0 oddaja";
+        return __('0 oddaja','hch-addons');
     }
-    return $count.'. oddaja';
+    return $count.__('. oddaja','hch-addons');
 }
 
 
@@ -272,9 +272,6 @@ function be_query_ajax_pagination( $post_type = 'post', $posts_per_page = 5, $pa
     wp_reset_query();
     return $content;
 }
-
-
-
 
 function be_add_attribute_slug_callback($count, $term) {
    
