@@ -127,12 +127,11 @@ final class HuynhCongHieu_Addons {
 		/* Ajax functions */
 		require_once( plugin_dir_path(__FILE__) . '/inc/ajax-functions.php' );
 
-		/* Ajax pagination */
-		require_once( plugin_dir_path(__FILE__) . '/ajaxpagination/ajax_pagination_wp.php' );
-
 		/* widget block */
 		require_once( plugin_dir_path(__FILE__) . '/inc/widget.php' );
 
+		/* Shortcode */
+		require_once( plugin_dir_path(__FILE__) . '/inc/shortcode.php' );
 
 		// Once we get here, We have passed all validation checks so we can safely include our plugin
 		require_once( plugin_dir_path(__FILE__) . '/plugin.php' );
@@ -151,13 +150,6 @@ final class HuynhCongHieu_Addons {
 		wp_enqueue_style( 'hch-addons-ajax-pagination', plugins_url( '/assets/css/ajax_pagination.css', __FILE__ ) );
 
 		wp_enqueue_style( 'hch-addons-shop-page', plugins_url( '/assets/css/shop.css', __FILE__ ) );
-		
-
-		// wp_enqueue_style( 'hch-addons-magnific', plugins_url('/assets/libs/magnific/magnific-popup.css',__FILE__), false, '1.1' );
-        
-		// wp_enqueue_script( 'hch-addons-magnific', plugins_url('/assets/libs/magnific/jquery.magnific-popup.js',__FILE__) , ['jquery'], '1.1', true  );
-
-		// wp_enqueue_script( 'hch-addons-vimeo-video','https://player.vimeo.com/api/player.js' , ['jquery'], '1.1', true  );
 
 		wp_enqueue_script( 'hch-addons-video-recipes', plugins_url('/assets/js/video-recipes.js',__FILE__) , ['jquery'], time(), true  );
 
@@ -168,8 +160,8 @@ final class HuynhCongHieu_Addons {
 		$php_array = array(
 			'admin_ajax' => admin_url( 'admin-ajax.php' )
 		);
-		wp_localize_script( 'hch-addons-ajax-pagination', 'hch_array_ajaxp', $php_array );
 
+		wp_localize_script( 'hch-addons-ajax-pagination', 'hch_array_ajaxp', $php_array );
 		wp_localize_script( 'hch-addons-shop-page', 'hch_array_ajaxp', $php_array );
 
 	}

@@ -1,13 +1,8 @@
 <?php
-/**
- * Ajax Functions
- */
+/* Ajax Functions */
 
 
-/**
- * Filter Products on carousel
- */
-
+/* Filter Products on carousel */
 
 add_action( 'wp_ajax_nopriv_be_filter_products_on_carousel', 'be_filter_products_on_carousel_callback' );
 add_action( 'wp_ajax_be_filter_products_on_carousel', 'be_filter_products_on_carousel_callback' );
@@ -224,9 +219,7 @@ function be_filter_products_on_carousel_callback() {
 
 }
 
-/**
- * Filter Recipes on carousel
- */
+/* Filter Recipes on carousel */
 add_action( 'wp_ajax_nopriv_be_filter_recipes_on_carousel', 'be_filter_recipes_on_carousel_callback' );
 add_action( 'wp_ajax_be_filter_recipes_on_carousel', 'be_filter_recipes_on_carousel_callback' );
 function be_filter_recipes_on_carousel_callback() {
@@ -383,11 +376,18 @@ function be_filter_recipes_on_carousel_callback() {
 
 }
 
-/* Save data filter popular */
+/* Ajax pagination */
+function LoadPostPagination_init() {
+    $posts_per_page = intval($_POST['posts_per_page']);
+    $paged = intval($_POST['data_page']);
+    $post_type = sanitize_text_field($_POST['post_type']);
+    $post_not_in = intval($_POST['post_not_in']);
+    $allpost = be_query_ajax_pagination( $post_type, $posts_per_page , $paged, $post_not_in );
+    echo $allpost;
+    exit;
+}
 
-add_action( 'wp_ajax_nopriv_SaveDataPopularFilter', 'be_save_data_popular_filter_callback' );
-add_action( 'wp_ajax_SaveDataPopularFilter', 'be_save_data_popular_filter_callback' );
-
+/* Save data filter popular  */
 function be_save_data_popular_filter_callback() {
 	$id_cat = $_POST['filter_cat'];
 	$min_max_price = $_POST['min_max_price'];

@@ -39,7 +39,7 @@
         </div>
         <div class="recipes-video-relation" data-post-not-in="<?php echo $id_post?>">
             <?php 
-                echo do_shortcode('[ajax_pagination post_type="recipe-video" posts_per_page="4" paged="1" post_not_in="'.$id_post.'"]');
+                echo do_shortcode('[be_ajax_pagination post_type="recipe-video" posts_per_page="4" paged="1" post_not_in="'.$id_post.'"]');
             ?>
         </div>
 
