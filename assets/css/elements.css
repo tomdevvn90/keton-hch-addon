@@ -155,6 +155,7 @@
   background: rgba(0, 0, 0, 0.2);
 }
 .be-normal-carousel .slider-inner .cats,
+.be-normal-carousel .slider-inner .meta-item,
 .be-normal-carousel .slider-inner .crt-date {
   color: #bababa;
   font-family: "Barlow Semi Condensed";

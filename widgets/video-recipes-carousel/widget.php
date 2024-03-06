@@ -63,6 +63,7 @@ class Be_Video_Recipes_Carousel extends Widget_Base {
 
 					$output .= '<div class="slide-item"><a href="'.get_permalink($post->ID).'" class="slider-inner">';
           $output .= '<div class="thumbnail">' . get_the_post_thumbnail( $post->ID, 'medium' ) . '</div>';
+					$output .= '<div class="meta-item">' . getPostViews($post->ID) . '</div>';
           $output .= '<h3>'.$post->post_title.'</h3>';
           $output .= '<div class="crt-date">' . get_the_date( 'F j, Y' ) . '</div>';
 					$output .= '</a></div>';
