@@ -229,10 +229,47 @@ jQuery.noConflict();
 
         $('body').on('click','.woocommerce-widget-layered-nav ul li a',function(e){
             let link = $(this).attr('href');
-            
-            let param_link_filter = URLToArray(link);
+            $(this).parent().hasClass('chosen');
 
-            console.log('sss',param_link_filter);
+            
+
+            if(!$(this).parent().hasClass('chosen')) {
+                let param_link_filter = URLToArray(link);
+                var brand_filter_old = link_brand_pre.filter_brands;
+                var brand_fitler_new = param_link_filter.filter_brands;
+                if(brand_filter_old) {
+                    var brand_slug = brand_fitler_new.replace(brand_filter_old+',','');
+                    link_brand_pre = param_link_filter;
+                }else{
+                    link_brand_pre = param_link_filter;
+                    var brand_slug = brand_fitler_new;
+                }
+                
+                if(brand_slug) {
+                    $.ajax({
+                        cache: false,
+                        timeout: 8000,
+                        url: hch_array_ajaxp.admin_ajax,
+                        type: "POST",
+                        data: ({ 
+                            action			:	'SaveDataPopularFilter', 
+                            brand_slug		:	brand_slug,
+                        }),
+                        beforeSend: function() {
+                        },
+                        success: function( data, textStatus, jqXHR ){	
+                        },
+                        error: function( jqXHR, textStatus, errorThrown ){
+                            console.log( 'The following error occured: ' + textStatus, errorThrown );
+                        },
+                        complete: function( jqXHR, textStatus ){
+                        }
+                    });
+                }
+                
+
+            }
+           
 
             
 

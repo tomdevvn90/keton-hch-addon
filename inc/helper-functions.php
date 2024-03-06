@@ -17,7 +17,7 @@
 
 
 
-function keton_force_template_recipe_cat( $template ) {
+function be_force_template_recipe_cat( $template ) {
     // echo '<pre>';
     // print_r(get_queried_object());
     // echo '</pre>';
@@ -127,8 +127,12 @@ function getPostViews($postID){
 }
 
 
-function custom_filter_price_widget() {
+function be_force_step_filter_price_widget() {
     return 1;
+}
+
+function be_force_min_amout_price_widget() {
+    return 0;
 }
 
 ?>

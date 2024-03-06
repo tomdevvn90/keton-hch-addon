@@ -383,22 +383,16 @@ function be_filter_recipes_on_carousel_callback() {
 
 }
 
-
-
-
-/*Save data filter popular */
+/* Save data filter popular */
 
 add_action( 'wp_ajax_nopriv_SaveDataPopularFilter', 'be_save_data_popular_filter_callback' );
 add_action( 'wp_ajax_SaveDataPopularFilter', 'be_save_data_popular_filter_callback' );
 
 function be_save_data_popular_filter_callback() {
-	
-
 	$id_cat = $_POST['filter_cat'];
 	$min_max_price = $_POST['min_max_price'];
 	$status_product = $_POST['status_product'];
-
-
+	$brand_status = $_POST['brand_slug'];
 	if(!empty($id_cat)) {
 		$data_filter_cat_init = get_field('cat_filter_popular','options');
 		if(!empty($data_filter_cat_init)) {
@@ -412,17 +406,12 @@ function be_save_data_popular_filter_callback() {
 					break;
 				}
 			}
-
-			// echo '<pre>';
-			// print_r($data_filter_cat_init);
-			// echo '</pre>';
 			update_field('cat_filter_popular',$data_filter_cat_init,'options');
 		}else{
 			$data_save = [];
 			array_push($data_save,['slug_cat_filter'=>$id_cat,'count_popular_filter'=>1]);
 			update_field('cat_filter_popular',$data_save,'options');
 		}
-
 	}
 
 	if(!empty($min_max_price)) {
@@ -445,12 +434,10 @@ function be_save_data_popular_filter_callback() {
 			update_field('price_filter_popular',$data_save,'options');
 		}
 	}
-	
 
 	if(!empty($status_product)) {
 		$data_filter_status_product = get_field('product_status_filter_popular','options');
 		if(!empty($data_filter_status_product)) {
-
 			foreach ($data_filter_status_product as $key => $value) {
 				$count = $value['count_product_status_filter'];
 				if($value['slug_product_status_filter'] == $status_product ) {
@@ -462,7 +449,6 @@ function be_save_data_popular_filter_callback() {
 				}
 			}
 			update_field('product_status_filter_popular',$data_filter_status_product,'options');
-
 		}else{
 			$data_save = [];
 			array_push($data_save,['slug_product_status_filter'=>$status_product,'count_product_status_filter'=>1]);
@@ -470,5 +456,25 @@ function be_save_data_popular_filter_callback() {
 		}
 	}
 
+	if(!empty($brand_status)) {
+		$data_filter_brand_status = get_field('brands_filter_popular','options');
+		if(!empty($data_filter_brand_status)) {
+			foreach ($data_filter_brand_status as $key => $value) {
+				$count = $value['count_brand_filter'];
+				if($value['slug_brand_filter'] == $brand_status ) {
+					$data_filter_brand_status[$key]['count_brand_filter'] = intval($count) + 1;
+					break;
+				}else{
+					array_push($data_filter_brand_status,['slug_brand_filter'=>$status_product,'count_brand_filter'=>1]);
+					break;
+				}
+			}
+			update_field('product_status_filter_popular',$data_filter_brand_status,'options');
 
+		}else{
+			$data_save = [];
+			array_push($data_save,['slug_brand_filter'=>$status_product,'count_brand_filter'=>1]);
+			update_field('brands_filter_popular',$data_save,'options');
+		}
+	}
 }
