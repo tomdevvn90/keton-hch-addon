@@ -29,7 +29,7 @@
       height: 100%;
       left: 0;
       top: 0;
-      background: #00397599;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0) 100%);
       opacity: 0.4;
       z-index: 2; }
     .wrapper-recipes-categories .recipes-cat-feature .item-recipes-cat .title-cat {
@@ -70,7 +70,7 @@
       height: 100%;
       left: 0;
       top: 0;
-      background: #00397599;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0) 100%);
       opacity: 0.4;
       z-index: 2; }
     .wrapper-recipes-categories .recipes-cat-not-feature .item-recipes-cat .title-cat {
@@ -116,49 +116,61 @@
         line-height: 100%;
         text-transform: uppercase;
         text-decoration: none; }
-    .wrapper-recipes-tax .container-tax .site-posts {
+    .wrapper-recipes-tax .container-tax .site-posts .text-not-post {
+      min-height: 300px;
+      padding: 40px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-border-light); }
+      @media (max-width: 600px) {
+        .wrapper-recipes-tax .container-tax .site-posts .text-not-post {
+          padding: 20px;
+          min-height: 60px; } }
+    .wrapper-recipes-tax .container-tax .list-site-posts {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr 1fr;
       row-gap: 50px;
       column-gap: 35px; }
       @media (max-width: 1200px) {
-        .wrapper-recipes-tax .container-tax .site-posts {
+        .wrapper-recipes-tax .container-tax .list-site-posts {
           grid-template-columns: 1fr 1fr 1fr;
           grid-gap: 30px; } }
       @media (max-width: 992px) {
-        .wrapper-recipes-tax .container-tax .site-posts {
+        .wrapper-recipes-tax .container-tax .list-site-posts {
           grid-template-columns: 1fr 1fr; } }
       @media (max-width: 600px) {
-        .wrapper-recipes-tax .container-tax .site-posts {
+        .wrapper-recipes-tax .container-tax .list-site-posts {
           grid-template-columns: 1fr; } }
-      .wrapper-recipes-tax .container-tax .site-posts .item-recipe a {
+      .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a {
         text-decoration: none; }
-        .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .thum-wrapper {
+        .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .thum-wrapper {
           position: relative;
           border-radius: 5px;
           overflow: hidden;
           margin-bottom: 16px; }
-          .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .thum-wrapper .icon-play {
+          .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .thum-wrapper .icon-play {
             position: absolute;
             left: 50%;
             top: 50%;
             -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%);
             z-index: 2; }
-          .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .thum-wrapper .ovelay {
+          .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .thum-wrapper .ovelay {
             top: 0;
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: 1;
             background: rgba(0, 0, 0, 0.2); }
-        .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .thumb {
+        .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .thumb {
           border-radius: 5px;
           overflow: hidden;
           margin-bottom: 17px; }
-        .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .thumb.thumb-video {
+        .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .thumb.thumb-video {
           margin-bottom: 0; }
-        .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .tax-recipe {
+        .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .tax-recipe {
           color: #BABABA;
           font-size: 15px;
           font-style: normal;
@@ -167,14 +179,14 @@
           text-transform: uppercase;
           min-height: 23px;
           margin-bottom: 8px; }
-        .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .title {
+        .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .title {
           color: #444;
           font-size: 30px;
           font-style: normal;
           font-weight: 400;
           line-height: 130%;
           margin-bottom: 17px; }
-        .wrapper-recipes-tax .container-tax .site-posts .item-recipe a .date {
+        .wrapper-recipes-tax .container-tax .list-site-posts .item-recipe a .date {
           color: #BABABA;
           font-size: 15px;
           font-style: normal;

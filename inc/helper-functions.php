@@ -276,4 +276,22 @@ function be_query_ajax_pagination( $post_type = 'post', $posts_per_page = 5, $pa
 
 
 
+function be_add_attribute_slug_callback($count, $term) {
+   
+    $terms = get_term($term);
+    echo '<pre>';
+    print_r($terms);
+    echo '</pre>';
+    // echo '<pre>';
+    // print_r($count);
+    // echo '</pre>';
+    
+}
+
+
+
+
+
+
+
 ?>

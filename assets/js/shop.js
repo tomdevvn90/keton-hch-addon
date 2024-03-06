@@ -9,87 +9,83 @@ jQuery.noConflict();
         $(document.body).on('price_slider_change', function( e, min, max ) {
             if (window.priceFilterRange[0] != min || window.priceFilterRange[1] != max) {
                 $( '.widget.woocommerce.widget_price_filter .button[type="submit"]' ).click();
-
-                let min_max_price = min+'-'+max;
-                if(min_max_price) {
-                    $.ajax({
-                        cache: false,
-                        timeout: 8000,
-                        url: hch_array_ajaxp.admin_ajax,
-                        type: "POST",
-                        data: ({ 
-                            action			:	'SaveDataPopularFilter', 
-                            min_max_price		:	min_max_price,
-                        }),
-                        beforeSend: function() {
-                        },
-                        success: function( data, textStatus, jqXHR ){	
-                        },
-                        error: function( jqXHR, textStatus, errorThrown ){
-                            console.log( 'The following error occured: ' + textStatus, errorThrown );
-                        },
-                        complete: function( jqXHR, textStatus ){
-                        }
-                    });
-                }
+                // let min_max_price = min+'-'+max;
+                // if(min_max_price) {
+                //     $.ajax({
+                //         cache: false,
+                //         timeout: 8000,
+                //         url: hch_array_ajaxp.admin_ajax,
+                //         type: "POST",
+                //         data: ({ 
+                //             action			:	'SaveDataPopularFilter', 
+                //             min_max_price		:	min_max_price,
+                //         }),
+                //         beforeSend: function() {
+                //         },
+                //         success: function( data, textStatus, jqXHR ){	
+                //         },
+                //         error: function( jqXHR, textStatus, errorThrown ){
+                //             console.log( 'The following error occured: ' + textStatus, errorThrown );
+                //         },
+                //         complete: function( jqXHR, textStatus ){
+                //         }
+                //     });
+                // }
             }
         } );
 
         $(document.body).on('change','.price_slider_amount #min_price',function(e){
             $( '.widget.woocommerce.widget_price_filter .button[type="submit"]' ).click();
 
-            let min_max_price = $('.price_slider_amount #min_price').val()+'-'+$('.price_slider_amount #max_price').val();
-            if(min_max_price) {
-                $.ajax({
-                    cache: false,
-                    timeout: 8000,
-                    url: hch_array_ajaxp.admin_ajax,
-                    type: "POST",
-                    data: ({ 
-                        action			:	'SaveDataPopularFilter', 
-                        min_max_price		:	min_max_price,
-                    }),
-                    beforeSend: function() {
-                    },
-                    success: function( data, textStatus, jqXHR ){	
-                    },
-                    error: function( jqXHR, textStatus, errorThrown ){
-                        console.log( 'The following error occured: ' + textStatus, errorThrown );
-                    },
-                    complete: function( jqXHR, textStatus ){
-                    }
-                });
-            }
-
-
-            
+            // let min_max_price = $('.price_slider_amount #min_price').val()+'-'+$('.price_slider_amount #max_price').val();
+            // if(min_max_price) {
+            //     $.ajax({
+            //         cache: false,
+            //         timeout: 8000,
+            //         url: hch_array_ajaxp.admin_ajax,
+            //         type: "POST",
+            //         data: ({ 
+            //             action			:	'SaveDataPopularFilter', 
+            //             min_max_price		:	min_max_price,
+            //         }),
+            //         beforeSend: function() {
+            //         },
+            //         success: function( data, textStatus, jqXHR ){	
+            //         },
+            //         error: function( jqXHR, textStatus, errorThrown ){
+            //             console.log( 'The following error occured: ' + textStatus, errorThrown );
+            //         },
+            //         complete: function( jqXHR, textStatus ){
+            //         }
+            //     });
+            // }
         })
 
         $(document.body).on('change','.price_slider_amount #max_price',function(e){
             $( '.widget.woocommerce.widget_price_filter .button[type="submit"]' ).click();
 
-            let min_max_price = $('.price_slider_amount #min_price').val()+'-'+$('.price_slider_amount #max_price').val();
-            if(min_max_price) {
-                $.ajax({
-                    cache: false,
-                    timeout: 8000,
-                    url: hch_array_ajaxp.admin_ajax,
-                    type: "POST",
-                    data: ({ 
-                        action			:	'SaveDataPopularFilter', 
-                        min_max_price		:	min_max_price,
-                    }),
-                    beforeSend: function() {
-                    },
-                    success: function( data, textStatus, jqXHR ){	
-                    },
-                    error: function( jqXHR, textStatus, errorThrown ){
-                        console.log( 'The following error occured: ' + textStatus, errorThrown );
-                    },
-                    complete: function( jqXHR, textStatus ){
-                    }
-                });
-            }
+            // let min_max_price = $('.price_slider_amount #min_price').val()+'-'+$('.price_slider_amount #max_price').val();
+            // if(min_max_price) {
+            //     $.ajax({
+            //         cache: false,
+            //         timeout: 8000,
+            //         url: hch_array_ajaxp.admin_ajax,
+            //         type: "POST",
+            //         data: ({ 
+            //             action			:	'SaveDataPopularFilter', 
+            //             min_max_price		:	min_max_price,
+            //         }),
+            //         beforeSend: function() {
+            //         },
+            //         success: function( data, textStatus, jqXHR ){	
+            //         },
+            //         error: function( jqXHR, textStatus, errorThrown ){
+            //             console.log( 'The following error occured: ' + textStatus, errorThrown );
+            //         },
+            //         complete: function( jqXHR, textStatus ){
+            //         }
+            //     });
+            // }
         });
     }
 
@@ -230,22 +226,24 @@ jQuery.noConflict();
         $('body').on('click','.woocommerce-widget-layered-nav ul li a',function(e){
             let link = $(this).attr('href');
             $(this).parent().hasClass('chosen');
-
             
+            let param_link_filter = URLToArray(link);
+            var brand_filter_old = link_brand_pre.filter_brands;
+            var brand_fitler_new = param_link_filter.filter_brands;
+            var brand_name = $(this).text();
+            if(brand_filter_old) {
+                var brand_slug = brand_fitler_new.replace(brand_filter_old+',','');
+                link_brand_pre = param_link_filter;
+            }else{
+                link_brand_pre = param_link_filter;
+                var brand_slug = brand_fitler_new;
+            }
 
-            if(!$(this).parent().hasClass('chosen')) {
-                let param_link_filter = URLToArray(link);
-                var brand_filter_old = link_brand_pre.filter_brands;
-                var brand_fitler_new = param_link_filter.filter_brands;
-                if(brand_filter_old) {
-                    var brand_slug = brand_fitler_new.replace(brand_filter_old+',','');
-                    link_brand_pre = param_link_filter;
-                }else{
-                    link_brand_pre = param_link_filter;
-                    var brand_slug = brand_fitler_new;
-                }
-                
-                if(brand_slug) {
+            console.log(link_brand_pre,brand_slug)
+
+            return;
+            if(brand_slug) {
+                if(!$(this).parent().hasClass('chosen')) {
                     $.ajax({
                         cache: false,
                         timeout: 8000,
@@ -254,6 +252,7 @@ jQuery.noConflict();
                         data: ({ 
                             action			:	'SaveDataPopularFilter', 
                             brand_slug		:	brand_slug,
+                            brand_name      :   brand_name
                         }),
                         beforeSend: function() {
                         },
@@ -266,40 +265,9 @@ jQuery.noConflict();
                         }
                     });
                 }
-                
 
             }
-           
-
-            
-
-            // if(!is_checked) {
-            //     if(status_product) {
-            //         $.ajax({
-            //             cache: false,
-            //             timeout: 8000,
-            //             url: hch_array_ajaxp.admin_ajax,
-            //             type: "POST",
-            //             data: ({ 
-            //                 action			:	'SaveDataPopularFilter', 
-            //                 status_product		:	status_product,
-            //             }),
-            //             beforeSend: function() {
-            //             },
-            //             success: function( data, textStatus, jqXHR ){	
-            //             },
-            //             error: function( jqXHR, textStatus, errorThrown ){
-            //                 console.log( 'The following error occured: ' + textStatus, errorThrown );
-            //             },
-            //             complete: function( jqXHR, textStatus ){
-            //             }
-            //         });
-            //     }
-            // }
         })
-
-
-
     }
 
     $(document).ready(function(){
@@ -307,7 +275,7 @@ jQuery.noConflict();
         toggle_filter_sidebar_shop_page();
         render_sidebar_filter_page_shop();
         active_sidebar_filter_page_shop();
-        save_data_filter_popular();
+        // save_data_filter_popular();
 
     });
 

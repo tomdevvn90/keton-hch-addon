@@ -41,7 +41,11 @@ if(!empty(get_queried_object()->name)) {
 			?>
 		</div>
 		<div class="site-posts">
-			<?php if (have_posts()) : while (have_posts()) : the_post(); 
+			<?php if (have_posts()) : 
+				?>
+				<div class="list-site-posts">
+				<?php			
+				while (have_posts()) : the_post(); 
 				$id_post = get_the_ID();
 				$url_thumb = get_the_post_thumbnail_url($id_post,'full');
 				$link = get_permalink($id_post);
@@ -92,8 +96,9 @@ if(!empty(get_queried_object()->name)) {
 				endwhile; 
 				wp_reset_query();
 			?>
+			</div>
 			<?php else : ?>
-				<h2><?php esc_html_e('No Posts Found', 'bacola') ?></h2>
+				<h2 class="text-not-post"><?php esc_html_e('No Posts Found', 'bacola') ?></h2>
 			<?php endif; ?>
 		</div>
 		<div class="pagination-custom">
