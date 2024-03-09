@@ -149,7 +149,7 @@ function paginate_function($item_per_page, $current_page, $total_records, $total
         if($current_page > 1){
             $previous_link = ($previous<=0)? 1 : $previous;
             $pagination .= '<li class="first"><a href="#" data-page="1" title="First">&laquo;</a></li>'; //first link
-            $pagination .= '<li><a href="#" data-page="'.$previous_link.'" title="Previous">&lt;</a></li>'; //previous link
+            $pagination .= '<li><a href="#" data-page="'.$previous_link.'" title="Previous">←</a></li>'; //previous link
             for($i = ($current_page-2); $i < $current_page; $i++){ //Create left-hand side links
                 if($i > 0){
                     $pagination .= '<li><a href="#" data-page="'.$i.'" title="Page'.$i.'">'.$i.'</a></li>';
@@ -173,7 +173,7 @@ function paginate_function($item_per_page, $current_page, $total_records, $total
         }
         if($current_page < $total_pages){
             $next_link = ($i > $total_pages)? $total_pages : $i;
-            $pagination .= '<li><a href="#" data-page="'.$next_link.'" title="Next">&gt;</a></li>'; //next link
+            $pagination .= '<li><a href="#" data-page="'.$next_link.'" title="Next">→</a></li>'; //next link
             $pagination .= '<li class="last"><a href="#" data-page="'.$total_pages.'" title="Last">&raquo;</a></li>'; //last link
         }
 
@@ -273,21 +273,727 @@ function be_query_ajax_pagination( $post_type = 'post', $posts_per_page = 5, $pa
     return $content;
 }
 
-function be_add_attribute_slug_callback($count, $term) {
-   
-    $terms = get_term($term);
-    echo '<pre>';
-    print_r($terms);
-    echo '</pre>';
+function cmp($a, $b) {
+    if ($a == $b) {
+        return 0;
+    }
+    return ($a > $b) ? -1 : 1;
+}
+
+function be_add_attribute_slug_callback( $term_html, $count, $term) {
     // echo '<pre>';
-    // print_r($count);
+    // print_r($term);
     // echo '</pre>';
-    
+    $term_html = '<span class="count" data-taxonomy="'.$term->taxonomy.'" data-filter-attribute="'.$term->slug.'">(' . absint( $count ) . ')</span>';
+    return  $term_html;
 }
 
 
+function get_highest($arr,$slug) {
+    $max = $arr[0]; // set the highest object to the first one in the array
+    foreach($arr as $obj) { // loop through every object in the array
+        $num = $obj[$slug]; // get the number from the current object
+        if($num > $max[$slug]) { // If the number of the current object is greater than the maxs number:
+            $max = $obj; // set the max to the current object
+        }
+    }
+    return $max; // Loop is complete, so we have found our max and can return the max object
+}
+
+function be_query_ajax_product_shop( $post_type = 'post', $posts_per_page = 12, $paged = 1, $categories = '', $range_price = '', $tax = '', $slug_attr = '', $status_product= '', $ingredient=''){
+    
+    if(!empty($categories)) {
+        $args_svl = array(
+            'post_type' => $post_type,
+            'posts_per_page' => $posts_per_page,
+            'paged' => $paged,
+            'post_status' => 'publish',
+            'tax_query' => array(
+                array (
+                    'taxonomy' => 'product_cat',
+                    'field' => 'id',
+                    'terms' => $categories,
+                )
+            ),
+        );
+        
+        $q_svl = new WP_Query( $args_svl );
+        $total_records = $q_svl->found_posts;
+        $total_pages = ceil($total_records/$posts_per_page);
+        if($q_svl->have_posts()) {
+            ob_start();
+            ?>
+                <div class="ajax_pagination wrapper-product-resulter-shop" posts_per_page="<?php echo $posts_per_page?>" post_type ="<?php echo $post_type?>" id_cat = "<?php echo $categories?>">
+                    <div class="list-products products column-4 mobile-column-2">
+                        <?php 
+                            while($q_svl->have_posts()):$q_svl->the_post();
+								wc_get_template_part( 'content', 'product' );
+                            endwhile;
+                        ?>
+                    </div>
+                    <?php echo paginate_function( $posts_per_page, $paged, $total_records, $total_pages);?>
+                    <div class="loading_ajaxp">
+                        <div id="circularG">
+                            <div id="circularG_1" class="circularG"></div>
+                            <div id="circularG_2" class="circularG"></div>
+                            <div id="circularG_3" class="circularG"></div>
+                            <div id="circularG_4" class="circularG"></div>
+                            <div id="circularG_5" class="circularG"></div>
+                            <div id="circularG_6" class="circularG"></div>
+                            <div id="circularG_7" class="circularG"></div>
+                            <div id="circularG_8" class="circularG"></div>
+                        </div>
+                    </div>
+    
+                </div>
+            <?php
+            $content = ob_get_clean();
+        }
+        wp_reset_query();
+        return $content;
+    }
+
+    if(!empty($ingredient)) {
+        $args_svl = array(
+            'post_type' => $post_type,
+            'posts_per_page' => $posts_per_page,
+            'paged' => $paged,
+            'post_status' => 'publish',
+            'tax_query' => array(
+                array (
+                    'taxonomy' => 'product-ingredient',
+                    'field' => 'id',
+                    'terms' => $ingredient,
+                )
+            ),
+        );
+        
+        $q_svl = new WP_Query( $args_svl );
+        $total_records = $q_svl->found_posts;
+        $total_pages = ceil($total_records/$posts_per_page);
+        if($q_svl->have_posts()) {
+            ob_start();
+            ?>
+                <div class="ajax_pagination wrapper-product-resulter-shop" posts_per_page="<?php echo $posts_per_page?>" post_type ="<?php echo $post_type?>" id_cat = "<?php echo $categories?>" id_ingre = "<?php echo $ingredient?>">
+                    <div class="list-products products column-4 mobile-column-2">
+                        <?php 
+                            while($q_svl->have_posts()):$q_svl->the_post();
+								wc_get_template_part( 'content', 'product' );
+                            endwhile;
+                        ?>
+                    </div>
+                    <?php echo paginate_function( $posts_per_page, $paged, $total_records, $total_pages);?>
+                    <div class="loading_ajaxp">
+                        <div id="circularG">
+                            <div id="circularG_1" class="circularG"></div>
+                            <div id="circularG_2" class="circularG"></div>
+                            <div id="circularG_3" class="circularG"></div>
+                            <div id="circularG_4" class="circularG"></div>
+                            <div id="circularG_5" class="circularG"></div>
+                            <div id="circularG_6" class="circularG"></div>
+                            <div id="circularG_7" class="circularG"></div>
+                            <div id="circularG_8" class="circularG"></div>
+                        </div>
+                    </div>
+    
+                </div>
+            <?php
+            $content = ob_get_clean();
+        }
+        wp_reset_query();
+        return $content;
+    }
+
+    if(!empty($range_price)) {
+        $price = explode('-',$range_price);
+        $args_svl = array(
+            'post_type' => $post_type,
+            'posts_per_page' => $posts_per_page,
+            'paged' => $paged,
+            'post_status' => 'publish',
+            'meta_query' => array(
+                array(
+                    'key' => '_price',
+                    'value' => $price,
+                    'compare' => 'BETWEEN',
+                    'type' => 'NUMERIC'
+                    ),
+                ),
+        );
+        
+        $q_svl = new WP_Query( $args_svl );
+        $total_records = $q_svl->found_posts;
+        $total_pages = ceil($total_records/$posts_per_page);
+        if($q_svl->have_posts()) {
+            ob_start();
+            ?>
+                <div class="ajax_pagination wrapper-product-resulter-shop" posts_per_page="<?php echo $posts_per_page?>" post_type ="<?php echo $post_type?>" id_cat = "<?php echo $categories?>" price_range = "<?php echo $range_price?>">
+                    <div class="list-products products column-4 mobile-column-2">
+                        <?php 
+                            while($q_svl->have_posts()):$q_svl->the_post();
+								wc_get_template_part( 'content', 'product' );
+                            endwhile;
+                        ?>
+                    </div>
+                    <?php echo paginate_function( $posts_per_page, $paged, $total_records, $total_pages);?>
+                    <div class="loading_ajaxp">
+                        <div id="circularG">
+                            <div id="circularG_1" class="circularG"></div>
+                            <div id="circularG_2" class="circularG"></div>
+                            <div id="circularG_3" class="circularG"></div>
+                            <div id="circularG_4" class="circularG"></div>
+                            <div id="circularG_5" class="circularG"></div>
+                            <div id="circularG_6" class="circularG"></div>
+                            <div id="circularG_7" class="circularG"></div>
+                            <div id="circularG_8" class="circularG"></div>
+                        </div>
+                    </div>
+    
+                </div>
+            <?php
+            $content = ob_get_clean();
+        }
+        wp_reset_query();
+        return $content;
+    }
+    if(!empty($tax) && !empty($slug_attr)) {
+        $args_svl = array(
+            'post_type' => $post_type,
+            'posts_per_page' => $posts_per_page,
+            'paged' => $paged,
+            'post_status' => 'publish',
+            'tax_query' => array(
+                array (
+                    'taxonomy' => $tax,
+                    'field' => 'slug',
+                    'terms' => $slug_attr,
+                )
+            ),
+        );
+        $q_svl = new WP_Query( $args_svl );
+        $total_records = $q_svl->found_posts;
+        $total_pages = ceil($total_records/$posts_per_page);
+        if($q_svl->have_posts()) {
+            ob_start();
+            ?>
+                <div class="ajax_pagination wrapper-product-resulter-shop" posts_per_page="<?php echo $posts_per_page?>" post_type ="<?php echo $post_type?>" id_cat = "<?php echo $categories?>" tax ="<?php echo $tax?>" slug_attr = "<?php echo $slug_attr?>">
+                    <div class="list-products products column-4 mobile-column-2">
+                        <?php 
+                            while($q_svl->have_posts()):$q_svl->the_post();
+								wc_get_template_part( 'content', 'product' );
+                            endwhile;
+                        ?>
+                    </div>
+                    <?php echo paginate_function( $posts_per_page, $paged, $total_records, $total_pages);?>
+                    <div class="loading_ajaxp">
+                        <div id="circularG">
+                            <div id="circularG_1" class="circularG"></div>
+                            <div id="circularG_2" class="circularG"></div>
+                            <div id="circularG_3" class="circularG"></div>
+                            <div id="circularG_4" class="circularG"></div>
+                            <div id="circularG_5" class="circularG"></div>
+                            <div id="circularG_6" class="circularG"></div>
+                            <div id="circularG_7" class="circularG"></div>
+                            <div id="circularG_8" class="circularG"></div>
+                        </div>
+                    </div>
+    
+                </div>
+            <?php
+            $content = ob_get_clean();
+        }
+        wp_reset_query();
+        return $content;
+    }
+    if(!empty($status_product)) {
+        if($status_product=='instock') {
+            $args_svl = array(
+                'post_type' => $post_type,
+                'posts_per_page' => $posts_per_page,
+                'paged' => $paged,
+                'post_status' => 'publish',
+                'meta_query' => array(
+                    array(
+                        'key' => '_stock_status',
+                        'value' => 'instock'
+                    ),
+                    array(
+                        'key' => '_backorders',
+                        'value' => 'no'
+                    ),
+                ),
+            );
+            $q_svl = new WP_Query( $args_svl );
+            $total_records = $q_svl->found_posts;
+            $total_pages = ceil($total_records/$posts_per_page);
+            if($q_svl->have_posts()) {
+                ob_start();
+                ?>
+                    <div class="ajax_pagination wrapper-product-resulter-shop" posts_per_page="<?php echo $posts_per_page?>" post_type ="<?php echo $post_type?>" id_cat = "<?php echo $categories?>" price_range = "<?php echo $range_price?>" status_product="<?php echo $status_product?>">
+                        <div class="list-products products column-4 mobile-column-2">
+                            <?php 
+                                while($q_svl->have_posts()):$q_svl->the_post();
+                                    wc_get_template_part( 'content', 'product' );
+                                endwhile;
+                            ?>
+                        </div>
+                        <?php echo paginate_function( $posts_per_page, $paged, $total_records, $total_pages);?>
+                        <div class="loading_ajaxp">
+                            <div id="circularG">
+                                <div id="circularG_1" class="circularG"></div>
+                                <div id="circularG_2" class="circularG"></div>
+                                <div id="circularG_3" class="circularG"></div>
+                                <div id="circularG_4" class="circularG"></div>
+                                <div id="circularG_5" class="circularG"></div>
+                                <div id="circularG_6" class="circularG"></div>
+                                <div id="circularG_7" class="circularG"></div>
+                                <div id="circularG_8" class="circularG"></div>
+                            </div>
+                        </div>
+        
+                    </div>
+                <?php
+                $content = ob_get_clean();
+            }
+            wp_reset_query();
+            return $content;
+        }
+        if($status_product=='onsale') {
+            $args_svl = array(
+                'post_type' => $post_type,
+                'posts_per_page' => $posts_per_page,
+                'paged' => $paged,
+                'post_status' => 'publish',
+                'meta_query'     => array(
+                    'relation' => 'OR',
+                    array( // Simple products type
+                        'key'           => '_sale_price',
+                        'value'         => 0,
+                        'compare'       => '>',
+                        'type'          => 'numeric'
+                    ),
+                    array( // Variable products type
+                        'key'           => '_min_variation_sale_price',
+                        'value'         => 0,
+                        'compare'       => '>',
+                        'type'          => 'numeric'
+                    )
+                )
+            );
+            $q_svl = new WP_Query( $args_svl );
+            $total_records = $q_svl->found_posts;
+            $total_pages = ceil($total_records/$posts_per_page);
+            if($q_svl->have_posts()) {
+                ob_start();
+                ?>
+                    <div class="ajax_pagination wrapper-product-resulter-shop" posts_per_page="<?php echo $posts_per_page?>" post_type ="<?php echo $post_type?>" id_cat = "<?php echo $categories?>" price_range = "<?php echo $range_price?>" status_product="<?php echo $status_product?>">
+                        <div class="list-products products column-4 mobile-column-2">
+                            <?php 
+                                while($q_svl->have_posts()):$q_svl->the_post();
+                                    wc_get_template_part( 'content', 'product' );
+                                endwhile;
+                            ?>
+                        </div>
+                        <?php echo paginate_function( $posts_per_page, $paged, $total_records, $total_pages);?>
+                        <div class="loading_ajaxp">
+                            <div id="circularG">
+                                <div id="circularG_1" class="circularG"></div>
+                                <div id="circularG_2" class="circularG"></div>
+                                <div id="circularG_3" class="circularG"></div>
+                                <div id="circularG_4" class="circularG"></div>
+                                <div id="circularG_5" class="circularG"></div>
+                                <div id="circularG_6" class="circularG"></div>
+                                <div id="circularG_7" class="circularG"></div>
+                                <div id="circularG_8" class="circularG"></div>
+                            </div>
+                        </div>
+        
+                    </div>
+                <?php
+                $content = ob_get_clean();
+            }
+            wp_reset_query();
+            return $content;
+        }
+    }
+}
+
+//Show ingredient product
+function ingredient_single_product_callback($description) {
+    global $product;
+    if(!empty($product)){    
+        $id = $product->get_id();
+        $term_list = get_the_terms($id, 'product-ingredient');
+        if(!empty($term_list)) {
+            ?>
+            <div class="wrapper-ingredient">
+                <h4 class="title">
+                    <?php__('Kategorija:','hch-addons') ?>
+                </h4>
+                <div class="list-ingredient">
+                    <?php 
+                        foreach ($term_list as $key => $value) {
+                            $url_image = get_field('image_ingre_tax', 'product-ingredient_'.$value->term_id);
+                            ?>
+                                <a class="item-ingredient" href="<?php echo get_term_link($value->term_id)?>">
+                                    <img src="<?php echo $url_image?>" />
+                                    <label><?php echo $value->name ?></label>
+                                </a>
+                            <?
+                        }
+                    ?>
+                </div>
+            </div>
+            <?php
+        }
+    }
 
 
+
+    if(!empty($description)) {
+        ?>
+        <div class="woocommerce-product-details__short-description">
+            <p><?php echo $description; // WPCS: XSS ok. ?></p>
+        </div>
+        <?php
+    }
+}
+
+// Show product filter popular
+function be_show_result_filter_popular() {
+    echo do_shortcode('[be_product_result_shop]');
+}
+
+function bacola_get_ingredient_url($termid){
+	global $wp;
+	if ( '' === get_option( 'permalink_structure' ) ) {
+		$link = remove_query_arg( array( 'page', 'paged' ), add_query_arg( $wp->query_string, '', home_url( $wp->request ) ) );
+	} else {
+		$link = preg_replace( '%\/page/[0-9]+%', '', add_query_arg( null, null ) );
+	}
+
+	if(isset($_GET['filter_ingredient'])){
+		$explode_old = explode(',',$_GET['filter_ingredient']);
+		$explode_termid = explode(',',$termid);
+		
+		if(in_array($termid, $explode_old)){
+			$data = array_diff( $explode_old, $explode_termid);
+			$checkbox = 'checked';
+		} else {
+			$data = array_merge($explode_termid , $explode_old);
+		}
+	} else {
+		$data = array($termid);
+	}
+	
+	$dataimplode = implode(',',$data);
+	
+	if(empty($dataimplode)){
+		$link = remove_query_arg('filter_ingredient',$link);
+	} else {
+		$link = add_query_arg('filter_ingredient',implode(',',$data),$link);
+	}
+	
+	return $link;
+}
+
+function hch_woocommerce_product_query_tax_query( $tax_query, $instance ) {
+	if(isset($_GET['filter_ingredient'])){
+		if(!empty($_GET['filter_ingredient'])){
+			$tax_query[] = array(
+				'taxonomy' => 'product-ingredient',
+				'field' 	=> 'id',
+				'terms' 	=> explode(',',$_GET['filter_ingredient']),
+			);
+		}
+	}
+    return $tax_query; 
+}; 
+
+
+function hch_remove_klb_filter(){
+	
+	$output = '';
+
+	$_chosen_attributes = WC_Query::get_layered_nav_chosen_attributes();
+    $min_price = isset( $_GET['min_price'] ) ? wc_clean( $_GET['min_price'] ) : 0; 
+    $max_price = isset( $_GET['max_price'] ) ? wc_clean( $_GET['max_price'] ) : 0; 
+
+	if(! empty( $_chosen_attributes ) || isset($_GET['filter_cat']) || isset($_GET['filter_ingredient']) || 0 < $min_price || 0 < $max_price || bacola_stock_status() == 'instock' || bacola_on_sale() == 'onsale'){
+
+		global $wp;
+	
+		if ( '' === get_option( 'permalink_structure' ) ) {
+			$baselink = remove_query_arg( array( 'page', 'paged' ), add_query_arg( $wp->query_string, '', home_url( $wp->request ) ) );
+		} else {
+			$baselink = preg_replace( '%\/page/[0-9]+%', '',  add_query_arg( null, null )  );
+		}
+
+		$output .= '<ul class="remove-filter">';
+		
+		$output .= '<li><a href="'.esc_url(remove_query_arg(array_keys($_GET))).'" class="remove-filter-element clear-all">'.esc_html__( 'Clear filters', 'bacola-core' ).'</a></li>';
+
+		if ( ! empty( $_chosen_attributes ) ) {
+			foreach ( $_chosen_attributes as $taxonomy => $data ) {
+				foreach ( $data['terms'] as $term_slug ) {
+					$term = get_term_by( 'slug', $term_slug, $taxonomy );
+					
+					$filter_name    = 'filter_' . wc_attribute_taxonomy_slug( $taxonomy );
+					$explode_old = explode(',',$_GET[$filter_name]);
+					$explode_termid = explode(',',$term->slug);
+					$klbdata = array_diff( $explode_old, $explode_termid);
+					$klbdataimplode = implode(',',$klbdata);
+					
+					if(empty($klbdataimplode)){
+						$link = remove_query_arg($filter_name);
+					} else {
+						$link = add_query_arg($filter_name,implode(',',$klbdata),$baselink );
+					}
+
+					$output .= '<li><a href="'.esc_url($link).'" class="remove-filter-element attributes">'.esc_html($term->name).'</a></li>';
+
+				}
+			}
+		}
+
+		if(bacola_stock_status() == 'instock'){
+		$output .= '<li><a href="'.esc_url(remove_query_arg('stock_status')).'" class="remove-filter-element stock_status">'.esc_html__('In Stock','bacola-core').'</a></li>';
+		}
+		
+		if(bacola_on_sale() == 'onsale'){
+		$output .= '<li><a href="'.esc_url(remove_query_arg('on_sale')).'" class="remove-filter-element on_sale">'.esc_html__('On Sale','bacola-core').'</a></li>';
+		}
+
+		if($min_price){
+		$output .= '<li><a href="'.esc_url(remove_query_arg('min_price')).'" class="remove-filter-element min_price">' . sprintf( __( 'Min %s', 'woocommerce' ), wc_price( $min_price ) ) . '</a></li>';
+		}
+		
+		if($max_price){
+		$output .= '<li><a href="'.esc_url(remove_query_arg('max_price')).'" class="remove-filter-element max_price">' . sprintf( __( 'Max %s', 'woocommerce' ), wc_price( $max_price ) ) . '</a></li>';
+		}
+		
+		if(isset($_GET['filter_cat'])){
+			$terms = get_terms( array(
+				'taxonomy' => 'product_cat',
+				'hide_empty' => false,
+				'parent'    => 0,
+				'include' 	=> explode(',',$_GET['filter_cat']),
+			) );
+			
+			foreach ( $terms as $term ) {
+				$term_children = get_term_children( $term->term_id, 'product_cat' );
+				$output .= '<li><a href="'.esc_url( bacola_get_cat_url($term->term_id) ).'" class="remove-filter-element product_cat" id="'.esc_attr($term->term_id).'">'.esc_html($term->name).'</a></li>';
+				if($term_children){
+					foreach($term_children as $child){
+						$childterm = get_term_by( 'id', $child, 'product_cat' );
+						if(in_array($childterm->term_id, explode(',',$_GET['filter_cat']))){ 
+							$output .= '<li><a href="'.esc_url( bacola_get_cat_url($childterm->term_id) ).'" class="remove-filter-element product_cat" id="'.esc_attr($childterm->term_id).'">'.esc_html($childterm->name).'</a></li>';
+						}
+					}
+				}
+			}
+		
+		}
+
+        if(isset($_GET['filter_ingredient'])){
+			$terms = get_terms( array(
+				'taxonomy' => 'product-ingredient',
+				'hide_empty' => false,
+				'parent'    => 0,
+				'include' 	=> explode(',',$_GET['filter_ingredient']),
+			) );
+			
+			foreach ( $terms as $term ) {
+				$term_children = get_term_children( $term->term_id, 'product_cat' );
+				$output .= '<li><a href="'.esc_url( bacola_get_cat_url($term->term_id) ).'" class="remove-filter-element product_cat" id="'.esc_attr($term->term_id).'">'.esc_html($term->name).'</a></li>';
+				if($term_children){
+					foreach($term_children as $child){
+						$childterm = get_term_by( 'id', $child, 'product-ingredient' );
+						if(in_array($childterm->term_id, explode(',',$_GET['filter_ingredient']))){ 
+							$output .= '<li><a href="'.esc_url( bacola_get_cat_url($childterm->term_id) ).'" class="remove-filter-element product_cat" id="'.esc_attr($childterm->term_id).'">'.esc_html($childterm->name).'</a></li>';
+						}
+					}
+				}
+			}
+		
+		}
+		
+		$output .= '</ul>';
+	}
+	
+	return $output;
+}
+
+function hch_catalog_ordering_start(){
+    ?>
+    <div class="before-shop-loop">
+        <div class="shop-view-selector">
+        <?php if(get_theme_mod('bacola_grid_list_view','0') == '1'){ ?>
+        
+            <?php if(bacola_shop_view() == 'list_view') { ?>
+                <a href="<?php echo esc_url(add_query_arg('shop_view','list_view')); ?>" class="shop-view active">
+                    <i class="klbth-icon-list-grid"></i>
+                </a>
+                <a href="<?php echo esc_url(add_query_arg(array('column' => '2', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                    <i class="klbth-icon-2-grid"></i>
+                </a>
+                <a href="<?php echo esc_url(add_query_arg(array('column' => '3', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                    <i class="klbth-icon-3-grid"></i>
+                </a>
+                <a href="<?php echo esc_url(add_query_arg(array('column' => '4', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                    <i class="klbth-icon-4-grid"></i>
+                </a>
+            <?php } else { ?>
+                <a href="<?php echo esc_url(add_query_arg('shop_view','list_view')); ?>" class="shop-view">
+                    <i class="klbth-icon-list-grid"></i>
+                </a>
+                <?php if(bacola_get_column_option() == 2){ ?>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '2', 'shop_view' => 'grid_view'))); ?>" class="shop-view active">
+                        <i class="klbth-icon-2-grid"></i>
+                    </a>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '3', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                        <i class="klbth-icon-3-grid"></i>
+                    </a>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '4', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                        <i class="klbth-icon-4-grid"></i>
+                    </a>
+                <?php } elseif(bacola_get_column_option() == 3){ ?>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '2', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                        <i class="klbth-icon-2-grid"></i>
+                    </a>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '3', 'shop_view' => 'grid_view'))); ?>" class="shop-view active">
+                        <i class="klbth-icon-3-grid"></i>
+                    </a>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '4', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                        <i class="klbth-icon-4-grid"></i>
+                    </a>
+                <?php } else { ?>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '2', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                        <i class="klbth-icon-2-grid"></i>
+                    </a>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '3', 'shop_view' => 'grid_view'))); ?>" class="shop-view">
+                        <i class="klbth-icon-3-grid"></i>
+                    </a>
+                    <a href="<?php echo esc_url(add_query_arg(array('column' => '4', 'shop_view' => 'grid_view'))); ?>" class="shop-view active">
+                        <i class="klbth-icon-4-grid"></i>
+                    </a>
+                <?php } ?>
+
+            <?php } ?>
+        <?php } ?>
+        </div>
+        
+        <div class="mobile-filter">
+            <a href="#" class="filter-toggle">
+                <i class="klbth-icon-filter"></i>
+                <span><?php esc_html_e('Filter Products','bacola-core'); ?></span>
+            </a>
+        </div>
+        
+        <!-- For get orderby from loop -->
+        <?php do_action('klb_catalog_ordering'); ?>
+        
+        
+        <!-- For perpage option-->
+        <?php if(get_theme_mod('bacola_perpage_view','0') == '1'){ ?>
+            <?php $perpage = isset($_GET['perpage']) ? $_GET['perpage'] : ''; ?>
+            <?php $defaultperpage = wc_get_default_products_per_row() * wc_get_default_product_rows_per_page(); ?>
+            <?php $options = array($defaultperpage,$defaultperpage*2,$defaultperpage*3,$defaultperpage*4); ?>
+            <form class="products-per-page product-filter" method="get">
+                <span class="perpage-label"><?php esc_html_e('Show','bacola-core'); ?></span>
+                <?php if (bacola_get_body_class('bacola-ajax-shop-on')) { ?>
+                    <select name="perpage" class="perpage filterSelect" data-class="select-filter-perpage">
+                <?php } else { ?>
+                    <select name="perpage" class="perpage filterSelect" data-class="select-filter-perpage" onchange="this.form.submit()">
+                <?php } ?>
+                    <?php for( $i=0; $i<count($options); $i++ ) { ?>
+                    <option value="<?php echo esc_attr($options[$i]); ?>" <?php echo esc_attr($perpage == $options[$i] ? 'selected="selected"' : ''); ?>><?php echo esc_html($options[$i]); ?></option>
+                    <?php } ?>
+
+                </select>
+                <?php wc_query_string_form_fields( null, array( 'perpage', 'submit', 'paged', 'product-page' ) ); ?>
+            </form>
+        <?php } ?>
+    </div>
+    <?php echo hch_remove_klb_filter(); ?>
+    <?php wp_enqueue_style( 'klb-remove-filter'); ?>
+<?php
+}
+
+function add_element_scroll_jax_filter() {
+    ?>
+    <div class="product-custom-reponsive-ajax">
+	</div>	
+    <?php
+}
+
+function be_woocommerce_catalog_orderby_callback() {
+    // $order = [
+    //     'menu_order' => __( 'Default sorting', 'woocommerce' ),
+    //     'popularity' => __( 'Najprej najpriljubljeni ', 'woocommerce' ),
+    //     'date'       => __( 'Najprej najnovejši ', 'woocommerce' ),
+    //     'price'      => __( 'Najprej najcenejši ', 'woocommerce' ),
+    //     'price-desc' => __( 'Sort by price: high to low', 'woocommerce' ),
+    //     'rating'     => __( 'Sort by average rating', 'woocommerce' ),
+    //     'most_rating' => __( 'Najprej z največ ocenami ', 'woocommerce' ),
+    // ];
+    $order = [
+        'menu_order' => __( 'Default sorting', 'woocommerce' ),
+        'popularity' => __( 'Najprej najpriljubljeni ', 'woocommerce' ),
+        'date'       => __( 'Najprej najnovejši ', 'woocommerce' ),
+        'price'      => __( 'Najprej najcenejši ', 'woocommerce' ),
+        'rating'     => __( 'Najprej najbolje ocenjeni ', 'woocommerce' ),
+        'most_rating' => __( 'Najprej z največ ocenami ', 'woocommerce' ),
+    ];
+    return $order;
+
+}
+
+function be_custom_query_orderby_callback($args, $orderby, $order) {
+    if($orderby=='most_rating') {
+        $args['orderby'] = 'meta_value_num';
+        $args['order'] = 'DESC';
+        $args['meta_key'] = '_wc_review_count';
+    }
+    return $args;
+
+}
+
+function update_rating_most_product () {
+    $args = array(
+        'post_type'      => 'product',
+        'posts_per_page' => -1,
+        'post_status'=>'publish'
+    );
+
+    $loop = new WP_Query( $args );
+    while ( $loop->have_posts() ) : $loop->the_post();
+        $id_product = get_the_ID();
+        $rating_most = get_field('rating_most_product',$id_product);
+        if(empty($rating_most)) {
+            update_field('rating_most_product',0,$id_product);
+        }
+    endwhile;
+
+    wp_reset_query();
+}
+
+// function update_rating_most_single_product( $comment_ID, $comment_approved, $commentdata ) {
+//     $id_product = $commentdata['comment_post_ID'];
+//     $product = wc_get_product($id_product);
+//     if(!empty($product)) {
+//         $rating_most = get_field('rating_most_product',$id_product);
+//         $rating_most = $rating_most + 1;
+//         update_field('rating_most_product',$rating_most,$id_product);
+//     }
+// }
+
+// add_action('wp_head',function(){
+//     echo '<pre>';
+//     print_r(get_post_meta(285));
+//     echo '</pre>';
+
+// })
 
 
 

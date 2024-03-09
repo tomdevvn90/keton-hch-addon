@@ -1,0 +1,38 @@
+.wrapper-ingredient {
+    padding: 20px 0;
+    .title {
+        color: #BAC0C4;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 135%;
+        letter-spacing: 0.28px;
+        text-transform: uppercase;
+    }
+    .list-ingredient {
+        display: flex;
+        column-gap: 42px;
+        flex-wrap: wrap;
+        @media(max-width:600px) {
+            column-gap: 30px;
+        }
+        .item-ingredient {
+            text-decoration: none;
+            width: 50px;
+            img {
+                margin-bottom: 5px;
+            }
+            label {
+                display: block;
+                color: #252525;
+                text-align: center;
+                font-size: 12px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 120%;
+                letter-spacing: 0.24px;
+                text-transform: uppercase;
+            }
+        }
+    }
+}

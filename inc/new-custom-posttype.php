@@ -169,27 +169,78 @@ if ( ! function_exists( 'hch_custom_taxonomy_recipes' ) ) {
 	add_action( 'init', 'hch_custom_taxonomy_recipes', 0 );
 }
 
+if ( ! function_exists( 'hch_custom_taxonomy_product' ) ) {
+
+	// Register Product Ingredient
+	function hch_custom_taxonomy_product() {
+		$labels  = array(
+			'name'                       => _x( 'Ingredient', 'Taxonomy General Name', 'hch-addons' ),
+			'singular_name'              => _x( 'Ingredient', 'Taxonomy Singular Name', 'hch-addons' ),
+			'menu_name'                  => __( 'Ingredient', 'hch-addons' ),
+			'all_items'                  => __( 'All Items', 'hch-addons' ),
+			'parent_item'                => __( 'Parent Item', 'hch-addons' ),
+			'parent_item_colon'          => __( 'Parent Item:', 'hch-addons' ),
+			'new_item_name'              => __( 'New Item Name', 'hch-addons' ),
+			'add_new_item'               => __( 'Add New Item', 'hch-addons' ),
+			'edit_item'                  => __( 'Edit Item', 'hch-addons' ),
+			'update_item'                => __( 'Update Item', 'hch-addons' ),
+			'view_item'                  => __( 'View Item', 'hch-addons' ),
+			'separate_items_with_commas' => __( 'Separate items with commas', 'hch-addons' ),
+			'add_or_remove_items'        => __( 'Add or remove items', 'hch-addons' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'hch-addons' ),
+			'popular_items'              => __( 'Popular Items', 'hch-addons' ),
+			'search_items'               => __( 'Search Items', 'hch-addons' ),
+			'not_found'                  => __( 'Not Found', 'hch-addons' ),
+			'no_terms'                   => __( 'No items', 'hch-addons' ),
+			'items_list'                 => __( 'Items list', 'hch-addons' ),
+			'items_list_navigation'      => __( 'Items list navigation', 'hch-addons' ),
+		);
+		$rewrite = array(
+			'slug'         => 'product-ingredient',
+			'hierarchical' => true,
+		);
+		$args    = array(
+			'labels'            => $labels,
+			'hierarchical'      => true,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_nav_menus' => true,
+			'show_tagcloud'     => true,
+			'rewrite'           => $rewrite,
+			'show_in_rest'      => true,
+		);
+		register_taxonomy( 'product-ingredient', array( 'product' ), $args );
+
+	}
+	add_action( 'init', 'hch_custom_taxonomy_product', 0 );
+}
+
+
+
+
+
 // Add the custom columns to the book post type:
 // add_filter( 'manage_recipe_posts_columns', 'hch_set_custom_edit_recipe_columns' );
-function hch_set_custom_edit_recipe_columns($columns) {
-    // Remove Date and Template
-    unset($columns['date']);
-		$columns['image'] = __( 'Image', 'cosmos' );
-    $columns['location'] = __( 'Location', 'cosmos' );
-    $columns['date'] = 'Date';
-    return $columns;
-}
-// Add the data to the custom columns for the book post type:
-// add_action( 'manage_recipe_posts_custom_column' , 'hch_custom_recipe_column', 10, 2 );
-function hch_custom_recipe_column( $column, $post_id ) {
-    switch ( $column ) {
-        case 'location' :
-          $location = get_field('location',$post_id);
-          echo $location;
-          break;
-        case 'image' :
-					$image = get_field('result_picture',$post_id);
-          echo '<img style="max-width: 100px;height: auto;" src="'.$image.'" />';
-					break;
-    }
-}
+// function hch_set_custom_edit_recipe_columns($columns) {
+//     // Remove Date and Template
+//     unset($columns['date']);
+// 		$columns['image'] = __( 'Image', 'cosmos' );
+//     $columns['location'] = __( 'Location', 'cosmos' );
+//     $columns['date'] = 'Date';
+//     return $columns;
+// }
+// // Add the data to the custom columns for the book post type:
+// // add_action( 'manage_recipe_posts_custom_column' , 'hch_custom_recipe_column', 10, 2 );
+// function hch_custom_recipe_column( $column, $post_id ) {
+//     switch ( $column ) {
+//         case 'location' :
+//           $location = get_field('location',$post_id);
+//           echo $location;
+//           break;
+//         case 'image' :
+// 					$image = get_field('result_picture',$post_id);
+//           echo '<img style="max-width: 100px;height: auto;" src="'.$image.'" />';
+// 					break;
+//     }
+// }

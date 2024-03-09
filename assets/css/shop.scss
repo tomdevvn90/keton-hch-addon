@@ -103,3 +103,31 @@
         }
     }
 }
+
+.wrapper-product-resulter-shop {
+    .list-products {
+        .product {
+            .product-content-fade.border-info {
+                margin-bottom: -49px;
+            }
+        }
+    }
+    .pagination {
+        justify-content: center;
+        margin-top: 80px;
+        @media(max-width:600px) {
+            margin-top: 50px;
+        }
+        li {
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+.products.product-custom-reponsive-ajax {
+    display: none !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
