@@ -36,3 +36,94 @@
         }
     }
 }
+
+.recently-viewed.wrapper-related-product {
+    .related-item {
+        text-decoration: none;
+    }
+    .content-related-product {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        row-gap: 140px;
+        column-gap: 38px;
+        @media(max-width:1199px) {
+            grid-template-columns: 1fr;  
+            grid-gap:38px;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 34px;
+            svg {
+                margin-right: 24px;
+            }
+            h4 {
+                color: #252525;
+                font-family: "Barlow Condensed";
+                font-size: 48px;
+                font-style: normal;
+                font-weight: 500;
+                margin-bottom: 0;
+                line-height: 1;
+            }
+        }
+        .list-related {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 38px;
+            @media(max-width:768px) {
+                grid-template-columns: 1fr;  
+            }
+            .item-recipe-video {
+                .box-feature {
+                    .title {
+                        color: #252525;
+                        font-size: 30px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 1.2;
+                        margin-bottom: 16px;
+                    }
+                }
+            }
+        }
+        .related-item {
+            .thumb {
+                img {
+                    width: 100%;
+                    object-fit: cover;
+                    border-radius: 5px;
+                    overflow: hidden;
+                }
+            }
+            .cats {
+                color: #BABABA;
+                font-size: 15px;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 153%;
+                text-transform: uppercase;
+                margin-top: 16px;
+            }
+            h3 {
+                color: #252525;
+                font-size: 30px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.2;
+                margin-top: 16px;
+                margin-bottom: 16px;
+            }
+            .crt-date-comment {
+                span {
+                    color: #BABABA;
+                    font-size: 15px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 153%;
+                    text-transform: uppercase;
+                }
+            }
+        }
+    }
+}

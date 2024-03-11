@@ -51,7 +51,9 @@ add_action( 'woocommerce_before_main_content','add_element_scroll_jax_filter');
 // Update count rating singple product
 //add_action( 'comment_post', 'update_rating_most_single_product', 10, 3 );
 
-
+// Hook for After Main Content of Product
+// add_action( 'woocommerce_after_main_content', 'be_add_related_recipes_blog_video', 99);
+add_action('get_footer','be_add_related_recipes_blog_video');
 
 
 

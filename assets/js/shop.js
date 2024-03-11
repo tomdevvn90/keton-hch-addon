@@ -2,6 +2,19 @@ jQuery.noConflict();
 ;(function(w, $) {
     'use strict';
 
+    var html_init_widget_shop = function () {
+        if(window.location.href=='http://keton.local/shop/') {
+            var html_sider = $('.post-type-archive-product .sidebar-inner').html();
+            localStorage.setItem('widget_sidebar_shop', html_sider);
+        }
+    }
+
+    var side_bar_mobile_hide = function () { 
+        if ($(window).width() < 1023) {
+            $('.mobile-filter .filter-toggle').trigger('click');
+        }
+    }
+
     var URLToArray = function(url) {
         var request = {};
         var pairs = url.substring(url.indexOf('?') + 1).split('&');
@@ -329,11 +342,25 @@ jQuery.noConflict();
 
 
     var trigger_fillter_popular = function () {
+        $('body').on('change','.widget-body-popular-filter input',function(){
+            var html_sidebar_shop  = localStorage.getItem('widget_sidebar_shop');
+            var id_html = $(this).attr('id');
+
+            if(html_sidebar_shop) {
+                $('.post-type-archive-product .sidebar-inner').html(html_sidebar_shop);
+                $('#'+id_html).attr('checked',true); 
+                side_bar_mobile_hide(); 
+            }
+        });
+
+
+
         $('body').on('change','.widget-body-popular-filter .categories input',function(){
             let id_cat = $(this).val(); 
             $('.remove-filter').remove();
             $('.wrapper-theme-product .products.column-4').remove();
             $('.wrapper-theme-product .woocommerce-pagination').remove();
+            $('.widget_klb_product_categories').removeClass('active-dropdown-filter');
             var posts_per_page = $('.ajax_pagination').attr( 'posts_per_page' );
             var post_type = $('.ajax_pagination').attr( 'post_type' );
             $.ajax({
@@ -496,6 +523,8 @@ jQuery.noConflict();
             });
         })
 
+
+
     }
 
     var pagination_page_shop = function () {
@@ -544,8 +573,13 @@ jQuery.noConflict();
     }
 
     $(document).ready(function(){
-        bacolaThemeModule.ajaxLinks = bacolaThemeModule.ajaxLinks + ', .widget_klb_product_ingredient a';
-        bacola_settings.ajax_scroll_class = '.site-content .product-custom-reponsive-ajax';
+        if(bacolaThemeModule) {
+            bacolaThemeModule.ajaxLinks = bacolaThemeModule.ajaxLinks + ', .widget_klb_product_ingredient a';
+        }
+        if (typeof bacola_settings !== 'undefined') {
+            bacola_settings.ajax_scroll_class = '.site-content .product-custom-reponsive-ajax';
+        }
+        html_init_widget_shop();
         trigger_filter_price_woocommerce();
         toggle_filter_sidebar_shop_page();
         render_sidebar_filter_page_shop();

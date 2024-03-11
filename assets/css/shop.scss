@@ -131,3 +131,8 @@
     height: 0 !important;
     overflow: hidden !important;
 }
+.widget-be-popular-filter {
+    input[type='radio'] {
+        accent-color: #ff0000;
+    }
+}

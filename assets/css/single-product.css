@@ -31,4 +31,72 @@
         letter-spacing: 0.24px;
         text-transform: uppercase; }
 
+.recently-viewed.wrapper-related-product .related-item {
+  text-decoration: none; }
+.recently-viewed.wrapper-related-product .content-related-product {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 140px;
+  column-gap: 38px; }
+  @media (max-width: 1199px) {
+    .recently-viewed.wrapper-related-product .content-related-product {
+      grid-template-columns: 1fr;
+      grid-gap: 38px; } }
+  .recently-viewed.wrapper-related-product .content-related-product .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 34px; }
+    .recently-viewed.wrapper-related-product .content-related-product .title svg {
+      margin-right: 24px; }
+    .recently-viewed.wrapper-related-product .content-related-product .title h4 {
+      color: #252525;
+      font-family: "Barlow Condensed";
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 500;
+      margin-bottom: 0;
+      line-height: 1; }
+  .recently-viewed.wrapper-related-product .content-related-product .list-related {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 38px; }
+    @media (max-width: 768px) {
+      .recently-viewed.wrapper-related-product .content-related-product .list-related {
+        grid-template-columns: 1fr; } }
+    .recently-viewed.wrapper-related-product .content-related-product .list-related .item-recipe-video .box-feature .title {
+      color: #252525;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 16px; }
+  .recently-viewed.wrapper-related-product .content-related-product .related-item .thumb img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    overflow: hidden; }
+  .recently-viewed.wrapper-related-product .content-related-product .related-item .cats {
+    color: #BABABA;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 153%;
+    text-transform: uppercase;
+    margin-top: 16px; }
+  .recently-viewed.wrapper-related-product .content-related-product .related-item h3 {
+    color: #252525;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-top: 16px;
+    margin-bottom: 16px; }
+  .recently-viewed.wrapper-related-product .content-related-product .related-item .crt-date-comment span {
+    color: #BABABA;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 153%;
+    text-transform: uppercase; }
+
 /*# sourceMappingURL=single-product.css.map */

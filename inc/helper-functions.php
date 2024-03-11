@@ -70,13 +70,13 @@ function get_video_by_url($url, $params = null)
     if (isset($matches[1]) && is_array($params) && isset($params['img']) && $params['img']) {
       return '<a href="' . $url . '"' . (isset($params['class']) ? ' class="popup-vimeo ' . $params['class'] . '"' : '') . '><img src="" data-vmid="' . $matches[1] . '" alt=""></a>';
     } else if (isset($matches[1])) {
-      return '<iframe class="video" src="https://player.vimeo.com/video/' . $matches[1] . '?autoplay=1&loop=1&title=0&byline=0&portrait=0&muted=1" width="auto" height="auto" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+      return '<iframe class="video video-vm" src="https://player.vimeo.com/video/' . $matches[1] . '?autoplay=1&loop=1&title=0&byline=0&portrait=0&muted=1" width="auto" height="auto" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>';
     }
     preg_match($regExpYt, $url, $matches);
     if (isset($matches[7]) && is_array($params) && isset($params['img']) && $params['img']) {
           return '<a href="' . $url . '"' . (isset($params['class']) ? ' class="popup-youtube ' . $params['class'] . '"' : '') . '><img src="http://img.youtube.com/vi/' . $matches[7] . '/hqdefault.jpg" alt=""></a>';
     } else if (isset($matches[7])) {
-      return '<iframe class="video" width="auto" height="auto" src="https://www.youtube.com/embed/' . $matches[7] . '?autoplay=1&mute=1" allowfullscreen></iframe>';
+      return '<iframe class="video video-ytb" width="auto" height="auto" src="https://www.youtube.com/embed/' . $matches[7] . '?autoplay=1&mute=1" allowfullscreen></iframe>';
     }
     return false;
 
@@ -628,7 +628,7 @@ function ingredient_single_product_callback($description) {
             ?>
             <div class="wrapper-ingredient">
                 <h4 class="title">
-                    <?php__('Kategorija:','hch-addons') ?>
+                    <?php __('Kategorija:','hch-addons') ?>
                 </h4>
                 <div class="list-ingredient">
                     <?php 
@@ -994,6 +994,209 @@ function update_rating_most_product () {
 //     echo '</pre>';
 
 // })
+
+function query_related_product ($slug_potype) {
+    global $post;
+    $args = array(
+		'post_type' => $slug_potype,
+		'posts_per_page' => 2,
+		'post_status'    => 'publish',
+        'meta_query'		=> array(
+            array(
+                'key' => 'related_products',
+                'value' => '"' . $post->ID . '"',
+                'compare' => 'LIKE'
+            )
+        )
+	);
+    return $args;
+}
+
+function be_add_related_recipes_blog_video() {
+    if ( ! is_singular( 'product' )) {
+		return;
+	}
+    ?>
+    <section class="klb-module site-module recently-viewed wrapper-related-product">
+        <div class="container">
+            <div class="content-related-product">
+                <?php 
+                    $args_re = query_related_product('recipe');
+                    $loop_re = new WP_Query( $args_re );
+                    ob_start();
+                    if ( $loop_re->have_posts() ) {
+                ?>
+                    <div class="product-related">
+                        <div class="title">
+                            <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
+                                <g clip-path="url(#clip0_485_2)">
+                                <path d="M26.9991 21.1365C33.5924 21.1365 38.9557 26.6002 38.9557 33.3168H40.8109C40.8109 25.8744 35.1062 19.7663 27.9193 19.2825V16.8918H30.5518V15H23.4465V16.8899H26.0623V19.2825C18.8827 19.7739 13.1892 25.8782 13.1892 33.3168H15.0444C15.0444 26.6002 20.4077 21.1365 27.001 21.1365H26.9991Z" fill="white"/>
+                                <path d="M42 35.1689H12V37.0588H42V35.1689Z" fill="white"/>
+                                </g>
+                                <defs>
+                                <clipPath id="clip0_485_2">
+                                <rect width="30" height="22.0588" fill="white" transform="translate(12 15)"/>
+                                </clipPath>
+                                </defs>
+                            </svg>
+                            <h4><?php echo __('Recepti','hch-addons')?></h4>
+                        </div>
+                        <div class="list-related">
+                        <?php 
+                            while ( $loop_re->have_posts() ) : $loop_re->the_post();
+                                $rp_id = get_the_ID();
+                                $terms = get_the_terms( $rp_id, 'recipe-cat' );
+                                ?>
+                                <a href="<?php echo get_permalink($rp_id); ?>" class="related-item">
+                                    <div class="thumb"><?php echo get_the_post_thumbnail( $rp_id, 'medium' ); ?></div>
+                                    <?php 
+                                    if ( !empty( $terms ) ){ ?>
+                                        <div class="cats"><?php echo join(', ', wp_list_pluck($terms, 'name')); ?></div>
+                                    <?php } ?>
+                                    <h3><?php echo get_the_title(); ?></h3>
+                                    <div class="crt-date-comment">
+                                        <span class="date">
+                                            <?php echo get_the_date('F j Y',$rp_id); ?>
+                                        </span>
+                                        <span class="count-comment">
+                                            <?php 
+                                                echo __(' , '.get_comment_count($rp_id)['approved'].' komentarji','hch-addons'); 
+                                            ?>
+                                        </span>
+                                    </div>
+                                </a>
+                                <?php
+                            endwhile;
+                        ?>
+                        </div>
+                    </div>
+                <?php 
+                    }
+                    echo ob_get_clean();
+                    wp_reset_postdata();
+
+                    $args_p = query_related_product('post');
+                    $loop_p = new WP_Query( $args_p );
+                    ob_start();
+                    if ( $loop_p->have_posts() ) {
+                        ?>
+                            <div class="product-related">
+                                <div class="title">
+                                    <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
+                                    <path d="M33.5805 17.6094H22.75V27.6623H33.5805V17.6094ZM31.7336 25.8154H24.5969V19.4563H31.7336V25.8154Z" fill="white"/>
+                                    <path d="M37.0419 30.1953H22.7539V32.0423H37.0419V30.1953Z" fill="white"/>
+                                    <path d="M37.0419 34.2266H22.7539V36.0735H37.0419V34.2266Z" fill="white"/>
+                                    <path d="M39.2019 14H20.6696C19.1274 14 17.8715 15.2559 17.8715 16.7981V37.0278C17.8715 38.1378 16.9683 39.0391 15.8601 39.0391C14.752 39.0391 13.8488 38.1359 13.8488 37.0278V21.7849C13.8488 20.5382 14.8628 19.5261 16.1076 19.5261V17.6791C13.8414 17.6791 12 19.5205 12 21.7849V37.0278C12 39.1555 13.7306 40.886 15.8583 40.886H39.2C40.7422 40.886 41.9982 39.6301 41.9982 38.0879V16.7981C41.9982 15.2559 40.7422 14 39.2 14H39.2019ZM40.153 38.0898C40.153 38.6143 39.7264 39.0409 39.2019 39.0409H19.1514C19.5115 38.4555 19.7184 37.7647 19.7184 37.0296V16.7981C19.7184 16.2736 20.145 15.8469 20.6696 15.8469H39.2019C39.7264 15.8469 40.153 16.2736 40.153 16.7981V38.0898Z" fill="white"/>
+                                    </svg>
+                                    <h4><?php echo __('Blog','hch-addons')?></h4>
+                                </div>
+                                <div class="list-related">
+                                <?php 
+                                    while ( $loop_p->have_posts() ) : $loop_p->the_post();
+                                        $rp_id = get_the_ID();
+                                        $terms = get_the_terms( $rp_id, 'recipe-cat' );
+                                        ?>
+                                        <a href="<?php echo get_permalink($rp_id); ?>" class="related-item">
+                                            <div class="thumb"><?php echo get_the_post_thumbnail( $rp_id, 'medium' ); ?></div>
+                                            <?php 
+                                            if ( !empty( $terms ) ){ ?>
+                                                <div class="cats"><?php echo join(', ', wp_list_pluck($terms, 'name')); ?></div>
+                                            <?php } ?>
+                                            <h3><?php echo get_the_title(); ?></h3>
+                                            <div class="crt-date-comment">
+                                                <span class="date">
+                                                    <?php echo get_the_date('F j Y',$rp_id); ?>
+                                                </span>
+                                                <span class="count-comment">
+                                                    <?php 
+                                                        echo __(' , '.get_comment_count($rp_id)['approved'].' komentarji','hch-addons'); 
+                                                    ?>
+                                                </span>
+                                            </div>
+                                        </a>
+                                        <?php
+                                    endwhile;
+                                ?>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                    echo ob_get_clean();
+                    wp_reset_postdata();
+                    $args_rv = query_related_product('recipe-video');
+                    $loop_rv = new WP_Query( $args_rv );
+                    ob_start();
+                    if ( $loop_rv->have_posts() ) {
+                        ?>
+                            <div class="product-related">
+                                <div class="title">
+                                    <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
+                                    <path d="M33.5805 17.6094H22.75V27.6623H33.5805V17.6094ZM31.7336 25.8154H24.5969V19.4563H31.7336V25.8154Z" fill="white"/>
+                                    <path d="M37.0419 30.1953H22.7539V32.0423H37.0419V30.1953Z" fill="white"/>
+                                    <path d="M37.0419 34.2266H22.7539V36.0735H37.0419V34.2266Z" fill="white"/>
+                                    <path d="M39.2019 14H20.6696C19.1274 14 17.8715 15.2559 17.8715 16.7981V37.0278C17.8715 38.1378 16.9683 39.0391 15.8601 39.0391C14.752 39.0391 13.8488 38.1359 13.8488 37.0278V21.7849C13.8488 20.5382 14.8628 19.5261 16.1076 19.5261V17.6791C13.8414 17.6791 12 19.5205 12 21.7849V37.0278C12 39.1555 13.7306 40.886 15.8583 40.886H39.2C40.7422 40.886 41.9982 39.6301 41.9982 38.0879V16.7981C41.9982 15.2559 40.7422 14 39.2 14H39.2019ZM40.153 38.0898C40.153 38.6143 39.7264 39.0409 39.2019 39.0409H19.1514C19.5115 38.4555 19.7184 37.7647 19.7184 37.0296V16.7981C19.7184 16.2736 20.145 15.8469 20.6696 15.8469H39.2019C39.7264 15.8469 40.153 16.2736 40.153 16.7981V38.0898Z" fill="white"/>
+                                    </svg>
+                                    <h4><?php echo __('Kuhinja izzivov','hch-addons')?></h4>
+                                </div>
+                                <div class="list-related">
+                                <?php 
+                                    while($loop_rv->have_posts()):$loop_rv->the_post();
+                                        $id_post_recipes = get_the_ID();
+                                        $thumbnail = get_the_post_thumbnail_url($id_post_recipes,'full');
+                                        $link = get_permalink($id_post_recipes);
+                                        $title = get_the_title($id_post_recipes);
+                                        $date = get_the_date('F j, Y',$id_post_recipes);
+                                        ?>
+                                        <div class="item-recipe-video">
+                                            <a href="<?php echo $link?>">
+                                                <div class="thumbnail">
+                                                    <img src="<?php echo $thumbnail?>"/>
+                                                    <div class="icon-play">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" viewBox="0 0 74 74" fill="none">
+                                                            <circle cx="37" cy="37" r="36" stroke="white" stroke-width="2"/>
+                                                            <path d="M48.6383 34.1291C50.3396 35.3238 50.3396 37.8448 48.6383 39.0394L33.5235 49.6528C31.5356 51.0487 28.7995 49.6267 28.7995 47.1976L28.7995 25.971C28.7995 23.5419 31.5356 22.1199 33.5235 23.5158L48.6383 34.1291Z" fill="white"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="ovelay"></div>
+                                                </div>
+                                                <div class="box-feature">
+                                                    <div class="view-post">
+                                                        <?php 
+                                                            echo getPostViews($id_post_recipes);
+                                                        ?>
+                                                    </div>
+                                                    <div class="title">
+                                                        <?php 
+                                                            echo $title;
+                                                        ?>
+                                                    </div>
+                                                    <div class="date">
+                                                        <?php 
+                                                            echo $date;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <?php
+                                    endwhile;
+                                ?>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                ?>
+            </div>
+            <?php
+
+            ?>
+        </div>
+    </section>
+    <?php
+}
 
 
 

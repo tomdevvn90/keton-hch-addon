@@ -18,7 +18,6 @@
                 if(!empty($link_video)) {
                     if(str_contains($link_video,'youtube') || str_contains($link_video,'vimeo')) {
                         $embed_video = get_video_by_url($link_video);
-
                         ?>
                             <div class="video-play">
                                 <?php 
@@ -42,8 +41,101 @@
                 echo do_shortcode('[be_ajax_pagination post_type="recipe-video" posts_per_page="4" paged="1" post_not_in="'.$id_post.'"]');
             ?>
         </div>
-
     </div>
+
+    <div class="feature-social-network site-footer">
+        <div class="container content-social-network">
+            <div class="newsletter-container footer-subscribe">
+                <h4 class="title">
+                    <?php 
+                        echo get_field('newsletter_setting_hch','options')['title'];
+                    ?>
+                </h4>
+                <span class="sub">
+                    <?php 
+                        echo get_field('newsletter_setting_hch','options')['sub_title'];
+                    ?>
+                </span>
+                <div class="form-wrapper">
+                    <?php if(get_theme_mod('bacola_subscribe_form_plugin') == 'mailpoet'){ ?>
+                        <?php echo do_shortcode('[mailpoet_form id="'.get_theme_mod('bacola_footer_subscribe_formid').'"]'); ?>
+                    <?php } else { ?>
+                        <?php echo do_shortcode('[mc4wp_form id="'.get_theme_mod('bacola_footer_subscribe_formid').'"]'); ?>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="social-container">
+                <h4 class="title"><?php echo get_field('social_list_setting_hch','options')['title'];?></h4>
+                <div class="list-social">
+                    <?php 
+                        $list_social = get_field('social_list_setting_hch','options')['list_social'];
+                        if(!empty($list_social)) {
+                            foreach ($list_social as $social) {
+                                ?>
+                                <a class="item" href="<?php echo $social['link']?>">
+                                    <img src="<?php echo $social['icon']?>" />
+                                </a>
+                                <?php
+                            }
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <?php 
+        $list_chef = get_field('list_chef_recipe',$id_post);
+        if(!empty($list_chef)) {
+            ?>
+            <div class="wrapper-list-chef-recipes">
+                <div class="container">
+                    <div class="list-chef-recipes">
+                        <?php 
+                            foreach ($list_chef as $chef) {
+                                ?>
+                                    <div class="chef">
+                                        <img class="image" src="<?php echo $chef['image']?>"/>
+                                        <h4 class="name"><?php echo $chef['name']?></h4>
+                                        <div class="des">
+                                            <?php 
+                                                echo $chef['description'];
+                                            ?>
+                                        </div>
+                                    </div>
+                                <?php
+                            }
+                        ?>
+                    </div>
+                </div>
+            </div>   
+            <?php
+        }
+        $content_post = get_post($id_post);
+        $content = $content_post->post_content;
+        $content = apply_filters('the_content', $content);
+        $content = str_replace(']]>', ']]&gt;', $content);
+        if(!empty($content)) {
+            ?>
+                <div class="wrapper-content-single-recipe-video">
+                    <div class="container">
+                        <div class="content">
+                            <h4 class="name">
+                                <?php echo __('O ODDAJI KUHINJA IZZIVOV','hch-addons')?>
+                            </h4>
+                            <div class="description-recipe-video">
+                                <?php 
+                                    
+                                    echo $content;
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php
+        }
+    ?>
+
 
 </div>
 
