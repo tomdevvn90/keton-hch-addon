@@ -119,6 +119,7 @@
 }
 .be-normal-carousel .slider-inner img {
   height: 206px;
+  width: 100%;
   object-fit: cover;
   object-position: center;
   border-radius: 5px;
@@ -152,6 +153,7 @@
   height: 100%;
   top: 0;
   left: 0;
+  border-radius: 5px;
   background: rgba(0, 0, 0, 0.2);
 }
 .be-normal-carousel .slider-inner .cats,
