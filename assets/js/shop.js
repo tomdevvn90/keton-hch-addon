@@ -345,9 +345,10 @@ jQuery.noConflict();
         $('body').on('change','.widget-body-popular-filter input',function(){
             var html_sidebar_shop  = localStorage.getItem('widget_sidebar_shop');
             var id_html = $(this).attr('id');
-
+            var html_input = $(this).parent().html();
             if(html_sidebar_shop) {
                 $('.post-type-archive-product .sidebar-inner').html(html_sidebar_shop);
+                $('#'+id_html).parent().html(html_input);
                 $('#'+id_html).attr('checked',true); 
                 side_bar_mobile_hide(); 
             }
