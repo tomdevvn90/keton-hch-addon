@@ -1,15 +1,15 @@
 .price_slider_wrapper .price_slider.ui-slider {
-  height: 8px;
-  border-radius: 0;
-  background: #E5E9F1; }
+  height: 8px !important;
+  border-radius: 0 !important;
+  background: #E5E9F1 !important; }
 .price_slider_wrapper .ui-slider-handle {
-  width: 20px;
-  height: 20px;
-  border-radius: 0;
-  background: #F00; }
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 0 !important;
+  background: #F00 !important; }
 .price_slider_wrapper .ui-slider-range {
-  height: 8px;
-  background: #E5E9F1; }
+  height: 8px !important;
+  background: #E5E9F1 !important; }
 
 .price_slider_amount {
   width: 70%; }
