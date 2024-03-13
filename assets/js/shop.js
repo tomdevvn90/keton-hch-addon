@@ -2,9 +2,6 @@ jQuery.noConflict();
 ;(function(w, $) {
     'use strict';
 
-    
-
-
     var html_init_widget_shop = function () {
         if(window.location.href=='http://keton.local/shop/') {
             var html_init = [];
@@ -298,7 +295,6 @@ jQuery.noConflict();
         })
 
 
-
         $('body').on('click','.woocommerce-widget-layered-nav ul li a',function(e){
             let brand_slug = $(this).parent().find('.count').data('filter-attribute');
             let product_attr = $(this).parent().find('.count').data('taxonomy');
@@ -346,20 +342,19 @@ jQuery.noConflict();
         
     }
 
-
     var trigger_fillter_popular = function () {
         $('body').on('change','.widget-body-popular-filter input',function(){
             var html_sidebar_shop  = JSON.parse(localStorage.getItem('widget_sidebar_shop'));
             if(html_sidebar_shop) {
+                let link_page_shop = window.location.origin+'/shop';
                 $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
                     $(this).html(html_sidebar_shop[index]);
+                    $(this).removeClass('active-dropdown-filter');
                 });
                 side_bar_mobile_hide();
+                window.history.pushState("", "", link_page_shop);
             }
-
         });
-
-
 
         $('body').on('change','.widget-body-popular-filter .categories input',function(){
             let id_cat = $(this).val(); 

@@ -225,6 +225,13 @@
                         grid-template-columns: 1fr;
                         grid-gap:30px;
                     }
+                    a {
+                        display: block;
+                        margin-bottom: 30px;
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
                     img {
                         width: 100%;
                         margin-bottom: 30px;

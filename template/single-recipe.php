@@ -129,9 +129,17 @@
                                 <div class="gallery-sidebar">
                                     <?php 
                                         foreach ($gallery_sidebar as $img_sb) {
-                                            ?>
-                                                <img src="<?php echo $img_sb?>"/>
-                                            <?php
+                                            if(!empty($img_sb['link'])) {
+                                                ?>
+                                                <a href="<?php echo $img_sb['link']?>">
+                                                    <img src="<?php echo $img_sb['image']?>"/>
+                                                </a>
+                                                <?php
+                                            }else{
+                                                ?>
+                                                <img src="<?php echo $img_sb['image']?>"/>
+                                                <?php
+                                            }
                                         }
                                     ?>
                                 </div>

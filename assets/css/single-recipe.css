@@ -187,6 +187,11 @@
         .wrapper-single-recipe .single-recipe-detail .single-recipe-content .side-bar-recipe .gallery-sidebar {
           grid-template-columns: 1fr;
           grid-gap: 30px; } }
+      .wrapper-single-recipe .single-recipe-detail .single-recipe-content .side-bar-recipe .gallery-sidebar a {
+        display: block;
+        margin-bottom: 30px; }
+        .wrapper-single-recipe .single-recipe-detail .single-recipe-content .side-bar-recipe .gallery-sidebar a:last-child {
+          margin-bottom: 0; }
       .wrapper-single-recipe .single-recipe-detail .single-recipe-content .side-bar-recipe .gallery-sidebar img {
         width: 100%;
         margin-bottom: 30px; }
