@@ -1,14 +1,15 @@
 jQuery.noConflict();
 ;(function(w, $) {
     'use strict';
-
     var html_init_widget_shop = function () {
-        if(window.location.href=='http://keton.local/shop/') {
-            var html_init = [];
-            $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
-                html_init.push($(this).html());
-            });
-            localStorage.setItem('widget_sidebar_shop', JSON.stringify(html_init));
+        if(hch_array_ajaxp.link_shop) {
+            if(window.location.href==hch_array_ajaxp.link_shop) {
+                var html_init = [];
+                $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
+                    html_init.push($(this).html());
+                });
+                localStorage.setItem('widget_sidebar_shop', JSON.stringify(html_init));
+            }
         }
     }
 

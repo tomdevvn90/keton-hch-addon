@@ -32,7 +32,9 @@
           letter-spacing: 0.1px;
           display: flex;
           align-items: center;
+          flex-wrap: wrap;
           column-gap: 23px;
+          row-gap: 10px;
           margin-bottom: 10px; }
         .wrapper-single-recipe .single-recipe-detail .single-recipe-content .single-recipe .feature-post .title {
           color: #202435;
@@ -222,6 +224,9 @@
           font-weight: 500;
           margin-bottom: 0;
           line-height: 1; }
+          @media (max-width: 600px) {
+            .wrapper-single-recipe .wrapper-related-bottom .recipe-video-post-detail .title h4 {
+              font-size: 30px; } }
       .wrapper-single-recipe .wrapper-related-bottom .recipe-video-post-detail .list-related {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -278,5 +283,9 @@
     line-height: 1.2;
     padding-bottom: 36px;
     margin-bottom: 0; }
+    @media (max-width: 600px) {
+      .wrapper-related-product h2.title {
+        font-size: 30px;
+        padding-bottom: 25px; } }
 
 /*# sourceMappingURL=single-recipe.css.map */

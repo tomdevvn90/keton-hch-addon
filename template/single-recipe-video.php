@@ -38,7 +38,7 @@
         </div>
         <div class="recipes-video-relation" data-post-not-in="<?php echo $id_post?>">
             <?php 
-                echo do_shortcode('[be_ajax_pagination post_type="recipe-video" posts_per_page="4" paged="1" post_not_in="'.$id_post.'"]');
+                echo do_shortcode('[be_ajax_pagination post_type="recipe-video" posts_per_page="12" paged="1" post_not_in="'.$id_post.'"]');
             ?>
         </div>
     </div>
@@ -111,24 +111,49 @@
             </div>   
             <?php
         }
-        $content_post = get_post($id_post);
-        $content = $content_post->post_content;
-        $content = apply_filters('the_content', $content);
-        $content = str_replace(']]>', ']]&gt;', $content);
-        if(!empty($content)) {
+        $description = get_field('description_recipe_video',$id_post);
+        $sponsors = get_field('sponsors_recipe_video',$id_post);
+        if(!empty($description) || !empty($sponsors)) {
             ?>
                 <div class="wrapper-content-single-recipe-video">
                     <div class="container">
-                        <div class="content">
-                            <h4 class="name">
-                                <?php echo __('O ODDAJI KUHINJA IZZIVOV','hch-addons')?>
-                            </h4>
-                            <div class="description-recipe-video">
-                                <?php 
-                                    
-                                    echo $content;
-                                ?>
-                            </div>
+                        <div class="content-bottom">
+                            <?php 
+                                if(!empty($description)) {
+                                    ?>
+                                        <div class="description">
+                                            <h4 class="name">
+                                                <?php echo __('O ODDAJI KUHINJA IZZIVOV','hch-addons')?>
+                                            </h4>
+                                            <div class="description-recipe-video">
+                                                <?php 
+                                                    
+                                                    echo $description;
+                                                ?>
+                                            </div>
+                                        </div>
+                                    <?php
+                                }
+
+                                if(!empty($sponsors)) {
+                                    ?>
+                                    <div class="wrapper-sponsors">
+                                        <h4 class="name">
+                                            <?php echo __('SPONZORJI ODDAJE','hch-addons')?>
+                                        </h4>
+                                        <div class="list-sponsors">
+                                            <?php 
+                                                foreach ($sponsors as $sps) {
+                                                    ?>
+                                                        <img src="<?php echo $sps?>"/>
+                                                    <?
+                                                }
+                                            ?>
+                                        </div>
+                                    </div>
+                                    <?php
+                                }
+                            ?>
                         </div>
                     </div>
                 </div>

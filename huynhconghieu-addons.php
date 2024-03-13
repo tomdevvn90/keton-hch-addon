@@ -162,7 +162,8 @@ final class HuynhCongHieu_Addons {
 		wp_enqueue_script( 'hch-addons-ajax-pagination', plugins_url('/assets/js/ajax_pagination.js',__FILE__) , ['jquery'], time(), true  );
 
 		$php_array = array(
-			'admin_ajax' => admin_url( 'admin-ajax.php' )
+			'admin_ajax' => admin_url( 'admin-ajax.php' ),
+			'link_shop' => wc_get_page_permalink( 'shop' ) 
 		);
 
 		wp_localize_script( 'hch-addons-ajax-pagination', 'hch_array_ajaxp', $php_array );
