@@ -347,7 +347,7 @@ jQuery.noConflict();
         $('body').on('change','.widget-body-popular-filter input',function(){
             var html_sidebar_shop  = JSON.parse(localStorage.getItem('widget_sidebar_shop'));
             if(html_sidebar_shop) {
-                let link_page_shop = window.location.origin+'/shop';
+                let link_page_shop = hch_array_ajaxp.link_shop;
                 $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
                     $(this).html(html_sidebar_shop[index]);
                     $(this).removeClass('active-dropdown-filter');
