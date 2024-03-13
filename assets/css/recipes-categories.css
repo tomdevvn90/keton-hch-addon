@@ -372,7 +372,10 @@
         height: 57px;
         border-radius: 50%;
         overflow: hidden;
-        background: #fff; }
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
 .wrapper-single-recipes-video .main-video-recipes-play .video-bg-hcp {
   width: 100%;
   margin-bottom: 150px;
