@@ -385,6 +385,7 @@
 .wrapper-sidebar-mobile {
     .side-bar-recipe {
         display: none;
+        padding-top: 30px;
         @media(max-width:992px) {
             display: block;
         }

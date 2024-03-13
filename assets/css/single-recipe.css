@@ -308,7 +308,8 @@
     margin-bottom: 0; }
 
 .wrapper-sidebar-mobile .side-bar-recipe {
-  display: none; }
+  display: none;
+  padding-top: 30px; }
   @media (max-width: 992px) {
     .wrapper-sidebar-mobile .side-bar-recipe {
       display: block; } }
