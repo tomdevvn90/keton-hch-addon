@@ -5,7 +5,7 @@ jQuery.noConflict();
         if(hch_array_ajaxp.link_shop) {
             if(window.location.href==hch_array_ajaxp.link_shop) {
                 var html_init = [];
-                $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
+                $('.sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
                     html_init.push($(this).html());
                 });
                 localStorage.setItem('widget_sidebar_shop', JSON.stringify(html_init));
@@ -120,7 +120,7 @@ jQuery.noConflict();
 
     var toggle_filter_sidebar_shop_page = function () {
 
-        $(document).on('click','.post-type-archive-product .sidebar-inner .widget .widget-title',function(e){
+        $(document).on('click','.sidebar-inner .widget .widget-title',function(e){
             e.preventDefault();
             $(this).siblings().slideToggle();
             $(this).parents('.widget').toggleClass('active-dropdown-filter');
@@ -347,13 +347,14 @@ jQuery.noConflict();
         $('body').on('change','.widget-body-popular-filter input',function(){
             var html_sidebar_shop  = JSON.parse(localStorage.getItem('widget_sidebar_shop'));
             if(html_sidebar_shop) {
-                let link_page_shop = hch_array_ajaxp.link_shop;
-                $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
+                //let link_page_shop = hch_array_ajaxp.link_shop;
+                var url_filter = window.location.href.split('?')[0];
+                $('.sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
                     $(this).html(html_sidebar_shop[index]);
                     $(this).removeClass('active-dropdown-filter');
                 });
                 side_bar_mobile_hide();
-                window.history.pushState("", "", link_page_shop);
+                window.history.pushState("", "", url_filter);
             }
         });
 
