@@ -125,13 +125,16 @@
                             <?php
                         }
                         if(!empty($gallery_sidebar)) {
+                            // echo '<pre>';
+                            // print_r($gallery_sidebar);
+                            // echo '</pre>';
                             ?>
                                 <div class="gallery-sidebar">
                                     <?php 
                                         foreach ($gallery_sidebar as $img_sb) {
                                             if(!empty($img_sb['link'])) {
                                                 ?>
-                                                <a href="<?php echo $img_sb['link']?>">
+                                                <a href="<?php echo $img_sb['link']['url']?>" target="<?php echo $img_sb['link']['target']?>">
                                                     <img src="<?php echo $img_sb['image']?>"/>
                                                 </a>
                                                 <?php

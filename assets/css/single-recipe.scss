@@ -223,7 +223,7 @@
                     }
                     @media(max-width:768px) {
                         grid-template-columns: 1fr;
-                        grid-gap:30px;
+                        grid-gap:0;
                     }
                     a {
                         display: block;

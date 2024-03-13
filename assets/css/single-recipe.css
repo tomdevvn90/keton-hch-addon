@@ -186,7 +186,7 @@
       @media (max-width: 768px) {
         .wrapper-single-recipe .single-recipe-detail .single-recipe-content .side-bar-recipe .gallery-sidebar {
           grid-template-columns: 1fr;
-          grid-gap: 30px; } }
+          grid-gap: 0; } }
       .wrapper-single-recipe .single-recipe-detail .single-recipe-content .side-bar-recipe .gallery-sidebar a {
         display: block;
         margin-bottom: 30px; }
