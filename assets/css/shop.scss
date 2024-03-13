@@ -79,7 +79,7 @@
                 &:hover {
                     color: #ff0000;
                 }
-                z-index: 99999;
+                z-index: 99;
                 &::after {
                     content: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAANCAYAAAB/9ZQ7AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAADbSURBVHgBlZFNDoIwEIVbGlgSAxygC0LYeoO6c8kNvAKeQDmB3kC2nkK9gWt+IkvdEPcEcMbUhNQK8a1eZr6ZvraE/CGqFjjnM8uyDn3fV3mer4c9Q4VN0+QACrCx7/vxsMdUuK7ru+u6D7ARpXTpOM4FapUWlgNXz/MwooCByLbt4xNEyYiCIEgh0gps1TTN3BiDAdxLyxlj0RS8kzYtyzL9CcNLbCCvkBESrGkzh2HI27a9ye2LoijO6L8246d0XXd6b6I0+YBaGC4iYBvH47Ms25IpYQyUWn8B9i9UofSr1yMAAAAASUVORK5CYII=');
                     transition: 0.3s;

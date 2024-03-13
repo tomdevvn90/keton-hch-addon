@@ -153,6 +153,8 @@ final class HuynhCongHieu_Addons {
 
 		wp_enqueue_style( 'hch-addons-single-product-page', plugins_url( '/assets/css/single-product.css', __FILE__ ) );
 
+		wp_enqueue_style( 'hch-addons-single-recipe-detail-page', plugins_url( '/assets/css/single-recipe.css', __FILE__ ) );
+
 		wp_enqueue_script( 'hch-addons-video-recipes', plugins_url('/assets/js/video-recipes.js',__FILE__) , ['jquery'], time(), true  );
 
 		wp_enqueue_script( 'hch-addons-shop-page', plugins_url('/assets/js/shop.js',__FILE__) , ['jquery'], time(), true  );

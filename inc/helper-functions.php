@@ -37,6 +37,11 @@ function be_force_template_recipe_cat( $template ) {
     if(is_singular('recipe-video')) {
         $template = B_HELPERS_DIR .'/template/single-recipe-video.php';
     }
+
+    if(is_singular('recipe')) {
+        $template = B_HELPERS_DIR .'/template/single-recipe.php';
+    }
+
     return $template;
 }
 

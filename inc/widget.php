@@ -44,15 +44,7 @@ class Popular_filter_Widget extends WP_Widget {
 
 	}
 
-
 	function widget( $args, $instance ) {
-		// echo '<pre>';
-		// print_r($args);
-		// echo '</pre>';
-
-		// echo '<pre>';
-		// print_r($instance);
-		// echo '</pre>';
 		$categories = get_field('cat_filter_popular','options');
 		$price = get_field('price_filter_popular','options');
 		$product_status = get_field('product_status_filter_popular','options');
@@ -66,6 +58,64 @@ class Popular_filter_Widget extends WP_Widget {
 			'brands_attribute'=>0,
 			'ingredient'=>0
 		];
+		if(!empty($ingredient)) {
+			$item_ingre_max = get_highest($ingredient,'count_ingre_filter');
+			$max_item ['ingredient'] = $item_ingre_max['count_ingre_filter'];
+			$item_ingre_max['filter_type'] = 'ingredient';
+			// $item_cat_max += ['filter_type' => 'categories'];
+		}
+
+		if(!empty($categories)) {
+			$item_cat_max = get_highest($categories,'count_popular_filter');
+			$max_item ['categories'] = $item_cat_max['count_popular_filter'];
+			$item_cat_max['filter_type'] = 'categories';
+			// $item_cat_max += ['filter_type' => 'categories'];
+		}
+		if(!empty($price)) {
+			$item_price_max = get_highest($price,'count_min_max_filter');
+			$max_item ['price_range'] = $item_price_max['count_min_max_filter'];
+			$item_price_max['filter_type'] = 'range_price';
+		}
+		if(!empty($product_status)) {
+			$item_product_status_max = get_highest($product_status,'count_product_status_filter');
+			$max_item ['product_status'] = $item_product_status_max['count_product_status_filter'];
+			$item_product_status_max['filter_type'] = 'product_status';
+		}
+		if(!empty($brands)) {
+			$item_brands_max = get_highest($brands,'count_brand_filter');
+			$max_item ['brands_attribute'] = $item_brands_max['count_brand_filter'];
+			$item_brands_max['filter_type'] = 'attribute-product';
+		}
+		uasort($max_item, 'cmp');
+		$key_item_show = array_slice($max_item, 0, 3);
+		foreach ($key_item_show as $key => $value) {
+			if($key=='ingredient') {
+				if(!empty($item_ingre_max)) {
+					array_push($item_show,$item_ingre_max);
+				}
+			}
+			if($key=='categories') {
+				if(!empty($item_cat_max)) {
+					array_push($item_show,$item_cat_max);
+				}
+			}
+			if($key=='price_range') {
+				if(!empty($item_price_max)) {
+					array_push($item_show,$item_price_max);
+				}
+			}
+			if($key=='product_status') {
+				if(!empty($item_product_status_max)) {
+					array_push($item_show,$item_product_status_max);
+				}
+			}
+			if($key=='brands_attribute') {
+				if(!empty($item_brands_max)) {
+					array_push($item_show,$item_brands_max);
+				}
+			}
+		}
+		if(!empty($item_show)) {
 		?>
 		<div class="widget widget-be-popular-filter active-dropdown-filter">
 			<h4 class="widget-title">
@@ -73,142 +123,82 @@ class Popular_filter_Widget extends WP_Widget {
 					echo $instance['title'];
 				?>
 			</h4>
-
 			<div class="widget-body-popular-filter">
 				<?php 
+					foreach ($item_show as $key => $item) {
+						if($item['filter_type']=='categories') {
+							?>
+							<div data-count="<?php echo $item['count_popular_filter']?>" class="<?php echo $item['filter_type']?> count">
+								<input type="radio" id="categories_pp" name="filter_pp_wg" value="<?php echo $item['slug_cat_filter']?>">	
+  								<label for="categories_pp">
+									<?php echo $item['name_cat_filter']?>
+									<span>(<?php echo $item['count_popular_filter']?>)</span>
+								</label>
+							</div>
+							<?php
+						}
 
-					if(!empty($ingredient)) {
-						$item_ingre_max = get_highest($ingredient,'count_ingre_filter');
-						$max_item ['ingredient'] = $item_ingre_max['count_ingre_filter'];
-						$item_ingre_max['filter_type'] = 'ingredient';
-						// $item_cat_max += ['filter_type' => 'categories'];
-					}
+						if($item['filter_type']=='ingredient') {
+							?>
+							<div data-count="<?php echo $item['count_ingre_filter']?>" class="<?php echo $item['filter_type']?> count">
+								<input type="radio" id="ingredien_pp" name="filter_pp_wg" value="<?php echo $item['slug_ingre_filter']?>">	
+  								<label for="ingredien_pp">
+									<?php echo $item['name_ingre_filter']?>
+									<span>(<?php echo $item['count_ingre_filter']?>)</span>
+								</label>
+							</div>
+							<?php
+						}
+						if($item['filter_type']=='attribute-product') {
+							?>
+							<div data-count="<?php echo $item['count_brand_filter']?>" class="<?php echo $item['filter_type']?> count">
+								<input data-tax="<?php echo $item['slug_tax_attribute']?>" type="radio" id="attribute_pp" name="filter_pp_wg" value="<?php echo $item['slug_brand_filter']?>">	
+  								<label for="attribute_pp">
+									<?php echo $item['name_brand_filter']?>
+									<span>(<?php echo $item['count_brand_filter']?>)</span>
+								</label>
+							</div>
+							<?php
+						}
 
-					if(!empty($categories)) {
-						$item_cat_max = get_highest($categories,'count_popular_filter');
-						$max_item ['categories'] = $item_cat_max['count_popular_filter'];
-						$item_cat_max['filter_type'] = 'categories';
-						// $item_cat_max += ['filter_type' => 'categories'];
-					}
-					if(!empty($price)) {
-						$item_price_max = get_highest($price,'count_min_max_filter');
-						$max_item ['price_range'] = $item_price_max['count_min_max_filter'];
-						$item_price_max['filter_type'] = 'range_price';
-					}
-					if(!empty($product_status)) {
-						$item_product_status_max = get_highest($product_status,'count_product_status_filter');
-						$max_item ['product_status'] = $item_product_status_max['count_product_status_filter'];
-						$item_product_status_max['filter_type'] = 'product_status';
-					}
-					if(!empty($brands)) {
-						$item_brands_max = get_highest($brands,'count_brand_filter');
-						$max_item ['brands_attribute'] = $item_brands_max['count_brand_filter'];
-						$item_brands_max['filter_type'] = 'attribute-product';
-					}
-					uasort($max_item, 'cmp');
-					$key_item_show = array_slice($max_item, 0, 3);
-					foreach ($key_item_show as $key => $value) {
-						if($key=='ingredient') {
-							if(!empty($item_ingre_max)) {
-								array_push($item_show,$item_ingre_max);
-							}
-						}
-						if($key=='categories') {
-							if(!empty($item_cat_max)) {
-								array_push($item_show,$item_cat_max);
-							}
-						}
-						if($key=='price_range') {
-							if(!empty($item_price_max)) {
-								array_push($item_show,$item_price_max);
-							}
-						}
-						if($key=='product_status') {
-							if(!empty($item_product_status_max)) {
-								array_push($item_show,$item_product_status_max);
-							}
-						}
-						if($key=='brands_attribute') {
-							if(!empty($item_brands_max)) {
-								array_push($item_show,$item_brands_max);
-							}
-						}
-					}
-					if(!empty($item_show)) {
-						foreach ($item_show as $key => $item) {
-							if($item['filter_type']=='categories') {
+						if($item['filter_type']=='range_price') {
+							$min_max_price = explode('-',$item['price_filter_min_max']);
+							if(intval($min_max_price[0])<= intval($min_max_price[1]) ) {
 								?>
-								<div data-count="<?php echo $item['count_popular_filter']?>" class="<?php echo $item['filter_type']?> count">
-									<input type="radio" id="categories_pp" name="filter_pp_wg" value="<?php echo $item['slug_cat_filter']?>">	
-	  								<label for="categories_pp">
-										<?php echo $item['name_cat_filter']?>
-										<span>(<?php echo $item['count_popular_filter']?>)</span>
+								<div data-count="<?php echo $item['count_min_max_filter']?>" class="<?php echo $item['filter_type']?> count">
+									<input type="radio" id="price_range_pp" name="filter_pp_wg" value="<?php echo $item['price_filter_min_max']?>">	
+	  								<label for="price_range_pp">
+										<?php echo $item['price_filter_min_max']?>
+										<span>€ (<?php echo $item['count_min_max_filter']?>)</span>
 									</label>
 								</div>
 								<?php
 							}
-
-							if($item['filter_type']=='ingredient') {
-								?>
-								<div data-count="<?php echo $item['count_ingre_filter']?>" class="<?php echo $item['filter_type']?> count">
-									<input type="radio" id="ingredien_pp" name="filter_pp_wg" value="<?php echo $item['slug_ingre_filter']?>">	
-	  								<label for="ingredien_pp">
-										<?php echo $item['name_ingre_filter']?>
-										<span>(<?php echo $item['count_ingre_filter']?>)</span>
-									</label>
-								</div>
-								<?php
-							}
-							if($item['filter_type']=='attribute-product') {
-								?>
-								<div data-count="<?php echo $item['count_brand_filter']?>" class="<?php echo $item['filter_type']?> count">
-									<input data-tax="<?php echo $item['slug_tax_attribute']?>" type="radio" id="attribute_pp" name="filter_pp_wg" value="<?php echo $item['slug_brand_filter']?>">	
-	  								<label for="attribute_pp">
-										<?php echo $item['name_brand_filter']?>
-										<span>(<?php echo $item['count_brand_filter']?>)</span>
-									</label>
-								</div>
-								<?php
-							}
-
-							if($item['filter_type']=='range_price') {
-								$min_max_price = explode('-',$item['price_filter_min_max']);
-								if(intval($min_max_price[0])<= intval($min_max_price[1]) ) {
+						}
+						if($item['filter_type']=='product_status') {
+							?>
+							<div data-count="<?php echo $item['count_product_status_filter']?>" class="<?php echo $item['filter_type']?> count" >
+								<input type="radio" id="product_status_pp" name="filter_pp_wg" value="<?php echo $item['slug_product_status_filter']?>">	
+  								<label for="product_status_pp">
+									<?php 
+										if($item['slug_product_status_filter']=='instock') {
+											echo 'In Stock';
+										}
+										if($item['slug_product_status_filter']=='onsale') {
+											echo 'On Sale';
+										}		
 									?>
-									<div data-count="<?php echo $item['count_min_max_filter']?>" class="<?php echo $item['filter_type']?> count">
-										<input type="radio" id="price_range_pp" name="filter_pp_wg" value="<?php echo $item['price_filter_min_max']?>">	
-		  								<label for="price_range_pp">
-											<?php echo $item['price_filter_min_max']?>
-											<span>€ (<?php echo $item['count_min_max_filter']?>)</span>
-										</label>
-									</div>
-									<?php
-								}
-							}
-							if($item['filter_type']=='product_status') {
-								?>
-								<div data-count="<?php echo $item['count_product_status_filter']?>" class="<?php echo $item['filter_type']?> count" >
-									<input type="radio" id="product_status_pp" name="filter_pp_wg" value="<?php echo $item['slug_product_status_filter']?>">	
-	  								<label for="product_status_pp">
-										<?php 
-											if($item['slug_product_status_filter']=='instock') {
-												echo 'In Stock';
-											}
-											if($item['slug_product_status_filter']=='onsale') {
-												echo 'On Sale';
-											}		
-										?>
-										<span>(<?php echo $item['count_product_status_filter']?>)</span>
-									</label>
-								</div>
-								<?php
-							}
+									<span>(<?php echo $item['count_product_status_filter']?>)</span>
+								</label>
+							</div>
+							<?php
 						}
 					}
 				?>
 			</div>
 		</div>
 		<?php
+		}
 	}
 }
 

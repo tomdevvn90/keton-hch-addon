@@ -2,10 +2,16 @@ jQuery.noConflict();
 ;(function(w, $) {
     'use strict';
 
+    
+
+
     var html_init_widget_shop = function () {
         if(window.location.href=='http://keton.local/shop/') {
-            var html_sider = $('.post-type-archive-product .sidebar-inner').html();
-            localStorage.setItem('widget_sidebar_shop', html_sider);
+            var html_init = [];
+            $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
+                html_init.push($(this).html());
+            });
+            localStorage.setItem('widget_sidebar_shop', JSON.stringify(html_init));
         }
     }
 
@@ -343,15 +349,14 @@ jQuery.noConflict();
 
     var trigger_fillter_popular = function () {
         $('body').on('change','.widget-body-popular-filter input',function(){
-            var html_sidebar_shop  = localStorage.getItem('widget_sidebar_shop');
-            var id_html = $(this).attr('id');
-            var html_input = $(this).parent().html();
+            var html_sidebar_shop  = JSON.parse(localStorage.getItem('widget_sidebar_shop'));
             if(html_sidebar_shop) {
-                $('.post-type-archive-product .sidebar-inner').html(html_sidebar_shop);
-                $('#'+id_html).parent().html(html_input);
-                $('#'+id_html).attr('checked',true); 
-                side_bar_mobile_hide(); 
+                $('.post-type-archive-product .sidebar-inner .widget').not('.widget-be-popular-filter').each(function(index, value){
+                    $(this).html(html_sidebar_shop[index]);
+                });
+                side_bar_mobile_hide();
             }
+
         });
 
 
