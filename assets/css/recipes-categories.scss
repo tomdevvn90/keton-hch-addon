@@ -449,6 +449,9 @@
                     border-radius: 50%;
                     overflow: hidden;
                     background: #fff;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                 }
             }
         }

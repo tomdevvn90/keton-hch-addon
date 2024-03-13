@@ -39,7 +39,27 @@
                         column-gap: 23px;
                         row-gap: 10px;
                         margin-bottom: 10px;
+                        .cats {
+                            padding-left: 0;
+                            list-style: none;
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 0;
+                            column-gap: 4px;
+                            flex-wrap: wrap;
+                            li {
+                                a {
+                                    color: #71778E;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 400;
+                                    line-height: 150%;
+                                    letter-spacing: 0.1px;
+                                }
+                            }
+                        }
                     }
+                   
                     .title {
                         color: #202435;
                         font-size: 35px;
@@ -151,98 +171,7 @@
                     }
                 }
             }
-            .side-bar-recipe {
-                .posts-interesting {
-                    .header {
-                        color: #202435;
-                        font-size: 15px;
-                        font-style: normal;
-                        font-weight: 600;
-                        line-height: 120%;
-                        text-transform: uppercase;
-                        margin-bottom: 21px;
-                    }
-                    .list-post {
-                        padding: 24px;
-                        border-radius: 7px;
-                        border: 1px solid #EDEEF5;
-                        margin-bottom: 35px;
-                        counter-reset: section;
-                        .item-post {
-                            margin-bottom: 50px;
-                            position: relative;
-                            &:last-child {
-                                margin-bottom: 0;
-                            }
-                            &:before {
-                                counter-increment: section;
-                                content: counter(section);
-                                width: 25px;
-                                height: 25px;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                color: #FFF;
-                                font-size: 11px;
-                                font-style: normal;
-                                font-weight: 400;
-                                line-height: 16.5px;
-                                letter-spacing: 0.1px;
-                                background: #2BBEF9;
-                                border-radius: 50%;
-                                border: 1.5px solid #fff;
-                                font-weight: bold;
-                                position: absolute;
-                                left: 45px;
-                            }
-                            a {
-                                display: flex;
-                                align-items: center;
-                                column-gap: 15px;
-                                text-decoration: none;
-                                .thumb-p {
-                                    width: 70px;
-                                    height: 70px;
-                                    border-radius: 50%;
-                                    object-fit: cover;
-                                }
-                                .name {
-                                    color: #202435;
-                                    font-size: 15px;
-                                    font-style: normal;
-                                    font-weight: 500;
-                                    line-height: 131%;
-                                }
-                            }
-                        }
-                    }
-                }
-                .gallery-sidebar {
-                    @media(max-width:992px) {
-                        display: grid;
-                        grid-template-columns: 1fr 1fr 1fr;
-                        grid-gap:20px;
-                    }
-                    @media(max-width:768px) {
-                        grid-template-columns: 1fr;
-                        grid-gap:0;
-                    }
-                    a {
-                        display: block;
-                        margin-bottom: 30px;
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-                    }
-                    img {
-                        width: 100%;
-                        margin-bottom: 30px;
-                        &:last-child {
-                            margin-bottom: 0;
-                        }
-                    }
-                }
-            }
+
         }
     }
 
@@ -357,4 +286,108 @@
             padding-bottom: 25px;
         }
     }
+}
+.side-bar-recipe {
+    @media(max-width:992px) {
+        display: none;
+    }
+    .posts-interesting {
+        .header {
+            color: #202435;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 120%;
+            text-transform: uppercase;
+            margin-bottom: 21px;
+        }
+        .list-post {
+            padding: 24px;
+            border-radius: 7px;
+            border: 1px solid #EDEEF5;
+            margin-bottom: 35px;
+            counter-reset: section;
+            .item-post {
+                margin-bottom: 50px;
+                position: relative;
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                &:before {
+                    counter-increment: section;
+                    content: counter(section);
+                    width: 25px;
+                    height: 25px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: #FFF;
+                    font-size: 11px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 16.5px;
+                    letter-spacing: 0.1px;
+                    background: #2BBEF9;
+                    border-radius: 50%;
+                    border: 1.5px solid #fff;
+                    font-weight: bold;
+                    position: absolute;
+                    left: 45px;
+                }
+                a {
+                    display: flex;
+                    align-items: center;
+                    column-gap: 15px;
+                    text-decoration: none;
+                    .thumb-p {
+                        width: 70px;
+                        height: 70px;
+                        border-radius: 50%;
+                        object-fit: cover;
+                    }
+                    .name {
+                        color: #202435;
+                        font-size: 15px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 131%;
+                    }
+                }
+            }
+        }
+    }
+    .gallery-sidebar {
+        @media(max-width:992px) {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap:20px;
+        }
+        @media(max-width:768px) {
+            grid-template-columns: 1fr;
+            grid-gap:0;
+        }
+        a {
+            display: block;
+            margin-bottom: 30px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+        img {
+            width: 100%;
+            margin-bottom: 30px;
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+}
+.wrapper-sidebar-mobile {
+    .side-bar-recipe {
+        display: none;
+        @media(max-width:992px) {
+            display: block;
+        }
+    }
+    
 }

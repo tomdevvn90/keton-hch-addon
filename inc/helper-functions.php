@@ -1000,11 +1000,11 @@ function update_rating_most_product () {
 
 // })
 
-function query_related_product ($slug_potype) {
+function query_related_product ($slug_potype,$post_per_page) {
     global $post;
     $args = array(
 		'post_type' => $slug_potype,
-		'posts_per_page' => 2,
+		'posts_per_page' => $post_per_page,
 		'post_status'    => 'publish',
         'meta_query'		=> array(
             array(
@@ -1026,7 +1026,7 @@ function be_add_related_recipes_blog_video() {
         <div class="container">
             <div class="content-related-product">
                 <?php 
-                    $args_re = query_related_product('recipe');
+                    $args_re = query_related_product('recipe',2);
                     $loop_re = new WP_Query( $args_re );
                     ob_start();
                     if ( $loop_re->have_posts() ) {
@@ -1081,7 +1081,7 @@ function be_add_related_recipes_blog_video() {
                     echo ob_get_clean();
                     wp_reset_postdata();
 
-                    $args_p = query_related_product('post');
+                    $args_p = query_related_product('post',2);
                     $loop_p = new WP_Query( $args_p );
                     ob_start();
                     if ( $loop_p->have_posts() ) {
@@ -1130,7 +1130,7 @@ function be_add_related_recipes_blog_video() {
                     }
                     echo ob_get_clean();
                     wp_reset_postdata();
-                    $args_rv = query_related_product('recipe-video');
+                    $args_rv = query_related_product('recipe-video',4);
                     $loop_rv = new WP_Query( $args_rv );
                     ob_start();
                     if ( $loop_rv->have_posts() ) {
@@ -1203,6 +1203,28 @@ function be_add_related_recipes_blog_video() {
     <?php
 }
 
+
+function custom_taxonomies_terms_links($id,$slug_tax){
+    $out = array();
+    $terms = get_the_terms( $id, $slug_tax );
+    if ( !empty( $terms ) ) {
+        $last_index = count($terms) - 1;
+        foreach ( $terms as $key=>$term ) {
+            if($last_index != $key ) {
+                $sepa = ',';
+            }else{
+                $sepa = '';
+            }
+            $out[] =
+            ' <li><a href="'
+            . get_term_link( $term->slug, $slug_tax ) .'">'
+            . $term->name.$sepa
+            . "</a></li>\n";
+        }
+        $out[] = "</ul>\n";
+    }
+    return implode('', $out );
+}  
 
 
 ?>

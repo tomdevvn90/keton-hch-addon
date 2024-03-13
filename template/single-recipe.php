@@ -18,14 +18,9 @@
                                     echo $date;
                                 ?>
                             </div>
-                            <?php 
-                                $terms = get_the_terms( $id_post, 'recipe-cat' );
-                                if ( !empty( $terms ) ){ 
-                            ?>
-                                <div class="cats"><?php echo join(', ', wp_list_pluck($terms, 'name')); ?></div>
-                            <?php 
-                                } 
-                            ?>
+                            <ul class="cats">
+                                <?php echo custom_taxonomies_terms_links($id_post,'recipe-cat'); ?>
+                            </ul>
                         </div>
                         <h2 class="title">
                             <?php 
@@ -311,7 +306,66 @@
             </div>
             <?php
         }
-    ?>            
+    ?>
+    <div class="wrapper-sidebar-mobile">
+        <div class="container">
+        <div class="side-bar-recipe">
+            <?php
+                if(!empty($posts_interesting)) {
+                    ?>
+                        <div class="posts-interesting">
+                            <h2 class="header">
+                                <?php echo __('ZANIMIVE OBJAVE','hch-addons')?>
+                            </h2>
+                            <div class="list-post">
+                            <?php 
+                                foreach ($posts_interesting as $p_in) {
+                                    ?>
+                                    <div class="item-post">
+                                        <a href="<?php echo get_permalink($p_in)?>">
+                                            <img class="thumb-p" src="<?php echo get_the_post_thumbnail_url($p_in,'thumbnail') ?>"/>
+                                            <label class="name">
+                                                <?php 
+                                                    echo get_the_title($p_in);
+                                                ?>
+                                            </label>
+                                        </a>
+                                    </div>
+                                    <?php
+                                }
+                            ?>
+                            </div>
+                        </div>
+                    <?php
+                }
+                if(!empty($gallery_sidebar)) {
+                    // echo '<pre>';
+                    // print_r($gallery_sidebar);
+                    // echo '</pre>';
+                    ?>
+                        <div class="gallery-sidebar">
+                            <?php 
+                                foreach ($gallery_sidebar as $img_sb) {
+                                    if(!empty($img_sb['link'])) {
+                                        ?>
+                                        <a href="<?php echo $img_sb['link']['url']?>" target="<?php echo $img_sb['link']['target']?>">
+                                            <img src="<?php echo $img_sb['image']?>"/>
+                                        </a>
+                                        <?php
+                                    }else{
+                                        ?>
+                                        <img src="<?php echo $img_sb['image']?>"/>
+                                        <?php
+                                    }
+                                }
+                            ?>
+                        </div>
+                    <?php
+                }
+            ?>    
+        </div> 
+        </div>
+    </div>            
 </div>
 
 <?php get_footer(); ?>
