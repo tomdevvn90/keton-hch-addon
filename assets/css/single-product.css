@@ -33,10 +33,45 @@
 
 .recently-viewed.wrapper-related-product .related-item {
   text-decoration: none; }
+.recently-viewed.wrapper-related-product .product-related-recipe-video {
+  padding-top: 140px; }
+  @media (max-width: 1200px) {
+    .recently-viewed.wrapper-related-product .product-related-recipe-video {
+      padding-top: 38px; } }
+  .recently-viewed.wrapper-related-product .product-related-recipe-video .title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 34px; }
+    .recently-viewed.wrapper-related-product .product-related-recipe-video .title svg {
+      margin-right: 24px; }
+    .recently-viewed.wrapper-related-product .product-related-recipe-video .title h4 {
+      color: #252525;
+      font-family: "Barlow Condensed";
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 500;
+      margin-bottom: 0;
+      line-height: 1; }
+  .recently-viewed.wrapper-related-product .product-related-recipe-video .list-related {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 38px; }
+    @media (max-width: 992px) {
+      .recently-viewed.wrapper-related-product .product-related-recipe-video .list-related {
+        grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 768px) {
+      .recently-viewed.wrapper-related-product .product-related-recipe-video .list-related {
+        grid-template-columns: 1fr; } }
+    .recently-viewed.wrapper-related-product .product-related-recipe-video .list-related .item-recipe-video .box-feature .title {
+      color: #252525;
+      font-size: 30px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 16px; }
 .recently-viewed.wrapper-related-product .content-related-product {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  row-gap: 140px;
   column-gap: 38px; }
   @media (max-width: 1199px) {
     .recently-viewed.wrapper-related-product .content-related-product {

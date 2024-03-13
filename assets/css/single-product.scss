@@ -41,10 +41,56 @@
     .related-item {
         text-decoration: none;
     }
+    .product-related-recipe-video {
+        padding-top: 140px;
+        @media(max-width:1200px) {
+            padding-top: 38px;
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 34px;
+            svg {
+                margin-right: 24px;
+            }
+            h4 {
+                color: #252525;
+                font-family: "Barlow Condensed";
+                font-size: 48px;
+                font-style: normal;
+                font-weight: 500;
+                margin-bottom: 0;
+                line-height: 1;
+            }
+        }
+        .list-related {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-gap: 38px;
+            @media(max-width:992px) {
+                grid-template-columns: 1fr 1fr;  
+            } 
+            @media(max-width:768px) {
+                grid-template-columns: 1fr;  
+            }
+            .item-recipe-video {
+                .box-feature {
+                    .title {
+                        color: #252525;
+                        font-size: 30px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 1.2;
+                        margin-bottom: 16px;
+                    }
+                }
+            }
+        }
+    }
     .content-related-product {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        row-gap: 140px;
+        //row-gap: 140px;
         column-gap: 38px;
         @media(max-width:1199px) {
             grid-template-columns: 1fr;  
