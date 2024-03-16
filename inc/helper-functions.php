@@ -644,7 +644,7 @@ function ingredient_single_product_callback($description) {
                                     <img src="<?php echo $url_image?>" />
                                     <label><?php echo $value->name ?></label>
                                 </a>
-                            <?
+                            <?php
                         }
                     ?>
                 </div>
@@ -652,8 +652,6 @@ function ingredient_single_product_callback($description) {
             <?php
         }
     }
-
-
 
     if(!empty($description)) {
         ?>
