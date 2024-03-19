@@ -98,7 +98,7 @@ if(!empty(get_queried_object()->name)) {
 			?>
 			</div>
 			<?php else : ?>
-				<h2 class="text-not-post"><?php esc_html_e('No Posts Found', 'hch-addons') ?></h2>
+				<h2 class="text-not-post"><?php esc_html_e('No Posts Found', '4web-addons') ?></h2>
 			<?php endif; ?>
 		</div>
 		<div class="pagination-custom">

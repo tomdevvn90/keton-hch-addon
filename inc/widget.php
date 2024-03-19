@@ -207,9 +207,9 @@ class hch_widget_hch_product_ingredient extends WP_Widget {
 	
 	// Widget Settings
 	function __construct() {
-		$widget_ops = array('description' => esc_html__('For Main Shop Page.','hch-addons') );
+		$widget_ops = array('description' => esc_html__('For Main Shop Page.','4web-addons') );
 		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'klb_product_ingredient' );
-		 parent::__construct( 'klb_product_ingredient', esc_html__('Bacola Product Ingredient','hch-addons'), $widget_ops, $control_ops );
+		 parent::__construct( 'klb_product_ingredient', esc_html__('Bacola Product Ingredient','4web-addons'), $widget_ops, $control_ops );
 	}
 
 	// Widget Output
@@ -351,12 +351,12 @@ class hch_widget_hch_product_ingredient extends WP_Widget {
 		$instance = wp_parse_args((array) $instance, $defaults); ?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Title:','hch-addons'); ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Title:','4web-addons'); ?></label>
 			<input class="widefat"  id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" value="<?php echo $instance['title']; ?>" />
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id('exclude'); ?>"><?php esc_html_e('Exclude id:','hch-addons'); ?></label>
+			<label for="<?php echo $this->get_field_id('exclude'); ?>"><?php esc_html_e('Exclude id:','4web-addons'); ?></label>
 			<input class="widefat"  id="<?php echo $this->get_field_id('exclude'); ?>" name="<?php echo $this->get_field_name('exclude'); ?>" value="<?php echo $instance['exclude']; ?>" />
 		</p>
 

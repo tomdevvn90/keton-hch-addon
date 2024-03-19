@@ -1,18 +1,18 @@
 <?php
 /**
- * Plugin Name: HCH Addons
- * Description: Create new elements for Elementor.
- * Plugin URI:  https://keton.4web.si
+ * Plugin Name: Keton Elementor Addons
+ * Description: Custom-made Elementor Addons for Keton.
+ * Plugin URI:  https://www.4web.si/
  * Version:     1.0.0
- * Author:      Huynh Cong Hieu
- * Author URI:  https://keton.4web.si
- * Text Domain: hch-addons
+ * Author:      4WEB
+ * Author URI:  https://www.4web.si/
+ * Text Domain: 4web-addons
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 /**
- * Main HuynhCongHieu Addons Class
+ * Main Keton_4WEB Addons Class
  *
  * The init class that runs the Hello World plugin.
  * Intended To make sure that the plugin's minimum requirements are met.
@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
 define('B_HELPERS_DIR', plugin_dir_path(__FILE__)); 
 
-final class HuynhCongHieu_Addons {
+final class Keton_4WEB_Addons {
 
 	/**
 	 * Plugin Version
@@ -76,7 +76,7 @@ final class HuynhCongHieu_Addons {
 	 * @access public
 	 */
 	public function i18n() {
-		load_plugin_textdomain( 'hch-addons' );
+		load_plugin_textdomain( '4web-addons' );
 	}
 
 	/**
@@ -143,31 +143,31 @@ final class HuynhCongHieu_Addons {
 	 */
 	public function hch_enqueue_scripts() {
 
-		wp_enqueue_style( 'hch-addons-elements', plugins_url( '/assets/css/elements.css', __FILE__ ) );
+		wp_enqueue_style( '4web-addons-elements', plugins_url( '/assets/css/elements.css', __FILE__ ) );
 
-		wp_enqueue_style( 'hch-addons-recipes-cat', plugins_url( '/assets/css/recipes-categories.css', __FILE__ ) );
+		wp_enqueue_style( '4web-addons-recipes-cat', plugins_url( '/assets/css/recipes-categories.css', __FILE__ ) );
 
-		wp_enqueue_style( 'hch-addons-ajax-pagination', plugins_url( '/assets/css/ajax_pagination.css', __FILE__ ) );
+		wp_enqueue_style( '4web-addons-ajax-pagination', plugins_url( '/assets/css/ajax_pagination.css', __FILE__ ) );
 
-		wp_enqueue_style( 'hch-addons-shop-page', plugins_url( '/assets/css/shop.css', __FILE__ ) );
+		wp_enqueue_style( '4web-addons-shop-page', plugins_url( '/assets/css/shop.css', __FILE__ ) );
 
-		wp_enqueue_style( 'hch-addons-single-product-page', plugins_url( '/assets/css/single-product.css', __FILE__ ) );
+		wp_enqueue_style( '4web-addons-single-product-page', plugins_url( '/assets/css/single-product.css', __FILE__ ) );
 
-		wp_enqueue_style( 'hch-addons-single-recipe-detail-page', plugins_url( '/assets/css/single-recipe.css', __FILE__ ) );
+		wp_enqueue_style( '4web-addons-single-recipe-detail-page', plugins_url( '/assets/css/single-recipe.css', __FILE__ ) );
 
-		wp_enqueue_script( 'hch-addons-video-recipes', plugins_url('/assets/js/video-recipes.js',__FILE__) , ['jquery'], time(), true  );
+		wp_enqueue_script( '4web-addons-video-recipes', plugins_url('/assets/js/video-recipes.js',__FILE__) , ['jquery'], time(), true  );
 
-		wp_enqueue_script( 'hch-addons-shop-page', plugins_url('/assets/js/shop.js',__FILE__) , ['jquery'], time(), true  );
+		wp_enqueue_script( '4web-addons-shop-page', plugins_url('/assets/js/shop.js',__FILE__) , ['jquery'], time(), true  );
 
-		wp_enqueue_script( 'hch-addons-ajax-pagination', plugins_url('/assets/js/ajax_pagination.js',__FILE__) , ['jquery'], time(), true  );
+		wp_enqueue_script( '4web-addons-ajax-pagination', plugins_url('/assets/js/ajax_pagination.js',__FILE__) , ['jquery'], time(), true  );
 
 		$php_array = array(
 			'admin_ajax' => admin_url( 'admin-ajax.php' ),
 			'link_shop' => wc_get_page_permalink( 'shop' ) 
 		);
 
-		wp_localize_script( 'hch-addons-ajax-pagination', 'hch_array_ajaxp', $php_array );
-		wp_localize_script( 'hch-addons-shop-page', 'hch_array_ajaxp', $php_array );
+		wp_localize_script( '4web-addons-ajax-pagination', 'hch_array_ajaxp', $php_array );
+		wp_localize_script( '4web-addons-shop-page', 'hch_array_ajaxp', $php_array );
 
 	}
 
@@ -186,9 +186,9 @@ final class HuynhCongHieu_Addons {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor */
-			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', 'hch-addons' ),
-			'<strong>' . esc_html__( 'HuynhCongHieu Addons', 'hch-addons' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'hch-addons' ) . '</strong>'
+			esc_html__( '"%1$s" requires "%2$s" to be installed and activated.', '4web-addons' ),
+			'<strong>' . esc_html__( 'Keton_4WEB Addons', '4web-addons' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', '4web-addons' ) . '</strong>'
 		);
 
 		printf( '<div class="notice notice-warning is-dismissible"><p>%1$s</p></div>', $message );
@@ -209,9 +209,9 @@ final class HuynhCongHieu_Addons {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: Elementor 3: Required Elementor version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'hch-addons' ),
-			'<strong>' . esc_html__( 'HuynhCongHieu Addons', 'hch-addons' ) . '</strong>',
-			'<strong>' . esc_html__( 'Elementor', 'hch-addons' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', '4web-addons' ),
+			'<strong>' . esc_html__( 'Keton_4WEB Addons', '4web-addons' ) . '</strong>',
+			'<strong>' . esc_html__( 'Elementor', '4web-addons' ) . '</strong>',
 			self::MINIMUM_ELEMENTOR_VERSION
 		);
 
@@ -233,9 +233,9 @@ final class HuynhCongHieu_Addons {
 
 		$message = sprintf(
 			/* translators: 1: Plugin name 2: PHP 3: Required PHP version */
-			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', 'hch-addons' ),
-			'<strong>' . esc_html__( 'HuynhCongHieu Addons', 'hch-addons' ) . '</strong>',
-			'<strong>' . esc_html__( 'PHP', 'hch-addons' ) . '</strong>',
+			esc_html__( '"%1$s" requires "%2$s" version %3$s or greater.', '4web-addons' ),
+			'<strong>' . esc_html__( 'Keton_4WEB Addons', '4web-addons' ) . '</strong>',
+			'<strong>' . esc_html__( 'PHP', '4web-addons' ) . '</strong>',
 			self::MINIMUM_PHP_VERSION
 		);
 
@@ -243,5 +243,5 @@ final class HuynhCongHieu_Addons {
 	}
 }
 
-// Instantiate HuynhCongHieu_Addons.
-new HuynhCongHieu_Addons();
+// Instantiate 4WEB.
+new Keton_4WEB_Addons();

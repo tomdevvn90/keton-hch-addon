@@ -119,7 +119,7 @@ function be_filter_products_on_carousel_callback() {
 		$output .= '</div>';
 		$output .= '</div>';
 		$output .= '</div>';
-		$output .= '<div class="more-products"><a class="be-btn-link" href="'.$more_products_url.'">'. __( "Prikaži več izdelkov", "hch-addons" ) .'</a></div>';
+		$output .= '<div class="more-products"><a class="be-btn-link" href="'.$more_products_url.'">'. __( "Prikaži več izdelkov", "4web-addons" ) .'</a></div>';
 		echo $output;
 		?>
 		<script>
@@ -211,7 +211,7 @@ function be_filter_products_on_carousel_callback() {
 		</script>
 		<?php
 	} else {
-		$output .= '<div class="no-item-found"><h3>'. __( "Ujemajočih izdelkov ni mogoče najti.", "hch-addons" ) .'</h3></div>';
+		$output .= '<div class="no-item-found"><h3>'. __( "Ujemajočih izdelkov ni mogoče najti.", "4web-addons" ) .'</h3></div>';
 		echo $output;
 	}
 
@@ -368,7 +368,7 @@ function be_filter_recipes_on_carousel_callback() {
 		</script>
 		<?php
 	} else {
-		$output .= '<div class="no-item-found"><h3>'. __( "Ni ustreznih receptov.", "hch-addons" ) .'</h3></div>';
+		$output .= '<div class="no-item-found"><h3>'. __( "Ni ustreznih receptov.", "4web-addons" ) .'</h3></div>';
 		echo $output;
 	}
 

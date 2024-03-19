@@ -123,7 +123,7 @@
                                     ?>
                                         <div class="description">
                                             <h4 class="name">
-                                                <?php echo __('O ODDAJI KUHINJA IZZIVOV','hch-addons')?>
+                                                <?php echo __('O ODDAJI KUHINJA IZZIVOV','4web-addons')?>
                                             </h4>
                                             <div class="description-recipe-video">
                                                 <?php 
@@ -139,7 +139,7 @@
                                     ?>
                                     <div class="wrapper-sponsors">
                                         <h4 class="name">
-                                            <?php echo __('SPONZORJI ODDAJE','hch-addons')?>
+                                            <?php echo __('SPONZORJI ODDAJE','4web-addons')?>
                                         </h4>
                                         <div class="list-sponsors">
                                             <?php 

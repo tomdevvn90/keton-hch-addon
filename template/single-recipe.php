@@ -49,7 +49,7 @@
                                 <div class="ingredient-process-recipe">
                                     <div class="ingredient">
                                         <h2 class="name-feauter">
-                                            <?php echo __('SESTAVINE','hch-addons')?>
+                                            <?php echo __('SESTAVINE','4web-addons')?>
                                         </h2>
                                         <div class="content">
                                             <?php 
@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="process">
                                         <h2 class="name-feauter">
-                                            <?php echo __('POSTOPEK','hch-addons')?>
+                                            <?php echo __('POSTOPEK','4web-addons')?>
                                         </h2>
                                         <div class="content">
                                             <?php 
@@ -74,7 +74,7 @@
                             ?>
                                 <div class="note-recipe">
                                     <h2 class="name-feauter">
-                                        <?php echo __('MOJE OPOMBE','hch-addons')?>
+                                        <?php echo __('MOJE OPOMBE','4web-addons')?>
                                     </h2>
                                     <div class="content">
                                         <?php 
@@ -96,7 +96,7 @@
                             ?>
                                 <div class="posts-interesting">
                                     <h2 class="header">
-                                        <?php echo __('ZANIMIVE OBJAVE','hch-addons')?>
+                                        <?php echo __('ZANIMIVE OBJAVE','4web-addons')?>
                                     </h2>
                                     <div class="list-post">
                                     <?php 
@@ -166,7 +166,7 @@
                 <div class="container">
                     <h2 class="title">
                         <?php 
-                            echo __('Za recept potrebujete:','hch-addons');
+                            echo __('Za recept potrebujete:','4web-addons');
                         ?>
                     </h2>
                 <?php 
@@ -205,7 +205,7 @@
                                         <path d="M37.0419 34.2266H22.7539V36.0735H37.0419V34.2266Z" fill="white"/>
                                         <path d="M39.2019 14H20.6696C19.1274 14 17.8715 15.2559 17.8715 16.7981V37.0278C17.8715 38.1378 16.9683 39.0391 15.8601 39.0391C14.752 39.0391 13.8488 38.1359 13.8488 37.0278V21.7849C13.8488 20.5382 14.8628 19.5261 16.1076 19.5261V17.6791C13.8414 17.6791 12 19.5205 12 21.7849V37.0278C12 39.1555 13.7306 40.886 15.8583 40.886H39.2C40.7422 40.886 41.9982 39.6301 41.9982 38.0879V16.7981C41.9982 15.2559 40.7422 14 39.2 14H39.2019ZM40.153 38.0898C40.153 38.6143 39.7264 39.0409 39.2019 39.0409H19.1514C19.5115 38.4555 19.7184 37.7647 19.7184 37.0296V16.7981C19.7184 16.2736 20.145 15.8469 20.6696 15.8469H39.2019C39.7264 15.8469 40.153 16.2736 40.153 16.7981V38.0898Z" fill="white"/>
                                         </svg>
-                                        <h4><?php echo __('Kuhinja izzivov','hch-addons')?></h4>
+                                        <h4><?php echo __('Kuhinja izzivov','4web-addons')?></h4>
                                     </div>
                                     <div class="list-related">
                                     <?php 
@@ -266,7 +266,7 @@
                                         <path d="M37.0419 34.2266H22.7539V36.0735H37.0419V34.2266Z" fill="white"/>
                                         <path d="M39.2019 14H20.6696C19.1274 14 17.8715 15.2559 17.8715 16.7981V37.0278C17.8715 38.1378 16.9683 39.0391 15.8601 39.0391C14.752 39.0391 13.8488 38.1359 13.8488 37.0278V21.7849C13.8488 20.5382 14.8628 19.5261 16.1076 19.5261V17.6791C13.8414 17.6791 12 19.5205 12 21.7849V37.0278C12 39.1555 13.7306 40.886 15.8583 40.886H39.2C40.7422 40.886 41.9982 39.6301 41.9982 38.0879V16.7981C41.9982 15.2559 40.7422 14 39.2 14H39.2019ZM40.153 38.0898C40.153 38.6143 39.7264 39.0409 39.2019 39.0409H19.1514C19.5115 38.4555 19.7184 37.7647 19.7184 37.0296V16.7981C19.7184 16.2736 20.145 15.8469 20.6696 15.8469H39.2019C39.7264 15.8469 40.153 16.2736 40.153 16.7981V38.0898Z" fill="white"/>
                                         </svg>
-                                        <h4><?php echo __('Blog','hch-addons')?></h4>
+                                        <h4><?php echo __('Blog','4web-addons')?></h4>
                                     </div>
                                     <div class="list-related">
                                     <?php 
@@ -287,7 +287,7 @@
                                                     </span>
                                                     <span class="count-comment">
                                                         <?php 
-                                                            echo __(' , '.get_comment_count($rp_id)['approved'].' komentarji','hch-addons'); 
+                                                            echo __(' , '.get_comment_count($rp_id)['approved'].' komentarji','4web-addons'); 
                                                         ?>
                                                     </span>
                                                 </div>
@@ -315,7 +315,7 @@
                     ?>
                         <div class="posts-interesting">
                             <h2 class="header">
-                                <?php echo __('ZANIMIVE OBJAVE','hch-addons')?>
+                                <?php echo __('ZANIMIVE OBJAVE','4web-addons')?>
                             </h2>
                             <div class="list-post">
                             <?php 

@@ -1,5 +1,5 @@
 <?php
-namespace HuynhCongHieuAddons;
+namespace Keton_4WEB_Addons;
 
 /**
  * Class Plugin
@@ -92,11 +92,11 @@ class Plugin {
 	 */
 	public function widget_scripts() {
 
-		wp_register_script( 'hch-addons', plugins_url( '/assets/js/frontend.js', __FILE__ ), [ 'jquery' ], false, true );
-		wp_localize_script( 'hch-addons', 'hch_objs', array(
+		wp_register_script( '4web-addons', plugins_url( '/assets/js/frontend.js', __FILE__ ), [ 'jquery' ], false, true );
+		wp_localize_script( '4web-addons', 'hch_objs', array(
 			'ajax_url' => admin_url( 'admin-ajax.php' )
 		) );
-		wp_enqueue_script('hch-addons');
+		wp_enqueue_script('4web-addons');
 
 	}
 
@@ -126,9 +126,9 @@ class Plugin {
 	 */
 	public function add_category( $elements_manager ) {
 		$elements_manager->add_category(
-			'hch-addons',
+			'4web-addons',
 			[
-				'title' => esc_html__( 'HCH Addons', 'hch-addons' )
+				'title' => esc_html__( '4WEB Addons', '4web-addons' )
 			]
 		);
 	}

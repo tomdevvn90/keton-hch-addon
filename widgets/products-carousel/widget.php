@@ -1,5 +1,5 @@
 <?php
-namespace HuynhCongHieuAddons\Widgets\Products_Carousel;
+namespace Keton_4WEB_Addons\Widgets\Products_Carousel;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
@@ -15,7 +15,7 @@ class Be_Products_Carousel extends Widget_Base {
     }
 
     public function get_title() {
-			return __( 'Products Carousel 2', 'hch-addons' );
+			return __( 'Products Carousel 2', '4web-addons' );
     }
 
     public function get_icon() {
@@ -23,11 +23,11 @@ class Be_Products_Carousel extends Widget_Base {
     }
 
     public function get_categories() {
-			return [ 'hch-addons' ];
+			return [ '4web-addons' ];
     }
 
     public function get_script_depends() {
-			return [ 'hch-addons' ];
+			return [ '4web-addons' ];
 		}
 
 		/**
@@ -175,14 +175,14 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->start_controls_section( 'content_section',
 				[
-					'label' => esc_html__( 'Content', 'hch-addons' ),
+					'label' => esc_html__( 'Content', '4web-addons' ),
 					'tab' => Controls_Manager::TAB_CONTENT,
 				]
 			);
 		
 			$this->add_control( 'title',
 				[
-					'label' => esc_html__( 'Title', 'hch-addons' ),
+					'label' => esc_html__( 'Title', '4web-addons' ),
 					'type' => Controls_Manager::TEXT,
 					'default' => 'Title Text',
 					'label_block' => true,
@@ -191,7 +191,7 @@ class Be_Products_Carousel extends Widget_Base {
 	
 			$this->add_control( 'subtitle',
 				[
-					'label' => esc_html__( 'Subtitle', 'hch-addons' ),
+					'label' => esc_html__( 'Subtitle', '4web-addons' ),
 					'type' => Controls_Manager::TEXTAREA,
 					'default' => 'Subtitle Text.',
 					'label_block' => true,
@@ -200,10 +200,10 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'auto_play',
 				[
-					'label' => esc_html__( 'Auto Play', 'hch-addons' ),
+					'label' => esc_html__( 'Auto Play', '4web-addons' ),
 					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'True', 'hch-addons' ),
-					'label_off' => esc_html__( 'False', 'hch-addons' ),
+					'label_on' => esc_html__( 'True', '4web-addons' ),
+					'label_off' => esc_html__( 'False', '4web-addons' ),
 					'return_value' => 'true',
 					'default' => 'false',
 				]
@@ -211,7 +211,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'auto_speed',
 				[
-					'label' => esc_html__( 'Auto Speed', 'hch-addons' ),
+					'label' => esc_html__( 'Auto Speed', '4web-addons' ),
 					'type' => Controls_Manager::TEXT,
 					'label_block' => true,
 					'default' => '1600',
@@ -221,10 +221,10 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'dots',
 				[
-					'label' => esc_html__( 'Dots', 'hch-addons' ),
+					'label' => esc_html__( 'Dots', '4web-addons' ),
 					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'True', 'hch-addons' ),
-					'label_off' => esc_html__( 'False', 'hch-addons' ),
+					'label_on' => esc_html__( 'True', '4web-addons' ),
+					'label_off' => esc_html__( 'False', '4web-addons' ),
 					'return_value' => 'true',
 					'default' => 'false',
 				]
@@ -232,10 +232,10 @@ class Be_Products_Carousel extends Widget_Base {
 			
 			$this->add_control( 'arrows',
 				[
-					'label' => esc_html__( 'Arrows', 'hch-addons' ),
+					'label' => esc_html__( 'Arrows', '4web-addons' ),
 					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'True', 'hch-addons' ),
-					'label_off' => esc_html__( 'False', 'hch-addons' ),
+					'label_on' => esc_html__( 'True', '4web-addons' ),
+					'label_off' => esc_html__( 'False', '4web-addons' ),
 					'return_value' => 'true',
 					'default' => 'true',
 				]
@@ -243,7 +243,7 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'slide_speed',
 				[
-					'label' => esc_html__( 'Slide Speed', 'hch-addons' ),
+					'label' => esc_html__( 'Slide Speed', '4web-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'default' => '1200',
 				]
@@ -254,23 +254,23 @@ class Be_Products_Carousel extends Widget_Base {
 			$this->start_controls_section(
 				'be_section_tabs__filters',
 				[
-					'label' => esc_html__('Filters', 'hch-addons'),
+					'label' => esc_html__('Filters', '4web-addons'),
 				]
 			);
 
 			$this->add_control( 'show_best_selling_filter',
 				[
-					'label' => esc_html__( 'Best Selling', 'hch-addons' ),
+					'label' => esc_html__( 'Best Selling', '4web-addons' ),
 					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'hch-addons' ),
-					'label_off' => esc_html__( 'Hide', 'hch-addons' ),
+					'label_on' => esc_html__( 'Show', '4web-addons' ),
+					'label_off' => esc_html__( 'Hide', '4web-addons' ),
 					'return_value' => 'true',
 					'default' => 'true',
 				]
 			);
 			$this->add_control( 'best_selling_filter_title',
 				[
-					'label' => esc_html__( 'Best Selling Title', 'hch-addons' ),
+					'label' => esc_html__( 'Best Selling Title', '4web-addons' ),
 					'type' => Controls_Manager::TEXT,
 					'default' => 'TOP IZDELKI',
 					// 'label_block' => true,
@@ -279,17 +279,17 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'show_on_sale_filter',
 				[
-					'label' => esc_html__( 'On Sale', 'hch-addons' ),
+					'label' => esc_html__( 'On Sale', '4web-addons' ),
 					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'hch-addons' ),
-					'label_off' => esc_html__( 'Hide', 'hch-addons' ),
+					'label_on' => esc_html__( 'Show', '4web-addons' ),
+					'label_off' => esc_html__( 'Hide', '4web-addons' ),
 					'return_value' => 'true',
 					'default' => 'true',
 				]
 			);
 			$this->add_control( 'on_sale_filter_title',
 				[
-					'label' => esc_html__( 'On Sale Title', 'hch-addons' ),
+					'label' => esc_html__( 'On Sale Title', '4web-addons' ),
 					'type' => Controls_Manager::TEXT,
 					'default' => 'V AKCIJI',
 					// 'label_block' => true,
@@ -298,17 +298,17 @@ class Be_Products_Carousel extends Widget_Base {
 			
 			$this->add_control( 'show_featured_filter',
 				[
-					'label' => esc_html__( 'Featured', 'hch-addons' ),
+					'label' => esc_html__( 'Featured', '4web-addons' ),
 					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'Show', 'hch-addons' ),
-					'label_off' => esc_html__( 'Hide', 'hch-addons' ),
+					'label_on' => esc_html__( 'Show', '4web-addons' ),
+					'label_off' => esc_html__( 'Hide', '4web-addons' ),
 					'return_value' => 'true',
 					'default' => 'true',
 				]
 			);
 			$this->add_control( 'featured_filter_title',
 				[
-					'label' => esc_html__( 'Featured Title', 'hch-addons' ),
+					'label' => esc_html__( 'Featured Title', '4web-addons' ),
 					'type' => Controls_Manager::TEXT,
 					'default' => 'NOVOSTI',
 					// 'label_block' => true,
@@ -321,48 +321,48 @@ class Be_Products_Carousel extends Widget_Base {
 			$this->start_controls_section(
 				'be_section_post__filters',
 				[
-					'label' => esc_html__('Query', 'hch-addons'),
+					'label' => esc_html__('Query', '4web-addons'),
 				]
 			);
 		
 			$this->add_control( 'product_type',
 				[
-					'label' => esc_html__( 'Product Type', 'hch-addons' ),
+					'label' => esc_html__( 'Product Type', '4web-addons' ),
 					'type' => Controls_Manager::SELECT,
 					'default' => 'type2',
 					'options' => [
-						'select-type' => esc_html__( 'Select Type', 'hch-addons' ),
-						'type2'	  => esc_html__( 'Type 2', 'hch-addons' ),
-						'type4'	  => esc_html__( 'Type 4', 'hch-addons' ),
+						'select-type' => esc_html__( 'Select Type', '4web-addons' ),
+						'type2'	  => esc_html__( 'Type 2', '4web-addons' ),
+						'type4'	  => esc_html__( 'Type 4', '4web-addons' ),
 					],
 				]
 			);
 		
 			$this->add_control( 'column',
 				[
-					'label' => esc_html__( 'Desktop Column', 'hch-addons' ),
+					'label' => esc_html__( 'Desktop Column', '4web-addons' ),
 					'type' => Controls_Manager::SELECT,
 					'default' => 4,
 					'options' => [
-						'0' => esc_html__( 'Select Column', 'hch-addons' ),
-						'2' 	  => esc_html__( '2 Columns', 'hch-addons' ),
-						'3'		  => esc_html__( '3 Columns', 'hch-addons' ),
-						'4'		  => esc_html__( '4 Columns', 'hch-addons' ),
-						'5'		  => esc_html__( '5 Columns', 'hch-addons' ),
-						'6'		  => esc_html__( '6 Columns', 'hch-addons' ),
+						'0' => esc_html__( 'Select Column', '4web-addons' ),
+						'2' 	  => esc_html__( '2 Columns', '4web-addons' ),
+						'3'		  => esc_html__( '3 Columns', '4web-addons' ),
+						'4'		  => esc_html__( '4 Columns', '4web-addons' ),
+						'5'		  => esc_html__( '5 Columns', '4web-addons' ),
+						'6'		  => esc_html__( '6 Columns', '4web-addons' ),
 					],
 				]
 			);
 		
 			$this->add_control( 'mobile_column',
 				[
-					'label' => esc_html__( 'Mobile Column', 'hch-addons' ),
+					'label' => esc_html__( 'Mobile Column', '4web-addons' ),
 					'type' => Controls_Manager::SELECT,
 					'default' => '2',
 					'options' => [
-						'0' => esc_html__( 'Select Column', 'hch-addons' ),
-						'1' 	  => esc_html__( '1 Column', 'hch-addons' ),
-						'2'		  => esc_html__( '2 Columns', 'hch-addons' ),
+						'0' => esc_html__( 'Select Column', '4web-addons' ),
+						'1' 	  => esc_html__( '1 Column', '4web-addons' ),
+						'2'		  => esc_html__( '2 Columns', '4web-addons' ),
 					],
 				]
 			);
@@ -370,7 +370,7 @@ class Be_Products_Carousel extends Widget_Base {
 			// Posts Per Page
 			$this->add_control( 'post_count',
 				[
-					'label' => esc_html__( 'Posts Per Page', 'hch-addons' ),
+					'label' => esc_html__( 'Posts Per Page', '4web-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 1,
 					'max' => count( get_posts( array('post_type' => 'product', 'post_status' => 'publish', 'fields' => 'ids', 'posts_per_page' => '-1') ) ),
@@ -380,7 +380,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'cat_filter',
 				[
-					'label' => esc_html__( 'Filter Category', 'hch-addons' ),
+					'label' => esc_html__( 'Filter Category', '4web-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
 					'options' => $this->be_cpt_taxonomies('product_cat'),
@@ -392,7 +392,7 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'tag_filter',
 				[
-					'label' => esc_html__( 'Filter Tag', 'hch-addons' ),
+					'label' => esc_html__( 'Filter Tag', '4web-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
 					'options' => $this->be_cpt_taxonomies('product_tag'),
@@ -404,7 +404,7 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'post_include_filter',
 				[
-					'label' => esc_html__( 'Include Products', 'hch-addons' ),
+					'label' => esc_html__( 'Include Products', '4web-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
 					'options' => $this->be_cpt_get_post_title('product'),
@@ -415,11 +415,11 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'order',
 				[
-						'label' => esc_html__( 'Select Order', 'hch-addons' ),
+						'label' => esc_html__( 'Select Order', '4web-addons' ),
 						'type' => Controls_Manager::SELECT,
 						'options' => [
-								'ASC' => esc_html__( 'Ascending', 'hch-addons' ),
-								'DESC' => esc_html__( 'Descending', 'hch-addons' )
+								'ASC' => esc_html__( 'Ascending', '4web-addons' ),
+								'DESC' => esc_html__( 'Descending', '4web-addons' )
 						],
 						'default' => 'DESC'
 				]
@@ -427,14 +427,14 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'orderby',
 				[
-						'label' => esc_html__( 'Order By', 'hch-addons' ),
+						'label' => esc_html__( 'Order By', '4web-addons' ),
 						'type' => Controls_Manager::SELECT,
 						'options' => [
-								'id' => esc_html__( 'Post ID', 'hch-addons' ),
-								'menu_order' => esc_html__( 'Menu Order', 'hch-addons' ),
-								'rand' => esc_html__( 'Random', 'hch-addons' ),
-								'date' => esc_html__( 'Date', 'hch-addons' ),
-								'title' => esc_html__( 'Title', 'hch-addons' ),
+								'id' => esc_html__( 'Post ID', '4web-addons' ),
+								'menu_order' => esc_html__( 'Menu Order', '4web-addons' ),
+								'rand' => esc_html__( 'Random', '4web-addons' ),
+								'date' => esc_html__( 'Date', '4web-addons' ),
+								'title' => esc_html__( 'Title', '4web-addons' ),
 						],
 						'default' => 'date',
 				]
@@ -442,10 +442,10 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->add_control( 'hide_out_of_stock_items',
 				[
-					'label' => esc_html__( 'Hide Out of Stock?', 'hch-addons' ),
+					'label' => esc_html__( 'Hide Out of Stock?', '4web-addons' ),
 					'type' => Controls_Manager::SWITCHER,
-					'label_on' => esc_html__( 'True', 'hch-addons' ),
-					'label_off' => esc_html__( 'False', 'hch-addons' ),
+					'label_on' => esc_html__( 'True', '4web-addons' ),
+					'label_off' => esc_html__( 'False', '4web-addons' ),
 					'return_value' => 'true',
 					'default' => 'false',
 				]
@@ -456,14 +456,14 @@ class Be_Products_Carousel extends Widget_Base {
 
 			$this->start_controls_section('be_styling',
 				[
-					'label' => esc_html__( ' Style', 'hch-addons' ),
+					'label' => esc_html__( ' Style', '4web-addons' ),
 					'tab' => Controls_Manager::TAB_STYLE
 				]
 			);
 		
 			$this->add_control( 'title_heading',
 				[
-					'label' => esc_html__( 'TITLE', 'hch-addons' ),
+					'label' => esc_html__( 'TITLE', '4web-addons' ),
 					'type' => Controls_Manager::HEADING,
 					'separator' => 'before'
 				]
@@ -471,7 +471,7 @@ class Be_Products_Carousel extends Widget_Base {
 			
 			$this->add_control( 'title_color',
 				[
-					'label' => esc_html__( 'Title Color', 'hch-addons' ),
+					'label' => esc_html__( 'Title Color', '4web-addons' ),
 					'type' => Controls_Manager::COLOR,
 					'default' => '',
 					'selectors' => ['{{WRAPPER}} .column .entry-title' => 'color: {{VALUE}};']
@@ -480,7 +480,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'title_hvrcolor',
 				[
-						'label' => esc_html__( 'Title Hover Color', 'hch-addons' ),
+						'label' => esc_html__( 'Title Hover Color', '4web-addons' ),
 						'type' => Controls_Manager::COLOR,
 						'default' => '',
 						'selectors' => ['{{WRAPPER}} .column .entry-title:hover' => 'color: {{VALUE}};']
@@ -489,7 +489,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'title_size',
 				[
-					'label' => esc_html__( 'Size', 'hch-addons' ),
+					'label' => esc_html__( 'Size', '4web-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 0,
 					'max' => 100,
@@ -501,7 +501,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_responsive_control( 'title_left',
 				[
-					'label' => esc_html__( 'Left', 'hch-addons' ),
+					'label' => esc_html__( 'Left', '4web-addons' ),
 					'type' => Controls_Manager::SLIDER,
 					'size_units' => [ 'px', 'vh' ],
 					'range' => [
@@ -522,7 +522,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_responsive_control( 'title_top',
 				[
-					'label' => esc_html__( 'Top', 'hch-addons' ),
+					'label' => esc_html__( 'Top', '4web-addons' ),
 					'type' => Controls_Manager::SLIDER,
 					'size_units' => [ 'px', 'vh' ],
 					'range' => [
@@ -543,7 +543,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'title_opacity_important_style',
 				[
-					'label' => esc_html__( 'Opacity', 'hch-addons' ),
+					'label' => esc_html__( 'Opacity', '4web-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 0,
 					'max' => 1,
@@ -557,7 +557,7 @@ class Be_Products_Carousel extends Widget_Base {
 				Group_Control_Typography::get_type(),
 				[
 					'name' => 'title_typo',
-					'label' => esc_html__( 'Typography', 'hch-addons' ),
+					'label' => esc_html__( 'Typography', '4web-addons' ),
 					'scheme' => Typography::TYPOGRAPHY_1,
 					'selector' => '{{WRAPPER}} .column .entry-title'
 				]
@@ -565,7 +565,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'subtitle_heading',
 				[
-					'label' => esc_html__( 'SUBTITLE', 'hch-addons' ),
+					'label' => esc_html__( 'SUBTITLE', '4web-addons' ),
 					'type' => Controls_Manager::HEADING,
 					'separator' => 'before'
 				]
@@ -573,7 +573,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'subtitle_color',
 				[
-					'label' => esc_html__( 'Subtitle Color', 'hch-addons' ),
+					'label' => esc_html__( 'Subtitle Color', '4web-addons' ),
 					'type' => Controls_Manager::COLOR,
 					'default' => '',
 					'selectors' => ['{{WRAPPER}} .column .entry-description' => 'color: {{VALUE}};']
@@ -582,7 +582,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'subtitle_hvrcolor',
 				[
-					'label' => esc_html__( 'Subtitle Hover Color', 'hch-addons' ),
+					'label' => esc_html__( 'Subtitle Hover Color', '4web-addons' ),
 					'type' => Controls_Manager::COLOR,
 					'default' => '',
 					'selectors' => ['{{WRAPPER}} .column .entry-description:hover' => 'color: {{VALUE}};']
@@ -591,7 +591,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'subtitle_size',
 				[
-					'label' => esc_html__( 'Subtitle Size', 'hch-addons' ),
+					'label' => esc_html__( 'Subtitle Size', '4web-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 0,
 					'max' => 100,
@@ -603,7 +603,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_responsive_control( 'subtitle_left',
 				[
-					'label' => esc_html__( 'Left', 'hch-addons' ),
+					'label' => esc_html__( 'Left', '4web-addons' ),
 					'type' => Controls_Manager::SLIDER,
 					'size_units' => [ 'px', 'vh' ],
 					'range' => [
@@ -624,7 +624,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_responsive_control( 'subtitle_top',
 				[
-					'label' => esc_html__( 'Top', 'hch-addons' ),
+					'label' => esc_html__( 'Top', '4web-addons' ),
 					'type' => Controls_Manager::SLIDER,
 					'size_units' => [ 'px', 'vh' ],
 					'range' => [
@@ -645,7 +645,7 @@ class Be_Products_Carousel extends Widget_Base {
 		
 			$this->add_control( 'subtitle_opacity_important_style',
 				[
-					'label' => esc_html__( 'Opacity', 'hch-addons' ),
+					'label' => esc_html__( 'Opacity', '4web-addons' ),
 					'type' => Controls_Manager::NUMBER,
 					'min' => 0,
 					'max' => 1,
@@ -659,7 +659,7 @@ class Be_Products_Carousel extends Widget_Base {
 				Group_Control_Typography::get_type(),
 				[
 					'name' => 'subtitle_typo',
-					'label' => esc_html__( 'Typography', 'hch-addons' ),
+					'label' => esc_html__( 'Typography', '4web-addons' ),
 					'scheme' => Typography::TYPOGRAPHY_1,
 					'selector' => '{{WRAPPER}} .column .entry-description'
 				]
@@ -732,9 +732,9 @@ class Be_Products_Carousel extends Widget_Base {
 			$output .= '</div>';
 			$output .= '</div>';
 			$output .= '</div>';
-			$output .= '<div class="more-products"><a class="be-btn-link" href="'.$more_products_url.'">'. __( "Prikaži več izdelkov", "hch-addons" ) .'</a></div>';
+			$output .= '<div class="more-products"><a class="be-btn-link" href="'.$more_products_url.'">'. __( "Prikaži več izdelkov", "4web-addons" ) .'</a></div>';
 		} else {
-			$output .= '<div class="no-item-found"><h3>'. __( "Ujemajočih izdelkov ni mogoče najti.", "hch-addons" ) .'</h3></div>';
+			$output .= '<div class="no-item-found"><h3>'. __( "Ujemajočih izdelkov ni mogoče najti.", "4web-addons" ) .'</h3></div>';
 		}
 		$output .= '</div>';
 		$output .= '</div>';

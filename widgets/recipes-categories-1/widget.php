@@ -1,5 +1,5 @@
 <?php
-namespace HuynhCongHieuAddons\Widgets\Recipes_Categories_1;
+namespace Keton_4WEB_Addons\Widgets\Recipes_Categories_1;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
 use Elementor\Group_Control_Typography;
@@ -15,7 +15,7 @@ class Be_Recipes_Categories_1 extends Widget_Base {
     }
 
     public function get_title() {
-			return __( 'Recipes Categories 1', 'hch-addons' );
+			return __( 'Recipes Categories 1', '4web-addons' );
     }
 
     public function get_icon() {
@@ -23,11 +23,11 @@ class Be_Recipes_Categories_1 extends Widget_Base {
     }
 
     public function get_categories() {
-			return [ 'hch-addons' ];
+			return [ '4web-addons' ];
     }
 
     public function get_script_depends() {
-			return [ 'hch-addons' ];
+			return [ '4web-addons' ];
 		}
 
 		/**
@@ -68,13 +68,13 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 			$this->start_controls_section(
 				'be_section_cat_recipes_categories',
 				[
-					'label' => esc_html__('Content', 'hch-addons'),
+					'label' => esc_html__('Content', '4web-addons'),
 				]
 			);
 		
 			$this->add_control( 'cat_feature_recipes',
 				[
-					'label' => esc_html__( 'Select the categories of featured recipes.', 'hch-addons' ),
+					'label' => esc_html__( 'Select the categories of featured recipes.', '4web-addons' ),
 					'type' => Controls_Manager::SELECT2,
 					'multiple' => true,
 					'options' => $this->be_get_taxonomies('recipe-cat'),
