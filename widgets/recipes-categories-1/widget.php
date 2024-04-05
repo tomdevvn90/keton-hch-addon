@@ -118,10 +118,9 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 								foreach ($cat_feature as $cat_f) {
 									$thumbnail = get_field('image_background','recipe-cat'. '_'.$cat_f);
 									?>
-										<a href="<?php echo get_term_link(intval($cat_f))?>" class="item-recipes-cat" style="background-image:url(<?php echo $thumbnail?>)">
-											<div class="overlay">
-
-											</div>
+										<a href="<?php echo get_term_link(intval($cat_f))?>" class="item-recipes-cat" style="background-image:url(<?php //echo $thumbnail?>)">
+											<div class="overlay"></div>
+											<img src="<?php echo $thumbnail; ?>" alt="">
 											<span class="title-cat">
 												<?php 
 													$term_name = get_term( $cat_f )->name;
@@ -140,10 +139,9 @@ class Be_Recipes_Categories_1 extends Widget_Base {
 								foreach ($cat_not_feature as $cat_f) {
 									$thumbnail = get_field('image_background','recipe-cat'. '_'.$cat_f);
 									?>
-										<a href="<?php echo get_term_link(intval($cat_f))?>" class="item-recipes-cat" style="background-image:url(<?php echo $thumbnail?>)">
-											<div class="overlay">
-
-											</div>
+										<a href="<?php echo get_term_link(intval($cat_f))?>" class="item-recipes-cat" style="background-image:url(<?php //echo $thumbnail?>)">
+											<div class="overlay"></div>
+											<img src="<?php echo $thumbnail; ?>" alt="">
 											<span class="title-cat">
 												<?php 
 													$term_name = get_term( $cat_f )->name;

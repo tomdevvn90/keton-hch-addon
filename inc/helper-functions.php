@@ -15,8 +15,6 @@
     return $options;
 }
 
-
-
 function be_force_template_recipe_cat( $template ) {
     // echo '<pre>';
     // print_r(get_queried_object());
@@ -88,8 +86,6 @@ function get_video_by_url($url, $params = null)
     return false;
 
 }
-
-
 
 function setPostViews($postID) {
 
@@ -765,7 +761,7 @@ function hch_remove_klb_filter(){
 
 		$output .= '<ul class="remove-filter">';
 		
-		$output .= '<li><a href="'.esc_url(remove_query_arg(array_keys($_GET))).'" class="remove-filter-element clear-all">'.esc_html__( 'Clear filters', 'bacola-core' ).'</a></li>';
+		$output .= '<li><a href="'.esc_url(remove_query_arg(array_keys($_GET))).'" class="remove-filter-element clear-all">'.esc_html__( 'Clear filters', '4web-addons' ).'</a></li>';
 
 		if ( ! empty( $_chosen_attributes ) ) {
 			foreach ( $_chosen_attributes as $taxonomy => $data ) {
@@ -791,11 +787,11 @@ function hch_remove_klb_filter(){
 		}
 
 		if(bacola_stock_status() == 'instock'){
-		$output .= '<li><a href="'.esc_url(remove_query_arg('stock_status')).'" class="remove-filter-element stock_status">'.esc_html__('In Stock','bacola-core').'</a></li>';
+		$output .= '<li><a href="'.esc_url(remove_query_arg('stock_status')).'" class="remove-filter-element stock_status">'.esc_html__('In Stock','4web-addons').'</a></li>';
 		}
 		
 		if(bacola_on_sale() == 'onsale'){
-		$output .= '<li><a href="'.esc_url(remove_query_arg('on_sale')).'" class="remove-filter-element on_sale">'.esc_html__('On Sale','bacola-core').'</a></li>';
+		$output .= '<li><a href="'.esc_url(remove_query_arg('on_sale')).'" class="remove-filter-element on_sale">'.esc_html__('On Sale','4web-addons').'</a></li>';
 		}
 
 		if($min_price){
@@ -920,7 +916,7 @@ function hch_catalog_ordering_start(){
         <div class="mobile-filter">
             <a href="#" class="filter-toggle">
                 <i class="klbth-icon-filter"></i>
-                <span><?php esc_html_e('Filter Products','bacola-core'); ?></span>
+                <span><?php esc_html_e('Filter Products','4web-addons'); ?></span>
             </a>
         </div>
         
@@ -934,7 +930,7 @@ function hch_catalog_ordering_start(){
             <?php $defaultperpage = wc_get_default_products_per_row() * wc_get_default_product_rows_per_page(); ?>
             <?php $options = array($defaultperpage,$defaultperpage*2,$defaultperpage*3,$defaultperpage*4); ?>
             <form class="products-per-page product-filter" method="get">
-                <span class="perpage-label"><?php esc_html_e('Show','bacola-core'); ?></span>
+                <span class="perpage-label"><?php esc_html_e('Show','4web-addons'); ?></span>
                 <?php if (bacola_get_body_class('bacola-ajax-shop-on')) { ?>
                     <select name="perpage" class="perpage filterSelect" data-class="select-filter-perpage">
                 <?php } else { ?>
@@ -1260,7 +1256,7 @@ function be_add_related_recipes_blog_video() {
             </div>
             <div class="wrapper-product-recipe-video-consul">
                 <?php
-                    $args_rv = query_related_product('recipe-video',4);
+                    $args_rv = query_related_product('recipe-video',2);
                     $loop_rv = new WP_Query( $args_rv );
                     ob_start();
                     if ( $loop_rv->have_posts() ) {
@@ -1326,31 +1322,32 @@ function be_add_related_recipes_blog_video() {
                     echo ob_get_clean();
                     wp_reset_postdata();
                 ?> 
-                <div class="consultan-courses">
-                    <div class="title">
-                        <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
-                        <g clip-path="url(#clip0_846_2)">
-                        <path d="M36.094 41C35.8639 41 35.6337 40.9273 35.4373 40.7839L26.1102 33.9633L16.7831 40.7839C16.437 41.0363 15.9879 41.0708 15.61 40.8719C15.2339 40.6748 15 40.2828 15 39.8505V12.1476C15 11.5145 15.5052 11 16.1264 11H36.094C36.7152 11 37.2204 11.5145 37.2204 12.1476V39.8505C37.2204 40.2828 36.9865 40.6729 36.6104 40.8719C36.4457 40.9579 36.2699 41 36.094 41ZM26.1102 31.6108L35.3493 38.3663V12.9127H16.871V38.3682L26.1102 31.6127V31.6108Z" fill="white"/>
-                        </g>
-                        <defs>
-                        <clipPath id="clip0_846_2">
-                        <rect width="22.2222" height="30" fill="white" transform="translate(15 11)"/>
-                        </clipPath>
-                        </defs>
-                        </svg>
-                        <h4>
+
+                <?php
+                $desc_cons_cours = get_field('description_consulting_courses', get_the_ID());
+                if ( $desc_cons_cours ) { ?>
+                    <div class="consultan-courses">
+                        <div class="title">
+                            <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
+                            <g clip-path="url(#clip0_846_2)">
+                            <path d="M36.094 41C35.8639 41 35.6337 40.9273 35.4373 40.7839L26.1102 33.9633L16.7831 40.7839C16.437 41.0363 15.9879 41.0708 15.61 40.8719C15.2339 40.6748 15 40.2828 15 39.8505V12.1476C15 11.5145 15.5052 11 16.1264 11H36.094C36.7152 11 37.2204 11.5145 37.2204 12.1476V39.8505C37.2204 40.2828 36.9865 40.6729 36.6104 40.8719C36.4457 40.9579 36.2699 41 36.094 41ZM26.1102 31.6108L35.3493 38.3663V12.9127H16.871V38.3682L26.1102 31.6127V31.6108Z" fill="white"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_846_2">
+                            <rect width="22.2222" height="30" fill="white" transform="translate(15 11)"/>
+                            </clipPath>
+                            </defs>
+                            </svg>
+                            <h4><?php echo get_field('heading_consulting_courses', get_the_ID()); ?> </h4>
+                        </div>
+                        <div class="des">
                             <?php 
-                                echo get_field('heading_consulting_courses','options');
+                                echo $desc_cons_cours;
                             ?>
-                        </h4>
-                    </div>
-                    <div class="des">
-                        <?php 
-                            echo get_field('description_consulting_courses','options');
-                        ?>
-                    </div>
-                </div>   
+                        </div>
+                    </div>   
+                <?php } ?>
             </div>
         </div>
     </section>
@@ -1685,5 +1682,94 @@ function add_guarante_single_product() {
     <?php
 }
 
+if ( ! function_exists( 'keton_4web_breadcrubms' ) ) {
+    function keton_4web_breadcrubms() {
+        global $wp_query, $post, $paged;
 
+        $space      = '';
+        $on_front   = get_option( 'show_on_front' );
+        $blog_page  = get_option( 'page_for_posts' );
+        $separator  = '';
+        $link       = apply_filters( 'keton_breadcrumb_link', '<li><a  href="%1$s" title="%2$s" rel="bookmark">%2$s</a> </li>  ' );
+        $current    = apply_filters( 'keton_breadcrumb_current', '<li><span>%s</span></li>' );
+
+        if ( ( $on_front == 'page' && is_front_page() ) || ( $on_front == 'posts' && is_home() ) ) {
+            return;
+        }
+
+        $out = '';
+
+        if ( $on_front == "page" && is_home() ) {
+            $blog_title = isset( $blog_page ) ? get_the_title( $blog_page ) : esc_html__( 'Our Blog', '4web-addons' );
+            $out .= sprintf( $link, home_url(), esc_html__( 'DOMOV', '4web-addons' ) ) . $separator . sprintf( $current, $blog_title );
+        } else {
+            $out .= sprintf( $link, home_url(), esc_html__( 'DOMOV', '4web-addons' ) );
+        }
+
+        if ( is_singular() ) {
+
+            if ( is_singular( 'post' ) && $blog_page > 0 ) {
+                $out .= $separator . sprintf( $link, get_permalink( $blog_page ), esc_attr( get_the_title( $blog_page ) ) );
+            }
+
+            if ( $post->post_parent > 0 ) {
+                if ( isset( $post->ancestors ) ) {
+                    if ( is_array( $post->ancestors ) )
+                        $ancestors = array_values( $post->ancestors );
+                    else
+                        $ancestors = array( $post->ancestors );
+                } else {
+                    $ancestors = array( $post->post_parent );
+                }
+                foreach ( array_reverse( $ancestors ) as $key => $value ) {
+                    $out .= $separator . sprintf( $link, get_permalink( $value ), esc_attr( get_the_title( $value ) ) );
+                }
+            }
+
+            $post_type = get_post_type();
+            if ( get_post_type_archive_link( $post_type ) ) {
+                $post_type_obj = get_post_type_object( get_post_type($post) );
+                $out .= $separator . sprintf( $link, get_post_type_archive_link( $post_type ), esc_attr( $post_type_obj->labels->menu_name ) );
+            }
+
+            $out .= $separator . sprintf( $current, get_the_title() );
+
+        } else {
+            if ( is_post_type_archive() ) {
+                $post_type = get_post_type();
+                $post_type_obj = get_post_type_object( get_post_type($post) );
+                $out .= $separator . sprintf( $current, $post_type_obj->labels->menu_name );
+            } else if ( is_tax() ) {
+                if ( is_tax( 'download_tag' ) || is_tax( 'download_category' ) ) {
+                    $post_type = get_post_type();
+                    $post_type_obj = get_post_type_object( get_post_type($post) );
+                    $out .= $separator . sprintf( $link, get_post_type_archive_link( $post_type ), esc_attr( $post_type_obj->labels->menu_name ) );
+                }
+                $out .= $separator . sprintf( $current, $wp_query->queried_object->name );
+            } else if ( is_category() ) {
+                $out .= $separator . esc_html__( 'Category : ', '4web-addons' ) . sprintf( $current, $wp_query->queried_object->name );
+            } else if ( is_tag() ) {
+                $out .= $separator . esc_html__( 'Tag : ', '4web-addons' ) . sprintf( $current, $wp_query->queried_object->name );
+            } else if ( is_date() ) {
+                $out .= $separator;
+                if ( is_day() ) {
+                    global $wp_locale;
+                    $out .= sprintf( $link, get_month_link( get_query_var( 'year' ), get_query_var( 'monthnum' ) ), $wp_locale->get_month( get_query_var( 'monthnum' ) ).' '.get_query_var( 'year' ) );
+                    $out .= $separator . sprintf( $current, get_the_date() );
+                } else if ( is_month() ) {
+                    $out .= sprintf( $current, single_month_title( ' ', false ) );
+                } else if ( is_year() ) {
+                    $out .= sprintf( $current, get_query_var( 'year' ) );
+                }
+            } else if ( is_404() ) {
+                $out .= $separator . sprintf( $current, esc_html__( 'Error 404', '4web-addons' ) );
+            } else if ( is_search() ) {
+                $out .= $separator . sprintf( $current, esc_html__( 'Search', '4web-addons' ) );
+            }
+        }
+        $out .= '';
+        return  '<ul class="keton-breadcrumb-menu">'.apply_filters( 'keton_breadcrumbs_out', $out ).'</ul>';
+    }
+}
+add_shortcode( "keton_breadcrumb", 'keton_4web_breadcrubms' );
 ?>
