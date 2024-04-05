@@ -8,6 +8,9 @@
         grid-template-columns: 1fr 1fr;
         grid-gap: 35px;
         margin-bottom: 35px;
+        a {
+            text-decoration: none;
+        }
         @media(max-width:600px) {
             grid-template-columns: 1fr; 
             grid-gap: 30px;

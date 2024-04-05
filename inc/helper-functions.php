@@ -47,6 +47,8 @@ function be_force_template_recipe_cat( $template ) {
 
 
 
+
+
 function get_video_by_url($url, $params = null)
 {
     if (!is_string($url)) return false;
@@ -662,6 +664,35 @@ function ingredient_single_product_callback($description) {
     }
 }
 
+function get_ingredient_product ($id) {
+    $term_list = get_the_terms($id, 'product-ingredient');
+    if(!empty($term_list)) {
+        ob_start();
+        ?>
+        <div class="wrapper-ingredient">
+            <h4 class="title">
+                <?php __('Kategorija:','4web-addons') ?>
+            </h4>
+            <div class="list-ingredient">
+                <?php 
+                    foreach ($term_list as $key => $value) {
+                        $url_image = get_field('image_ingre_tax', 'product-ingredient_'.$value->term_id);
+                        ?>
+                            <a class="item-ingredient" href="<?php echo get_term_link($value->term_id)?>">
+                                <img src="<?php echo $url_image?>" />
+                                <label><?php echo $value->name ?></label>
+                            </a>
+                        <?php
+                    }
+                ?>
+            </div>
+        </div>
+        <?php
+        $content = ob_get_clean();
+        return $content;
+    }
+}
+
 // Show product filter popular
 function be_show_result_filter_popular() {
     echo do_shortcode('[be_product_result_shop]');
@@ -1015,17 +1046,113 @@ function query_related_product ($slug_potype,$post_per_page) {
     return $args;
 }
 
+function be_get_reviews_single_product() {
+    if ( ! is_singular( 'product' )) {
+		return;
+	}
+    global $product;
+    $condition =  $product->is_type( 'variable' );
+    if (!$condition) {
+        return;
+    }
+	$id_product = $product->get_id();;
+    $args = array ('post_id' => $id_product);
+    $comments = get_comments( $args );
+    $icon_star = '<svg width="26" height="23" viewBox="0 0 26 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="0.793945" y="0.328125" width="24.9042" height="22.3987" fill="#49999A"/>
+    <path d="M11.9215 1.98777C12.2976 1.28062 13.311 1.28062 13.6872 1.98777L15.8987 6.14512C16.0337 6.39883 16.2712 6.58221 16.5509 6.64851L20.9787 7.69835C21.697 7.86865 21.9895 8.73174 21.5228 9.30363L18.4133 13.1139C18.2475 13.3171 18.1682 13.5772 18.1923 13.8383L18.6536 18.8265C18.7252 19.6011 17.9239 20.1573 17.2233 19.8192L13.2389 17.8968C12.9643 17.7643 12.6443 17.7643 12.3698 17.8968L8.38533 19.8192C7.68473 20.1573 6.8834 19.6011 6.95503 18.8265L7.4163 13.8383C7.44045 13.5772 7.36108 13.3171 7.19531 13.1139L4.08585 9.30363C3.61915 8.73174 3.91167 7.86865 4.62991 7.69835L9.05777 6.64851C9.33738 6.58221 9.57496 6.39883 9.70992 6.14512L11.9215 1.98777Z" fill="white"/>
+    </svg>';
+    // echo '<pre>';
+    // print_r($comments);
+    // echo '</pre>';
+    
+    ?>
+    <div class="klb-module site-module reviews-singleproduct-wrapper-custom">
+        <div class="container">
+            <div class="content-list-reviews">
+                <div class="btn-wrap wrap-prev">
+                    <div class="prev-btn">
+                        <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="18.5" cy="18.5" r="18" transform="rotate(-180 18.5 18.5)" fill="white" stroke="#F2F2F2"/>
+                        <path d="M22 8L11.3934 18.6066L22 29.2132" stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="list-reviews-detail">
+                    <?php 
+                        if(!empty($comments)) {
+                            foreach ($comments as $comment) {
+                                $rating = intval( get_comment_meta( $comment->comment_ID, 'rating',true ) );
+                                $description = $comment->comment_content;
+                                $author = $comment->comment_author;
+                                $date = $comment->comment_date;
+                                ?>
+                                <div class="item-rv">
+                                    <div class="review">
+                                        <div class="icon-rating">
+                                            <?php 
+                                                for ($x = 0; $x < $rating; $x++) {
+                                                    echo $icon_star;
+                                                }
+                                            ?>
+                                        </div>
+                                        <div class="des">
+                                            <?php 
+                                                echo $description;
+                                            ?>
+                                        </div>
+                                        <div class="author">
+                                            <?php 
+                                                echo $author;
+                                            ?>
+                                        </div>
+                                        <div class="date">
+                                            <?php 
+                                            echo date('d/m/Y',strtotime($date));
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            
+                        }
+                    ?>
+                </div>
+                <div class="btn-wrap wrap-next">
+                    <div class="next-btn">
+                        <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="18.5" cy="18.5" r="18" fill="white" stroke="#F2F2F2"/>
+                        <path d="M18.6055 29.2109L29.2121 18.6043L18.6055 7.99773" stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <?php
+}
+
 function be_add_related_recipes_blog_video() {
     if ( ! is_singular( 'product' )) {
 		return;
 	}
+
+    $args_re = query_related_product('recipe',2);
+    $loop_re = new WP_Query( $args_re );
+    $count = $loop_re->found_posts;
+
+    if($count<2) {
+        return;
+    }
+
     ?>
     <section class="klb-module site-module recently-viewed wrapper-related-product">
         <div class="container">
             <div class="content-related-product">
                 <?php 
-                    $args_re = query_related_product('recipe',2);
-                    $loop_re = new WP_Query( $args_re );
+
                     ob_start();
                     if ( $loop_re->have_posts() ) {
                 ?>
@@ -1131,71 +1258,100 @@ function be_add_related_recipes_blog_video() {
                    
                 ?>
             </div>
-            <?php
-                 $args_rv = query_related_product('recipe-video',4);
-                 $loop_rv = new WP_Query( $args_rv );
-                 ob_start();
-                 if ( $loop_rv->have_posts() ) {
-                     ?>
-                         <div class="product-related-recipe-video">
-                             <div class="title">
-                                 <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                 <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
-                                 <path d="M33.5805 17.6094H22.75V27.6623H33.5805V17.6094ZM31.7336 25.8154H24.5969V19.4563H31.7336V25.8154Z" fill="white"/>
-                                 <path d="M37.0419 30.1953H22.7539V32.0423H37.0419V30.1953Z" fill="white"/>
-                                 <path d="M37.0419 34.2266H22.7539V36.0735H37.0419V34.2266Z" fill="white"/>
-                                 <path d="M39.2019 14H20.6696C19.1274 14 17.8715 15.2559 17.8715 16.7981V37.0278C17.8715 38.1378 16.9683 39.0391 15.8601 39.0391C14.752 39.0391 13.8488 38.1359 13.8488 37.0278V21.7849C13.8488 20.5382 14.8628 19.5261 16.1076 19.5261V17.6791C13.8414 17.6791 12 19.5205 12 21.7849V37.0278C12 39.1555 13.7306 40.886 15.8583 40.886H39.2C40.7422 40.886 41.9982 39.6301 41.9982 38.0879V16.7981C41.9982 15.2559 40.7422 14 39.2 14H39.2019ZM40.153 38.0898C40.153 38.6143 39.7264 39.0409 39.2019 39.0409H19.1514C19.5115 38.4555 19.7184 37.7647 19.7184 37.0296V16.7981C19.7184 16.2736 20.145 15.8469 20.6696 15.8469H39.2019C39.7264 15.8469 40.153 16.2736 40.153 16.7981V38.0898Z" fill="white"/>
-                                 </svg>
-                                 <h4><?php echo __('Kuhinja izzivov','4web-addons')?></h4>
-                             </div>
-                             <div class="list-related">
-                             <?php 
-                                 while($loop_rv->have_posts()):$loop_rv->the_post();
-                                     $id_post_recipes = get_the_ID();
-                                     $thumbnail = get_the_post_thumbnail_url($id_post_recipes,'full');
-                                     $link = get_permalink($id_post_recipes);
-                                     $title = get_the_title($id_post_recipes);
-                                     $date = get_the_date('F j, Y',$id_post_recipes);
-                                     ?>
-                                     <div class="item-recipe-video">
-                                         <a href="<?php echo $link?>">
-                                             <div class="thumbnail">
-                                                 <img src="<?php echo $thumbnail?>"/>
-                                                 <div class="icon-play">
-                                                     <svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" viewBox="0 0 74 74" fill="none">
-                                                         <circle cx="37" cy="37" r="36" stroke="white" stroke-width="2"/>
-                                                         <path d="M48.6383 34.1291C50.3396 35.3238 50.3396 37.8448 48.6383 39.0394L33.5235 49.6528C31.5356 51.0487 28.7995 49.6267 28.7995 47.1976L28.7995 25.971C28.7995 23.5419 31.5356 22.1199 33.5235 23.5158L48.6383 34.1291Z" fill="white"/>
-                                                     </svg>
-                                                 </div>
-                                                 <div class="ovelay"></div>
-                                             </div>
-                                             <div class="box-feature">
-                                                 <div class="view-post">
-                                                     <?php 
-                                                         echo getPostViews($id_post_recipes);
-                                                     ?>
-                                                 </div>
-                                                 <div class="title">
-                                                     <?php 
-                                                         echo $title;
-                                                     ?>
-                                                 </div>
-                                                 <div class="date">
-                                                     <?php 
-                                                         echo $date;
-                                                     ?>
-                                                 </div>
-                                             </div>
-                                         </a>
-                                     </div>
-                                     <?php
-                                 endwhile;
-                             ?>
-                             </div>
-                         </div>
-                     <?php
-                 }
-            ?>
+            <div class="wrapper-product-recipe-video-consul">
+                <?php
+                    $args_rv = query_related_product('recipe-video',4);
+                    $loop_rv = new WP_Query( $args_rv );
+                    ob_start();
+                    if ( $loop_rv->have_posts() ) {
+                        ?>
+                            <div class="product-related-recipe-video">
+                                <div class="title">
+                                    <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
+                                    <path d="M33.5805 17.6094H22.75V27.6623H33.5805V17.6094ZM31.7336 25.8154H24.5969V19.4563H31.7336V25.8154Z" fill="white"/>
+                                    <path d="M37.0419 30.1953H22.7539V32.0423H37.0419V30.1953Z" fill="white"/>
+                                    <path d="M37.0419 34.2266H22.7539V36.0735H37.0419V34.2266Z" fill="white"/>
+                                    <path d="M39.2019 14H20.6696C19.1274 14 17.8715 15.2559 17.8715 16.7981V37.0278C17.8715 38.1378 16.9683 39.0391 15.8601 39.0391C14.752 39.0391 13.8488 38.1359 13.8488 37.0278V21.7849C13.8488 20.5382 14.8628 19.5261 16.1076 19.5261V17.6791C13.8414 17.6791 12 19.5205 12 21.7849V37.0278C12 39.1555 13.7306 40.886 15.8583 40.886H39.2C40.7422 40.886 41.9982 39.6301 41.9982 38.0879V16.7981C41.9982 15.2559 40.7422 14 39.2 14H39.2019ZM40.153 38.0898C40.153 38.6143 39.7264 39.0409 39.2019 39.0409H19.1514C19.5115 38.4555 19.7184 37.7647 19.7184 37.0296V16.7981C19.7184 16.2736 20.145 15.8469 20.6696 15.8469H39.2019C39.7264 15.8469 40.153 16.2736 40.153 16.7981V38.0898Z" fill="white"/>
+                                    </svg>
+                                    <h4><?php echo __('Kuhinja izzivov','4web-addons')?></h4>
+                                </div>
+                                <div class="list-related">
+                                <?php 
+                                    while($loop_rv->have_posts()):$loop_rv->the_post();
+                                        $id_post_recipes = get_the_ID();
+                                        $thumbnail = get_the_post_thumbnail_url($id_post_recipes,'full');
+                                        $link = get_permalink($id_post_recipes);
+                                        $title = get_the_title($id_post_recipes);
+                                        $date = get_the_date('F j, Y',$id_post_recipes);
+                                        ?>
+                                        <div class="item-recipe-video">
+                                            <a href="<?php echo $link?>">
+                                                <div class="thumbnail">
+                                                    <img src="<?php echo $thumbnail?>"/>
+                                                    <div class="icon-play">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="74" height="74" viewBox="0 0 74 74" fill="none">
+                                                            <circle cx="37" cy="37" r="36" stroke="white" stroke-width="2"/>
+                                                            <path d="M48.6383 34.1291C50.3396 35.3238 50.3396 37.8448 48.6383 39.0394L33.5235 49.6528C31.5356 51.0487 28.7995 49.6267 28.7995 47.1976L28.7995 25.971C28.7995 23.5419 31.5356 22.1199 33.5235 23.5158L48.6383 34.1291Z" fill="white"/>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="ovelay"></div>
+                                                </div>
+                                                <div class="box-feature">
+                                                    <div class="view-post">
+                                                        <?php 
+                                                            echo getPostViews($id_post_recipes);
+                                                        ?>
+                                                    </div>
+                                                    <div class="title">
+                                                        <?php 
+                                                            echo $title;
+                                                        ?>
+                                                    </div>
+                                                    <div class="date">
+                                                        <?php 
+                                                            echo $date;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <?php
+                                    endwhile;
+                                ?>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                    echo ob_get_clean();
+                    wp_reset_postdata();
+                ?> 
+                <div class="consultan-courses">
+                    <div class="title">
+                        <svg width="53" height="53" viewBox="0 0 53 53" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="53" height="53" rx="5" fill="#EA2B0F"/>
+                        <g clip-path="url(#clip0_846_2)">
+                        <path d="M36.094 41C35.8639 41 35.6337 40.9273 35.4373 40.7839L26.1102 33.9633L16.7831 40.7839C16.437 41.0363 15.9879 41.0708 15.61 40.8719C15.2339 40.6748 15 40.2828 15 39.8505V12.1476C15 11.5145 15.5052 11 16.1264 11H36.094C36.7152 11 37.2204 11.5145 37.2204 12.1476V39.8505C37.2204 40.2828 36.9865 40.6729 36.6104 40.8719C36.4457 40.9579 36.2699 41 36.094 41ZM26.1102 31.6108L35.3493 38.3663V12.9127H16.871V38.3682L26.1102 31.6127V31.6108Z" fill="white"/>
+                        </g>
+                        <defs>
+                        <clipPath id="clip0_846_2">
+                        <rect width="22.2222" height="30" fill="white" transform="translate(15 11)"/>
+                        </clipPath>
+                        </defs>
+                        </svg>
+                        <h4>
+                            <?php 
+                                echo get_field('heading_consulting_courses','options');
+                            ?>
+                        </h4>
+                    </div>
+                    <div class="des">
+                        <?php 
+                            echo get_field('description_consulting_courses','options');
+                        ?>
+                    </div>
+                </div>   
+            </div>
         </div>
     </section>
     <?php
@@ -1223,6 +1379,311 @@ function custom_taxonomies_terms_links($id,$slug_tax){
     }
     return implode('', $out );
 }  
+
+function get_status_stock_product ($id) {
+    $product = wc_get_product( $id );
+    $stock_quantity = $product->get_stock_quantity();
+
+    // now we can print product stock quantity or do whatever
+    return $stock_quantity;
+}
+
+
+function wc_get_rating_html_custom( $rating, $count = 0 ) {
+	$html = '';
+
+	if ( 0 < $rating ) {
+		/* translators: %s: rating */
+		$label = sprintf( __( 'Rated %s out of 5', 'woocommerce' ), $rating );
+		$html  = '<div class="star-rating" role="img" aria-label="' . esc_attr( $label ) . '">' . wc_get_star_rating_html( $rating, $count ) . '</div>';
+	}
+
+	return apply_filters( 'woocommerce_product_get_rating_html', $html, $rating, $count );
+}
+
+function web4_single_product_header(){
+	global $product;
+	$id_product = $product->get_id();
+    $quanlity_stock = get_status_stock_product($id_product);
+    
+	?>
+	<div class="product-header-custom">
+		<?php do_action('bacola_single_title'); ?>
+
+		<div class="product-meta-custom top">
+				
+			<div class="product-brand">
+				<?php 
+                    $term_list = get_the_terms($id_product, 'berocket_brand');
+                    if(!is_wp_error($term_list)) {
+                        if(!empty($term_list) && !empty($term_list[0]->name)) {
+                            ?>
+                               <label><?php echo __('ZNAMKA:','4web-addons')?></label> 
+                               <div class="name-brand">
+                                    <?php 
+                                        echo $term_list[0]->name;
+                                    ?>
+                               </div>
+                            <?php
+                            
+                        }
+                    }
+                ?>
+			</div>
+            <div class="rating-product">
+                <label><?php echo __('Ocena:','4web-addons')?></label>
+                <?php do_action('bacola_single_rating'); ?>
+            </div>	
+            <?php 
+                if(!empty($quanlity_stock)) {
+                    ?>
+                        <div class="stock-product">
+                            <?php 
+                                if($quanlity_stock>0) {
+                                    ?>
+                                    <div class="instock">
+                                        <span class="text"><?php echo __('Zaloga:','4web-addons')?></span>
+                                        <span class="status">
+                                            <?php 
+                                                echo __('Je na zalogi','4web-addons')
+                                            ?>
+                                        </span>
+                                    </div>
+                                    <?php
+                                }else{
+                                    ?>
+                                                                        
+                                    <div class="instock">
+                                        <span class="text"><?php echo __('Zaloga:','4web-addons')?></span>
+                                        <span class="status">
+                                            <?php 
+                                                echo __('ni na zalogi','4web-addons')
+                                            ?>
+                                        </span>
+                                    </div>
+                                    <?php
+                                }
+                            ?>
+                        </div>
+                    <?php           
+                }
+            ?>
+      
+
+		</div><!-- product-meta -->
+
+	</div><!-- product-header -->
+	<?php
+}
+
+function share_product_social_custom(){
+	$socialshare = get_theme_mod( 'bacola_shop_social_share', '0' );
+
+	if($socialshare == '1'){
+		wp_enqueue_script('jquery-socialshare');
+		wp_enqueue_script('klb-social-share');
+	
+	   $single_share_multicheck = get_theme_mod('bacola_shop_single_share',array( 'facebook', 'twitter', 'pinterest', 'linkedin', 'reddit', 'whatsapp'));
+	   echo '<div class="product-share">';
+		   echo '<div class="social-share site-social style-1">';
+			   echo '<ul class="social-container">';
+					if(in_array('facebook', $single_share_multicheck)){
+						echo '<li><a href="#" class="facebook"><i class="klbth-icon-facebook"></i></a></li>';
+					}
+					if(in_array('twitter', $single_share_multicheck)){
+						echo '<li><a href="#" class="twitter"><i class="klbth-icon-twitter"></i></a></li>';
+					}
+					if(in_array('pinterest', $single_share_multicheck)){
+						echo '<li><a href="#" class="pinterest"><i class="klbth-icon-pinterest"></i></a></li>';
+					}
+					if(in_array('linkedin', $single_share_multicheck)){
+						echo '<li><a href="#" class="linkedin"><i class="klbth-icon-linkedin"></i></a></li>';
+					}
+					if(in_array('reddit', $single_share_multicheck)){
+						echo '<li><a href="#" class="reddit"><i class="klbth-icon-reddit"></i></a></li>';
+					}
+					if(in_array('whatsapp', $single_share_multicheck)){
+						echo '<li><a href="#" class="whatsapp"><i class="klbth-icon-whatsapp"></i></a></li>';
+					}
+				echo '</ul>';
+			echo '</div>';
+		echo '</div>';
+
+	}
+
+}
+
+function add_categories_before_description($id) {
+    $product = wc_get_product( $id );
+    ?>
+
+    <div class="content-single-product-des">
+        <?php 
+            echo get_ingredient_product($id);
+            wc_get_template( 'single-product/short-description.php' );
+        ?>
+        <div class="list-social-custom">
+            <label class="label">
+                <?php 
+                    echo __('DELI NA:','4web-addons')
+                ?>
+            </label>
+            <?php 
+                share_product_social_custom();
+            ?>
+        </div>
+    </div>
+
+
+    <?php 
+    if ( $product->is_type( 'variable' ) ) {
+        ?>
+        <div class="product-infor-custom">
+            <div class="price-product-variation">
+            </div>
+            <?php 
+            wc_enqueue_js( "
+                $(document).on('found_variation', 'form.cart', function( event, variation ) { 
+                $('.price-product-variation').html(variation.price_html); // SIMPLY CHANGE price_html INTO ONE OF THE KEYS BELOW       
+                });
+            " );
+            ?>
+
+            <div class="add-to-cart-custom-wrapper">
+                
+                <?php 
+                    
+                    woocommerce_template_single_add_to_cart();
+                ?>
+            </div>
+        </div>
+        <?php
+    }else{
+        ?>
+        <div class="wrapper-add-to-cart">
+            <div class="price-single-product">
+                <?php 
+                    $price_html = $product->get_price_html();
+                    echo $price_html;
+                ?>
+            </div>
+            <div class="add-to-cart-custom-wrapper">
+                <?php 
+                    woocommerce_template_single_add_to_cart();
+                ?>
+            </div>
+        </div>    
+        <?php
+    }
+    ?>
+    
+    
+    <?php
+   
+    
+}
+
+function add_custom_addtocart_and_checkout() {	
+    global $product;
+    // conditional tags
+    $condition = $product->is_type( 'simple' ) || $product->is_type( 'variable' );
+    //$condition =  $product->is_type( 'variable' );
+    $addtocart_url = get_home_url().'/checkout/?add-to-cart='.$product->get_id();
+    $button_class  = 'single_add_to_cart_button button alt custom-checkout-btn';
+
+    // Change the text of the buy now button from here
+    $button_text   = __("Hitri nakup", "4web-addons");
+    
+    if( $product->is_type( 'simple' ) ) :		
+    ?>
+    <script>
+    jQuery(function($) {
+        var url    = '<?php echo $addtocart_url; ?>',
+            qty    = 'input.qty',
+            button = 'a.custom-checkout-btn';
+
+        // On input/change quantity event
+        $(qty).on('input change', function() {
+            $(button).attr('href', url + '&quantity=' + $(this).val() );
+        });
+    });
+    </script>
+    <?php
+    elseif( $product->is_type( 'variable' ) ) :	
+    $addtocart_url = get_home_url().'/checkout/?add-to-cart=';
+    ?>
+    <script>
+    jQuery(function($) {
+        var url    = '<?php echo $addtocart_url; ?>',
+            vid    = 'input[name="variation_id"]',
+            pid    = 'input[name="product_id"]',
+            qty    = 'input.qty',
+            button = 'a.custom-checkout-btn';
+        setTimeout( function(){
+            if( $(vid).val() != '' ){
+                $(button).attr('href', url + $(vid).val() + '&quantity=' + $(qty).val() );
+            }
+        }, 300 );
+        $(qty).on('input change', function() {
+            if( $(vid).val() != '' ){
+                $(button).attr('href', url + $(vid).val() + '&quantity=' + $(this).val() );
+            }
+        });
+        $('.variations_form').on('change blur', 'table.variations select', function() {
+            if( $(vid).val() != '' ){
+                $(button).attr('href', url + $(vid).val() + '&quantity=' + $(qty).val() );
+            }
+        });
+    });
+    </script>
+    <?php			
+    endif;
+    if ($condition) {
+        echo '<a href="'.$addtocart_url.'" class="'.$button_class.'">'.$button_text.'</a>';
+    }   
+}
+
+
+function add_guarante_single_product() {
+    ?>
+    <div class="wrapper-guarante-product">
+        <div class="btn-wrap wrap-prev">
+            <div class="prev-btn">
+                <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18.5" cy="18.5" r="18" transform="rotate(-180 18.5 18.5)" fill="white" stroke="#F2F2F2"/>
+                <path d="M22 8L11.3934 18.6066L22 29.2132" stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+        <div class="list-guarante">
+            <?php 
+                $list_guarante = get_field('list_guaranteed','options');
+                if(!empty($list_guarante)) {
+                    foreach ($list_guarante as $guarante) {
+                        ?>
+                        <div class="item-gua">
+                            <img src="<?php echo $guarante['icon_gua']?>"/>
+                            <div class="content">
+                                <h4 class="heading"><?php echo $guarante['heading_gua']?></h4>
+                                <div class="des"><?php echo $guarante['description_gua']?></div>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                }
+            ?>
+        </div>
+        <div class="btn-wrap wrap-next">
+            <div class="next-btn">
+                <svg width="37" height="37" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="18.5" cy="18.5" r="18" fill="white" stroke="#F2F2F2"/>
+                <path d="M18.6055 29.2109L29.2121 18.6043L18.6055 7.99773" stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <?php
+}
 
 
 ?>

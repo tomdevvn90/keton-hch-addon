@@ -223,5 +223,8 @@ jQuery.noConflict();
 
     // Video Recipes Carousel
     elementorFrontend.hooks.addAction("frontend/element_ready/video-recipes-carousel.default", BeNormalSliderHandler);
+    
+    // Posts Carousel
+    elementorFrontend.hooks.addAction("frontend/element_ready/be-posts-carousel.default", BeNormalSliderHandler);
   });
 })(jQuery);

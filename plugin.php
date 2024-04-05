@@ -61,7 +61,11 @@ class Plugin {
 					'products-carousel',
 					'recipes-carousel',
 					'video-recipes-carousel',
-					'recipes-categories-1'
+					'posts-carousel',
+					'recipes-categories-1',
+					'buy-smart',
+					'list-reviews',
+					'gallery-image'
  				)
  			);
 
@@ -156,10 +160,26 @@ class Plugin {
 			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Products_Carousel\Be_Products_Carousel() );
 		}
 
+		// Posts widgets
+
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Posts_Carousel\Be_Posts_Carousel() );
+
 		// Recipes Categories
-		if ( $this->woocommerce_status() ) {
-			\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Recipes_Categories_1\Be_Recipes_Categories_1() );
-		}
+		
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Recipes_Categories_1\Be_Recipes_Categories_1() );
+	
+
+		// Smart Shopping
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Buy_Smart_Home\Be_Buy_Smart_Home() );
+		
+
+		// List Reviews
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\List_reviews_Home\Be_List_reviews_Home() );
+
+		// Gallery Image
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Gallery_Image_Responisve\Be_Gallery_Image_Responisve() );
+
+
 
 	}
 

@@ -7,6 +7,8 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: 35px;
   margin-bottom: 35px; }
+  .wrapper-recipes-categories .recipes-cat-feature a {
+    text-decoration: none; }
   @media (max-width: 600px) {
     .wrapper-recipes-categories .recipes-cat-feature {
       grid-template-columns: 1fr;

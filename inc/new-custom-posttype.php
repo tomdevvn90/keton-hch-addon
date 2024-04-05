@@ -212,6 +212,50 @@ if ( ! function_exists( 'hch_custom_taxonomy_product' ) ) {
 		);
 		register_taxonomy( 'product-ingredient', array( 'product' ), $args );
 
+		// Register Product Brand
+		
+		$labels_brand  = array(
+			'name'                       => _x( 'Brand', 'Taxonomy General Name', '4web-addons' ),
+			'singular_name'              => _x( 'Brand', 'Taxonomy Singular Name', '4web-addons' ),
+			'menu_name'                  => __( 'Brand', '4web-addons' ),
+			'all_items'                  => __( 'All Items', '4web-addons' ),
+			'parent_item'                => __( 'Parent Item', '4web-addons' ),
+			'parent_item_colon'          => __( 'Parent Item:', '4web-addons' ),
+			'new_item_name'              => __( 'New Item Name', '4web-addons' ),
+			'add_new_item'               => __( 'Add New Item', '4web-addons' ),
+			'edit_item'                  => __( 'Edit Item', '4web-addons' ),
+			'update_item'                => __( 'Update Item', '4web-addons' ),
+			'view_item'                  => __( 'View Item', '4web-addons' ),
+			'separate_items_with_commas' => __( 'Separate items with commas', '4web-addons' ),
+			'add_or_remove_items'        => __( 'Add or remove items', '4web-addons' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', '4web-addons' ),
+			'popular_items'              => __( 'Popular Items', '4web-addons' ),
+			'search_items'               => __( 'Search Items', '4web-addons' ),
+			'not_found'                  => __( 'Not Found', '4web-addons' ),
+			'no_terms'                   => __( 'No items', '4web-addons' ),
+			'items_list'                 => __( 'Items list', '4web-addons' ),
+			'items_list_navigation'      => __( 'Items list navigation', '4web-addons' ),
+		);
+		$rewrite_brand = array(
+			'slug'         => 'product-brand',
+			'hierarchical' => true,
+		);
+		$args_brand    = array(
+			'labels'            => $labels_brand,
+			'hierarchical'      => true,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_admin_column' => true,
+			'show_in_nav_menus' => true,
+			'show_tagcloud'     => true,
+			'rewrite'           => $rewrite_brand,
+			'show_in_rest'      => true,
+		);
+		//register_taxonomy( 'product-brand', array( 'product' ), $args_brand );
+
+
+
+
 	}
 	add_action( 'init', 'hch_custom_taxonomy_product', 0 );
 }

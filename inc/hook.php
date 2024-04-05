@@ -31,7 +31,7 @@ add_action( 'wp_ajax_filter_cat_product_shop', 'filter_cat_product_shop_init' );
 add_action( 'wp_ajax_nopriv_filter_cat_product_shop', 'filter_cat_product_shop_init' );
 
 //Hook add ingredient single product
-add_filter( 'woocommerce_short_description', 'ingredient_single_product_callback',1,99);
+//add_filter( 'woocommerce_short_description', 'ingredient_single_product_callback',1,99);
 
 //Hook filter tax query woocommerce
 add_filter( 'woocommerce_product_query_tax_query', 'hch_woocommerce_product_query_tax_query', 10, 2 );
@@ -53,7 +53,23 @@ add_action( 'woocommerce_before_main_content','add_element_scroll_jax_filter');
 
 // Hook for After Main Content of Product
 // add_action( 'woocommerce_after_main_content', 'be_add_related_recipes_blog_video', 99);
-add_action('get_footer','be_add_related_recipes_blog_video');
+add_action('get_footer','be_add_related_recipes_blog_video',10);
+//add_action('get_footer','be_get_reviews_single_product',11);
+
+//Hook custom single product
+add_action('web4_single_header_top','web4_single_product_header');
+add_action('4web_single_product_summary','add_categories_before_description',10,1);
+remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
+add_action( 'woocommerce_after_add_to_cart_button', 'add_custom_addtocart_and_checkout' );
+add_action('custom_guarante_product_variable','add_guarante_single_product');
+
+
+add_filter( 'woocommerce_format_sale_price', 'cw_change_product_price_display', 100, 3 );
+function cw_change_product_price_display( $price, $regular_price, $sale_price ) {
+    $price = '<del sss aria-hidden="true"> Redna cena:' . ( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . '</del> <ins>' . ( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . '</ins>';
+    return $price;
+}
+
 
 
 
