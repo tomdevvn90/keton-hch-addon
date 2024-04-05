@@ -903,3 +903,19 @@ body.single-product {
     }
   }
 }
+body.single-product .custom-column-content-product .product-infor-custom .price-product-variation .price del {
+  margin-left: 14px;
+  color: #9ca2a6;
+  font-family: "Barlow Semi Condensed";
+  font-size: 16px;
+  font-weight: 500 !important;
+  line-height: 24px;
+  text-decoration-line: strikethrough;
+}
+body.single-product .custom-column-content-product .product-infor-custom .price-product-variation .price del bdi {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  color: #9ca2a6 !important;
+  font-family: "Barlow Semi Condensed";
+  margin-left: 4px;
+}

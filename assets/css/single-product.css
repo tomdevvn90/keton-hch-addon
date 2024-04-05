@@ -272,7 +272,8 @@ body.single-product .product-type-simple .wrapper-add-to-cart .price-single-prod
   font-style: normal;
   font-weight: 600;
 }
-body.single-product .product-type-simple .wrapper-add-to-cart .price-single-product del {
+body.single-product .product-type-simple .wrapper-add-to-cart .price-single-product del,
+body.single-product .custom-column-content-product .product-infor-custom .price-product-variation .price del {
   margin-left: 14px;
   color: #9ca2a6;
   font-family: "Barlow Semi Condensed";
@@ -281,7 +282,8 @@ body.single-product .product-type-simple .wrapper-add-to-cart .price-single-prod
   line-height: 24px;
   text-decoration-line: strikethrough;
 }
-body.single-product .product-type-simple .wrapper-add-to-cart .price-single-product del bdi {
+body.single-product .product-type-simple .wrapper-add-to-cart .price-single-product del bdi,
+body.single-product .custom-column-content-product .product-infor-custom .price-product-variation .price del bdi {
   font-size: 16px !important;
   font-weight: 500 !important;
   color: #9ca2a6 !important;
