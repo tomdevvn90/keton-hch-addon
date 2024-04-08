@@ -42,13 +42,19 @@ remove_action( 'woocommerce_before_shop_loop', 'bacola_catalog_ordering_start', 
 //Add action template grid view product
 add_action( 'woocommerce_before_shop_loop', 'hch_catalog_ordering_start', 31 );
 
-//Add element scroll reponsive ajax filter product
+//Add element scroll responsive ajax filter product
 add_action( 'woocommerce_before_main_content','add_element_scroll_jax_filter');
+
+// Add custom breadcrumb bar
+add_action( 'woocommerce_before_main_content','keton_add_custom_breadcrumb');
+
+//Add action template grid view product
+add_action( 'woocommerce_after_shop_loop', 'keton_add_signup_form_for_shop' );
 
 // Update rating most single product 
 //add_action('init','update_rating_most_product');
 
-// Update count rating singple product
+// Update count rating single product
 //add_action( 'comment_post', 'update_rating_most_single_product', 10, 3 );
 
 // Hook for After Main Content of Product
@@ -66,7 +72,9 @@ add_action('custom_guarante_product_variable','add_guarante_single_product');
 
 add_filter( 'woocommerce_format_sale_price', 'cw_change_product_price_display', 100, 3 );
 function cw_change_product_price_display( $price, $regular_price, $sale_price ) {
-    $price = '<del sss aria-hidden="true"> Redna cena:' . ( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . '</del> <ins>' . ( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . '</ins>';
+    if ( is_product() ) {
+        $price = '<del sss aria-hidden="true"> Redna cena:' . ( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . '</del> <ins>' . ( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . '</ins>';
+    }
     return $price;
 }
 

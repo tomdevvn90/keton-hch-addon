@@ -951,10 +951,35 @@ function hch_catalog_ordering_start(){
 }
 
 function add_element_scroll_jax_filter() {
+    if(is_shop() || is_tax()){
     ?>
-    <div class="product-custom-reponsive-ajax">
-	</div>	
+        <div class="product-custom-reponsive-ajax"></div>	
     <?php
+    }
+}
+
+/**
+ * Hook to add custom breadcrumb on shop page
+ */
+function keton_add_custom_breadcrumb() {
+    if(is_shop() || is_tax()){
+        woocommerce_breadcrumb();
+    }
+}
+
+/**
+ * Hook to add signup form on shop page
+ */
+function keton_add_signup_form_for_shop() {
+    if(is_shop() || is_tax()){
+        ?>
+        <div class="keton-signup-form">
+            <h3><?php echo __('Nisi našel tega kar iščeš?', 'keton'); ?></h3>
+            <p><?php echo __('Predlagaj izdelek za spletno trgovino in potrudili se bomo poiskati zalogo', 'keton'); ?></p>
+            <?php echo do_shortcode('[mc4wp_form id="635"]'); ?>
+        </div>
+    <?php
+    }
 }
 
 function be_woocommerce_catalog_orderby_callback() {

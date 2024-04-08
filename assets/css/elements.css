@@ -1,3 +1,114 @@
+.home .hide-on-home {
+  display: none;
+}
+.sidebar-inner {
+  max-width: 240px;
+}
+.sidebar-inner > .widget .widget-title {
+  color: #010101;
+  font-family: "Barlow Semi Condensed";
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 16px;
+  text-transform: uppercase;
+}
+.sidebar-inner > .widget label {
+  color: #494949;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 19.5px;
+}
+.sidebar-inner .price_slider_amount #min_price,
+.sidebar-inner .price_slider_amount #max_price {
+  border-radius: 4px;
+  border: 1px solid #e6dee0;
+  background: #fff;
+  width: 75px;
+  height: 27px;
+  padding: 4px;
+  text-align: center;
+}
+.sidebar-inner .price_slider_amount .screen-reader-text[for="max_price"] {
+  width: 55px;
+  height: 1px;
+  top: 0;
+  clip-path: none;
+}
+.sidebar-inner .price_slider_amount .screen-reader-text[for="max_price"]:before {
+  content: "-";
+  position: absolute;
+  top: 0;
+  width: 6px;
+  left: 7px;
+  background: #6e5f63;
+}
+.sidebar-inner .widget .site-checkbox-lists label span {
+  border-radius: 1px;
+  border: 1px solid #e3e4e6;
+  width: 19px;
+  height: 19px;
+  max-width: 19px;
+  flex: none;
+  top: 0;
+}
+.keton-signup-form {
+  border-radius: 5px;
+  background: #f00;
+  padding: 30px;
+  margin: 60px 0 0;
+  text-align: center;
+  color: #fff;
+}
+.keton-signup-form h3 {
+  font-family: "Barlow Semi Condensed";
+  font-size: 35px;
+  font-weight: 600;
+  line-height: 35px;
+  margin-bottom: 22px;
+}
+.keton-signup-form p {
+  font-family: Barlow;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0.1px;
+  margin-bottom: 30px;
+}
+.keton-signup-form .klbth-icon-mail {
+  display: none;
+}
+.keton-signup-form .mc4wp-form {
+  max-width: 350px;
+  margin: 0 auto;
+}
+.keton-signup-form .mc4wp-form-fields {
+  display: flex;
+  align-items: center;
+}
+.keton-signup-form input[type="submit"] {
+  border-radius: 5px;
+  background: #252525;
+  margin-left: -5px;
+  color: #fff;
+  font-family: Barlow;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 14px;
+  padding: 16px 25px;
+  height: auto;
+  min-height: 48px;
+}
+.keton-signup-form input[type="email"] {
+  font-family: Barlow;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.5px;
+  padding: 12px 18px;
+  min-height: 48px;
+}
+.keton-signup-form input[type="email"]::placeholder {
+  color: #aaa;
+}
 .be-filter {
   display: flex;
   flex-wrap: wrap;
@@ -116,6 +227,7 @@
 .be-normal-carousel .slider-inner {
   display: block;
   margin: 15px;
+  text-decoration: none;
 }
 .be-normal-carousel .slider-inner img {
   height: 206px;
@@ -223,7 +335,9 @@
 .single-product .klb-products-nav {
   display: none;
 }
-.single-product .single-content .woocommerce-breadcrumb {
+.single-product .single-content .woocommerce-breadcrumb,
+.archive.woocommerce-shop .woocommerce-breadcrumb,
+.archive.tax-product_cat .woocommerce-breadcrumb {
   width: 100%;
   border-radius: 5px;
   background: #f4f7fb;
@@ -233,7 +347,13 @@
   padding: 24px 32px;
   margin: 40px 0;
 }
-.single-product .single-content .woocommerce-breadcrumb ul li {
+.archive.woocommerce-shop .woocommerce-breadcrumb,
+.archive.tax-product_cat .woocommerce-breadcrumb {
+  margin: 0 0 16px;
+}
+.single-product .single-content .woocommerce-breadcrumb ul li,
+.archive.woocommerce-shop .woocommerce-breadcrumb,
+.archive.tax-product_cat .woocommerce-breadcrumb {
   color: #bac0c4;
   font-family: "Barlow Semi Condensed";
   font-size: 13px;
@@ -241,16 +361,22 @@
   line-height: 138.462%;
   text-transform: uppercase;
 }
-.single-product .single-content .woocommerce-breadcrumb ul li a {
+.single-product .single-content .woocommerce-breadcrumb ul li a,
+.archive.woocommerce-shop .woocommerce-breadcrumb ul li a,
+.archive.tax-product_cat .woocommerce-breadcrumb ul li a {
   color: #bac0c4;
 }
-.single-product .single-content .woocommerce-breadcrumb ul li + li::before {
+.single-product .single-content .woocommerce-breadcrumb ul li + li::before,
+.archive.woocommerce-shop .woocommerce-breadcrumb ul li + li::before,
+.archive.tax-product_cat .woocommerce-breadcrumb ul li + li::before {
   content: "/";
   margin-left: 0.625rem;
   margin-right: 0.625rem;
   color: #252525;
 }
-.single-product .single-content .woocommerce-breadcrumb ul li:last-child {
+.single-product .single-content .woocommerce-breadcrumb ul li:last-child,
+.archive.woocommerce-shop .woocommerce-breadcrumb ul li:last-child,
+.archive.tax-product_cat .woocommerce-breadcrumb ul li:last-child {
   color: #252525;
 }
 .single-product .single-content .woocommerce-tabs .woocommerce-Tabs-panel p {
@@ -271,6 +397,86 @@
   line-height: 46px;
   text-transform: none;
 }
+.archive.woocommerce-shop .container > .woocommerce-breadcrumb,
+.archive.tax-product_cat .container > .woocommerce-breadcrumb,
+.archive.woocommerce-shop .shop-view-selector,
+.archive.tax-product_cat .shop-view-selector {
+  display: none !important;
+}
+.archive.woocommerce-shop .before-shop-loop,
+.archive.tax-product_cat .before-shop-loop {
+  justify-content: flex-end;
+  background: transparent;
+  padding: 0;
+  min-height: auto;
+  margin-bottom: 30px;
+}
+.archive.woocommerce-shop .before-shop-loop .product-filter .select2,
+.archive.tax-product_cat .before-shop-loop .product-filter .select2 {
+  position: relative;
+  padding-right: 24px;
+}
+.archive.woocommerce-shop .before-shop-loop .product-filter,
+.archive.tax-product_cat .before-shop-loop .product-filter {
+  border-radius: 5px;
+  background: #f4f7fb;
+  padding: 5px 13px;
+  color: #252525;
+  font-family: "Barlow Semi Condensed";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.1px;
+}
+.archive.woocommerce-shop .before-shop-loop .product-filter > span:not(.select2),
+.archive.tax-product_cat .before-shop-loop .product-filter > span:not(.select2),
+.archive.woocommerce-shop .before-shop-loop .product-filter .select2 .select2-selection .select2-selection__rendered,
+.archive.tax-product_cat .before-shop-loop .product-filter .select2 .select2-selection .select2-selection__rendered {
+  color: #252525;
+  font-family: "Barlow Semi Condensed";
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 28px;
+  letter-spacing: 0.1px;
+  padding: 0;
+  margin: 0;
+}
+.archive.woocommerce-shop .before-shop-loop .product-filter + .product-filter,
+.archive.tax-product_cat .before-shop-loop .product-filter + .product-filter {
+  margin-left: 10px;
+  border-left: 0;
+}
+.archive.woocommerce-shop .perpage-label,
+.archive.tax-product_cat .perpage-label {
+  margin-right: 4px !important;
+}
+.archive.woocommerce-shop .before-shop-loop .product-filter .select2 .select2-selection .select2-selection__arrow,
+.archive.tax-product_cat .before-shop-loop .product-filter .select2 .select2-selection .select2-selection__arrow {
+  margin: 0;
+  right: 0;
+  width: auto;
+}
+.archive.woocommerce-shop .before-shop-loop .product-filter .select2 .select2-selection .select2-selection__arrow:after,
+.archive.tax-product_cat .before-shop-loop .product-filter .select2 .select2-selection .select2-selection__arrow:after {
+  content: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTEiIHZpZXdCb3g9IjAgMCAxMiAxMSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEgNS4yNTc4MUw2LjY3NDAxIDkuMjk1MTdMMTEuNTE1NiA1LjI1NzgxIiBzdHJva2U9IiMyNTI1MjUiLz4KPC9zdmc+Cg==);
+  margin: 0;
+  right: 0;
+}
+.archive.woocommerce-shop .recently-viewed .klb-title.module-header,
+.archive.tax-product_cat .recently-viewed .klb-title.module-header {
+  padding-top: 60px;
+  border-top: 1.5px solid #e3e4e6;
+  margin-bottom: 40px;
+}
+.archive.woocommerce-shop .recently-viewed .module-header .entry-title,
+.archive.tax-product_cat .recently-viewed .module-header .entry-title {
+  color: #252525;
+  font-family: "Barlow Condensed";
+  font-size: 48px;
+  font-weight: 500;
+  line-height: 46px;
+  text-transform: none;
+}
 @media (max-width: 991px) {
   .be-products-ls .no-item-found {
     min-height: 200px;
@@ -280,14 +486,37 @@
   }
 }
 @media (max-width: 600px) {
+  .sidebar-inner {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .keton-signup-form {
+    padding: 30px 20px;
+    margin: 40px 0 0;
+  }
+  .keton-signup-form h3 {
+    font-size: 28px;
+    line-height: 28px;
+    margin-bottom: 16px;
+  }
+  .keton-signup-form p {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0.1px;
+    margin-bottom: 24px;
+  }
   .single-product .woocommerce-breadcrumb ul li:first-child:before {
     display: none;
   }
-  .single-product .single-content .woocommerce-breadcrumb {
+  .single-product .single-content .woocommerce-breadcrumb,
+  .archive.woocommerce-shop .woocommerce-breadcrumb,
+  .archive.tax-product_cat .woocommerce-breadcrumb {
     padding: 15px 20px;
     margin: 24px 0;
   }
-  .single-product .single-content .woocommerce-breadcrumb ul {
+  .single-product .single-content .woocommerce-breadcrumb ul,
+  .archive.woocommerce-shop .woocommerce-breadcrumb ul,
+  .archive.tax-product_cat .woocommerce-breadcrumb ul {
     flex-direction: row;
   }
   .single-product .site-module .klb-title.module-header {
