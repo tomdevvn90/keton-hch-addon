@@ -1,3 +1,9 @@
+.widget .site-checkbox-lists .site-scroll {
+  overflow: auto !important;
+}
+.widget .site-checkbox-lists .site-scroll .ps__rail-y {
+  display: none !important;
+}
 .home .hide-divide-line,
 .single-product .hide-divide-line {
   display: none !important;
