@@ -90,8 +90,19 @@
                 </div>
                 <div class="side-bar-recipe">
                     <?php 
-                        $posts_interesting = get_field('side_bar_recipe','options')['list_interesting_post_sidebar'];
-                        $gallery_sidebar = get_field('side_bar_recipe','options')['list_media_recipe_side_bar'];
+                        $g_recipe_sidebar = get_field('side_bar_recipe','options');
+
+                        $posts_interesting = $g_recipe_sidebar['list_interesting_post_sidebar'];
+                        $gallery_sidebar = $g_recipe_sidebar['list_media_recipe_side_bar'];
+
+                        $recipe_sidebar = get_field('side_bar_recipe');
+                        if ( $recipe_sidebar['list_interesting_post_sidebar'] ) {
+                            $posts_interesting = $recipe_sidebar['list_interesting_post_sidebar'];
+                        }
+                        if ( $recipe_sidebar['list_media_recipe_side_bar'] ) {
+                            $gallery_sidebar = $recipe_sidebar['list_media_recipe_side_bar'];
+                        }
+
                         if(!empty($posts_interesting)) {
                             ?>
                                 <div class="posts-interesting">
@@ -280,7 +291,7 @@
                                                 if ( !empty( $terms ) ){ ?>
                                                     <div class="cats"><?php echo join(', ', wp_list_pluck($terms, 'name')); ?></div>
                                                 <?php } ?>
-                                                <h3><?php echo get_the_title(); ?></h3>
+                                                <h3><?php echo get_the_title($rp_id); ?></h3>
                                                 <div class="crt-date-comment">
                                                     <span class="date">
                                                         <?php echo get_the_date('F j Y',$rp_id); ?>

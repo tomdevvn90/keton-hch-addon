@@ -1,8 +1,8 @@
 .wrapper-recipes-categories {
-  @media (max-width: 1360px) {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
+  // @media (max-width: 1360px) {
+  //   padding-left: 10px;
+  //   padding-right: 10px;
+  // }
   .recipes-cat-feature {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -39,6 +39,9 @@
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0) 100%);
         opacity: 0.4;
         z-index: 2;
+      }
+      img {
+        width: 100%;
       }
       .title-cat {
         color: #fff;
@@ -89,6 +92,9 @@
         background: linear-gradient(0deg, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0) 100%);
         opacity: 0.4;
         z-index: 2;
+      }
+      img {
+        width: 100%;
       }
       .title-cat {
         color: #fff;

@@ -1,8 +1,9 @@
-<?php 
+<?php
 
 get_header();
 $active_class = '';
-if(!empty(get_queried_object()->name)) {
+$slug_tax = isset($_GET['cat']) ? $_GET['cat'] : '';
+if(!empty(get_queried_object()->name) && $slug_tax == '') {
 	if(get_queried_object()->name == 'recipe') {
 		$active_class = 'current_tax';
 	}
@@ -11,7 +12,7 @@ if(!empty(get_queried_object()->name)) {
 <div class="wrapper-recipes-tax">
 	<div class="container-tax">
 		<div class="list-filter-recipes-tax">
-			<?php 
+			<?php
 				$all_cats = be_get_taxonomies('recipe-cat');
 				if(!empty($all_cats)) {
 					?>
@@ -23,11 +24,10 @@ if(!empty(get_queried_object()->name)) {
 					<?php
 					foreach ($all_cats as $key => $cat) {
 						$id_term = intval($key);
+						$term = get_term_by('id', $id_term, 'recipe-cat');
 						$active_class = '';
-						if(!empty(get_queried_object()->term_id)) {
-							if(get_queried_object()->term_id == $key) {
-								$active_class = 'current_tax';
-							}
+						if($slug_tax == $term->slug) {
+							$active_class = 'current_tax';
 						}
 						?>
 							<div class="item-filter-cat <?php echo $active_class?>">
@@ -41,11 +41,11 @@ if(!empty(get_queried_object()->name)) {
 			?>
 		</div>
 		<div class="site-posts">
-			<?php if (have_posts()) : 
+			<?php if (have_posts()) :
 				?>
 				<div class="list-site-posts">
-				<?php			
-				while (have_posts()) : the_post(); 
+				<?php
+				while (have_posts()) : the_post();
 				$id_post = get_the_ID();
 				$url_thumb = get_the_post_thumbnail_url($id_post,'full');
 				$link = get_permalink($id_post);
@@ -74,26 +74,26 @@ if(!empty(get_queried_object()->name)) {
 					<a href="<?php echo $link?>">
 						<img class="thumb" src="<?php echo $url_thumb ?>"/>
 						<div class="tax-recipe">
-							<?php 
+							<?php
 								if(!empty($name_term)) {
 									echo $name_term;
 								}
 							?>
 						</div>
 						<div class="title">
-							<?php 
+							<?php
 								echo $title;
 							?>
 						</div>
 						<div class="date">
-							<?php 
+							<?php
 								echo $date;
 							?>
 						</div>
 					</a>
 				</div>
 			<?php
-				endwhile; 
+				endwhile;
 				wp_reset_query();
 			?>
 			</div>
@@ -102,9 +102,11 @@ if(!empty(get_queried_object()->name)) {
 			<?php endif; ?>
 		</div>
 		<div class="pagination-custom">
-			<?php 
+			<?php
 				get_template_part( 'post-format/pagination' );
 			?>
 		</div>
 	</div>
 </div>
+
+<?php get_footer(); ?>

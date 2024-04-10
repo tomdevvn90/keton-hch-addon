@@ -1404,10 +1404,10 @@ function custom_taxonomies_terms_links($id,$slug_tax){
 
 function get_status_stock_product ($id) {
     $product = wc_get_product( $id );
-    $stock_quantity = $product->get_stock_quantity();
+    $stock_status = $product->get_stock_status();
 
     // now we can print product stock quantity or do whatever
-    return $stock_quantity;
+    return $stock_status;
 }
 
 
@@ -1426,8 +1426,7 @@ function wc_get_rating_html_custom( $rating, $count = 0 ) {
 function web4_single_product_header(){
 	global $product;
 	$id_product = $product->get_id();
-    $quanlity_stock = get_status_stock_product($id_product);
-    
+    $stock_status = get_status_stock_product($id_product);
 	?>
 	<div class="product-header-custom">
 		<?php do_action('bacola_single_title'); ?>
@@ -1457,11 +1456,11 @@ function web4_single_product_header(){
                 <?php do_action('bacola_single_rating'); ?>
             </div>	
             <?php 
-                if(!empty($quanlity_stock)) {
+                if(!empty($stock_status)) {
                     ?>
                         <div class="stock-product">
                             <?php 
-                                if($quanlity_stock>0) {
+                                if($stock_status == 'instock'){
                                     ?>
                                     <div class="instock">
                                         <span class="text"><?php echo __('Zaloga:','4web-addons')?></span>

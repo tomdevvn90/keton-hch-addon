@@ -160,7 +160,7 @@ if ( ! function_exists( 'hch_custom_taxonomy_recipes' ) ) {
 			'show_admin_column' => true,
 			'show_in_nav_menus' => true,
 			'show_tagcloud'     => true,
-			'rewrite'           => $rewrite,
+			'rewrite'           => false, //$rewrite,
 			'show_in_rest'      => true,
 		);
 		register_taxonomy( 'recipe-cat', array( 'recipe' ), $args );
@@ -253,38 +253,50 @@ if ( ! function_exists( 'hch_custom_taxonomy_product' ) ) {
 		);
 		//register_taxonomy( 'product-brand', array( 'product' ), $args_brand );
 
-
-
-
 	}
 	add_action( 'init', 'hch_custom_taxonomy_product', 0 );
 }
 
+// Rewrite URL Category
+add_filter('term_link', 'hch_post_category_link', 999 , 3);
+function hch_post_category_link( $link, $term_id , $taxonomy ){
+	 if($taxonomy == 'recipe-cat'){
+		 $term = get_term( $term_id, 'recipe-cat' );
+		 return home_url( 'recipe/?cat='.$term->slug );
+	 }
+	 return $link;
+}
 
+add_action('pre_get_posts' , 'hch_custom_query_recipe_categories', 999);
+function hch_custom_query_recipe_categories( $query ){
+	if ( ! is_admin() && $query->is_main_query()
+	    && isset($_GET['cat']) && $_GET['cat'] != ''
+	){
+		$cat_name = $_GET['cat'];
+		$query->query_vars['taxonomy'] = 'recipe-cat';
+		$query->query_vars['term'] = $cat_name;
+		$query->set('tax_query',
+				 array(
+						 'taxonomy' => 'recipe-cat',
+						 'field' => 'slug',
+						 'terms' => array(
+								 $cat_name,
+						 ),
+						 'operator' => 'IN'
+				 )
+		);
+	}
+}
 
-
-
-// Add the custom columns to the book post type:
-// add_filter( 'manage_recipe_posts_columns', 'hch_set_custom_edit_recipe_columns' );
-// function hch_set_custom_edit_recipe_columns($columns) {
-//     // Remove Date and Template
-//     unset($columns['date']);
-// 		$columns['image'] = __( 'Image', 'cosmos' );
-//     $columns['location'] = __( 'Location', 'cosmos' );
-//     $columns['date'] = 'Date';
-//     return $columns;
-// }
-// // Add the data to the custom columns for the book post type:
-// // add_action( 'manage_recipe_posts_custom_column' , 'hch_custom_recipe_column', 10, 2 );
-// function hch_custom_recipe_column( $column, $post_id ) {
-//     switch ( $column ) {
-//         case 'location' :
-//           $location = get_field('location',$post_id);
-//           echo $location;
-//           break;
-//         case 'image' :
-// 					$image = get_field('result_picture',$post_id);
-//           echo '<img style="max-width: 100px;height: auto;" src="'.$image.'" />';
-// 					break;
-//     }
-// }
+add_action( 'init', 'hch_rewrites_init', 99999 );
+function hch_rewrites_init(){
+		$taxonomy_slug = 'recipe-cat';
+		$terms = get_categories(array('hide_empty' => false , 'taxonomy' => $taxonomy_slug));
+    foreach ( $terms as $term ) {
+			add_rewrite_rule(
+		      '^recipe/?cat='.$term->slug.'$',
+		      'index.php?taxonomy=recipe-cat&term='.$term->slug,
+		      'top' );
+		}
+    flush_rewrite_rules();
+}
