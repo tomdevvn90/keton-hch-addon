@@ -7,6 +7,11 @@
 <div class="wrapper-single-recipe">
     <div class="single-recipe-detail">
         <div class="container">
+            <div class="wrapper-breadcrum-custom">
+                <?php 
+                    echo do_shortcode('[keton_breadcrumb]')
+                ?>
+            </div>
             <div class="single-recipe-content">
                 <div class="single-recipe">
                     <div class="feature-post">

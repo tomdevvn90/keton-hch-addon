@@ -411,7 +411,6 @@ jQuery.noConflict();
             let brand_name = $(this).text();
             if(brand_slug) {
                 if(!$(this).parent().hasClass('chosen')) {
-                    
                     $.ajax({
                         cache: false,
                         timeout: 8000,

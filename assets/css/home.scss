@@ -473,7 +473,6 @@
 }
 
 .product-categories-mobile {
-    display: none;
     .module-category.module-category.border {
         border: none !important;
         .category_list {
@@ -499,10 +498,8 @@
     }
 }
 .banner-box-5-mobile {
-    display: none;
     .banner-wrapper {
         min-height: 200px;
-        
     }
     .module-banner .banner-content {
         width: 80%;
@@ -514,9 +511,6 @@
             height: 44px !important;
         }
     }
-    @media(max-width:600px) {
-        display: block;
-    }
 }
 .button-cat-all-mobile {
     display: none;
@@ -525,3 +519,66 @@
     }
 }
 
+.wrapper-breadcrum-custom {
+    padding-bottom: 40px;
+}
+.single-recipe-video {
+    .wrapper-breadcrum-custom {
+        padding-bottom: 0;
+        padding-top: 40px;
+    }
+}
+
+.wrapper-banner-box-custom {
+    .content {
+        position: relative;
+        overflow: hidden;
+        display:inline-block;
+        max-width: 100%;
+        .overlay-bg {
+            position: absolute;
+            z-index: 2;
+            border-radius: 50%;
+            @media(min-width:768px) and (max-width:992px) {
+                display: none;
+            }
+        }
+        .content-detail {
+            padding: 30px 20px 20px 20px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 2;
+            @media(min-width:768px) and (max-width:992px) {
+                height: auto;
+                width: 100%;
+                padding: 10px;
+                top:auto;
+                bottom:0;
+            }
+            .title {
+                color: #FFF;
+                font-size: 35px;
+                font-style: normal;
+                font-weight: 600;
+                line-height:100%;
+                margin-bottom: 15px;
+                @media(min-width:768px) and (max-width:992px) {
+                    font-size: 20px;
+                    margin-bottom: 5px;
+                }
+            }
+            .sub-title {
+                color: #FFF;
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 100%;
+                @media(min-width:768px) and (max-width:992px) {
+                    font-size: 12px;
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+}

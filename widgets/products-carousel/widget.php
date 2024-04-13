@@ -674,7 +674,11 @@ class Be_Products_Carousel extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$products_html = $this->be_elementor_render_products($settings);
-		$more_products_url = "/shop-2/";
+		if(!empty(wc_get_page_permalink( 'shop' ))) {
+			$more_products_url = wc_get_page_permalink( 'shop' );
+		}else{
+			$more_products_url = "/shop/";
+		}
 		
 		$output = '<div class="site-module module-carousel">';
 
@@ -694,7 +698,7 @@ class Be_Products_Carousel extends Widget_Base {
 				if ( $settings['show_best_selling_filter'] ) {
 					$active_cl = '';
 					if ( ! $is_active_tab ) {
-						$more_products_url = "shop-2/?orderby=popularity";
+						$more_products_url = wc_get_page_permalink( 'shop' )."?orderby=popularity";
 						$active_cl = 'active';
 						$is_active_tab = true;
 					}
@@ -703,7 +707,7 @@ class Be_Products_Carousel extends Widget_Base {
 				if ( $settings['show_on_sale_filter'] ) {
 					$active_cl = '';
 					if ( ! $is_active_tab ) {
-						$more_products_url = "/shop-2/?on_sale=onsale";
+						$more_products_url = wc_get_page_permalink( 'shop' )."wc_get_page_permalink( 'shop' )?on_sale=onsale";
 						$active_cl = 'active';
 						$is_active_tab = true;
 					}
@@ -712,7 +716,7 @@ class Be_Products_Carousel extends Widget_Base {
 				if ( $settings['show_featured_filter'] ) {
 					$active_cl = '';
 					if ( ! $is_active_tab ) {
-						$more_products_url = "/shop-2/?orderby=rating";
+						$more_products_url = wc_get_page_permalink( 'shop' )."?filter_product_visibility=featured";
 						$active_cl = 'active';
 						$is_active_tab = true;
 					}

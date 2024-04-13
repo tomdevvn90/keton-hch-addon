@@ -10,7 +10,18 @@ get_header();
 ?>
 <div class="wrapper-recipes-tax">
 	<div class="container-tax">
-
+		<div class="wrapper-breadcrum-custom">
+			<?php 
+				echo do_shortcode('[keton_breadcrumb]')
+			?>
+		</div>
+		<div class="page-archive-title">
+			<h2>
+				<?php 
+					echo get_field('page_recipe_video_archive_global','options')['title'];
+				?>
+			</h2>
+		</div>
 		<div class="site-posts">
 			<?php if (have_posts()) : 
 			?>

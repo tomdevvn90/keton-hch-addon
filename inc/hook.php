@@ -63,20 +63,15 @@ add_action('get_footer','be_add_related_recipes_blog_video',10);
 //add_action('get_footer','be_get_reviews_single_product',11);
 
 //Hook custom single product
+remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 add_action('web4_single_header_top','web4_single_product_header');
 add_action('4web_single_product_summary','add_categories_before_description',10,1);
-remove_action( 'woocommerce_single_variation', 'woocommerce_single_variation', 10 );
 add_action( 'woocommerce_after_add_to_cart_button', 'add_custom_addtocart_and_checkout' );
 add_action('custom_guarante_product_variable','add_guarante_single_product');
+add_filter( 'woocommerce_format_sale_price', 'cw_change_product_price_display', 11, 3 );
 
-
-add_filter( 'woocommerce_format_sale_price', 'cw_change_product_price_display', 100, 3 );
-function cw_change_product_price_display( $price, $regular_price, $sale_price ) {
-    if ( is_product() ) {
-        $price = '<del sss aria-hidden="true"> Redna cena:' . ( is_numeric( $regular_price ) ? wc_price( $regular_price ) : $regular_price ) . '</del> <ins>' . ( is_numeric( $sale_price ) ? wc_price( $sale_price ) : $sale_price ) . '</ins>';
-    }
-    return $price;
-}
+//Add css admin 
+add_action('admin_head', 'custom_admin_dashboard'); 
 
 
 

@@ -402,7 +402,6 @@ body.single-product {
         padding-bottom: 0;
       }
       .price-product-variation {
-        padding-bottom: 10;
         .price {
           display: flex;
           align-items: center;
@@ -629,6 +628,39 @@ body.single-product {
         }
       }
       .stock-product {
+        .outstock {
+          span {
+            display: inline-flex;
+            font-size: 14px;
+          }
+          .text {
+            color: #bac0c4;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 135%;
+            letter-spacing: 1.12px;
+            text-transform: uppercase;
+            padding-right: 20px;
+            position: relative;
+            &:after {
+              content: "";
+              position: absolute;
+              right: 3px;
+              width: 13px;
+              height: 13px;
+              background: #f00;
+              border-radius: 50%;
+              top: 2px;
+            }
+          }
+          .status {
+            color: #252525;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 115%;
+            text-transform: uppercase;
+          }
+        }
         .instock {
           span {
             display: inline-flex;
@@ -891,11 +923,7 @@ body.single-product {
     padding: 3em 0 !important;
   }
 }
-.single-product {
-  #related-products {
-    display: none;
-  }
-}
+
 @media (min-width: 600px) {
   .single-product {
     .single-content.single-gray .single-wrapper > .product {
@@ -919,3 +947,33 @@ body.single-product .custom-column-content-product .product-infor-custom .price-
   font-family: "Barlow Semi Condensed";
   margin-left: 4px;
 }
+.product {
+  .price {
+    ins {
+      margin-left: 0;
+    }
+  }
+}
+
+.single-product {
+  .products {
+    .product.product-type-simple {
+      .price {
+        display: flex;
+        align-items: center;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+        ins {
+          margin-right: 5px;
+        }
+        .custom-price-sale-single-product {
+          .price-pr-loop {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+}
+

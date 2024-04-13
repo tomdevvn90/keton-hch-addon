@@ -425,6 +425,7 @@ class Be_Recipes_Carousel extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$recipes_html = $this->be_elementor_render_recipes($settings);
+		$link_archive = get_post_type_archive_link('recipe');
 		
 		$output = '<div class="site-module module-carousel be-normal-carousel">';
 
@@ -438,7 +439,7 @@ class Be_Recipes_Carousel extends Widget_Base {
 			$output .= '<h4 class="entry-title">'.esc_html($settings['title']).'</h4>';
 			$output .= '</div>';
       $output .= '<div class="column">';
-			$output .= '<a class="be-btn-link" href="/recipe" >'. __( "Vsi recepti", "4web-addons" ) .'</a>';
+			$output .= '<a class="be-btn-link" href="'.$link_archive.'" >'. __( "Vsi recepti", "4web-addons" ) .'</a>';
       $output .= '</div>';
 			$output .= '</div>';
 		}

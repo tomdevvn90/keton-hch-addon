@@ -354,7 +354,7 @@ class Be_Posts_Carousel extends Widget_Base {
 			$output .= '<h4 class="entry-title">'.esc_html($settings['title']).'</h4>';
 			$output .= '</div>';
       		$output .= '<div class="column">';
-			$output .= '<a class="be-btn-link" href="/blog" >'. __( "Vse oddaje", "4web-addons" ) .'</a>';
+			$output .= '<a class="be-btn-link" href="/blog" >'. __( "Vse objave", "4web-addons" ) .'</a>';
       $output .= '</div>';
 			$output .= '</div>';
 		}

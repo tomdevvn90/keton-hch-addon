@@ -65,7 +65,9 @@ class Plugin {
 					'recipes-categories-1',
 					'buy-smart',
 					'list-reviews',
-					'gallery-image'
+					'gallery-image',
+					'banner-box',
+					'categories-product'
  				)
  			);
 
@@ -171,6 +173,12 @@ class Plugin {
 
 		// Smart Shopping
 		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Buy_Smart_Home\Be_Buy_Smart_Home() );
+
+		// Banner Box
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Banner_Box_Keton\Be_Banner_Box_Keton() );
+
+		// Be Categories Product
+		\Elementor\Plugin::instance()->widgets_manager->register_widget_type( new Widgets\Categories_Keton_Addon\Be_Categories_Keton_Addon() );
 		
 
 		// List Reviews

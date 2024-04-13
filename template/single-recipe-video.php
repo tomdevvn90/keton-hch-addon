@@ -7,6 +7,11 @@
 
 <div class="wrapper-single-recipes-video">
     <div class="container">
+        <div class="wrapper-breadcrum-custom">
+			<?php 
+				echo do_shortcode('[keton_breadcrumb]')
+			?>
+		</div>
         <div class="main-video-recipes-play">
             <div class="title">
                 <?php 

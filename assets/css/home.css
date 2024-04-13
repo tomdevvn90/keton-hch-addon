@@ -351,49 +351,96 @@
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%); }
 
-.product-categories-mobile {
-  display: none; }
-  .product-categories-mobile .module-category.module-category.border {
-    border: none !important; }
-    .product-categories-mobile .module-category.module-category.border .category_list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px; }
-      .product-categories-mobile .module-category.module-category.border .category_list li {
-        text-align: center;
-        padding-top: 10px;
-        padding-bottom: 10px;
-        border-radius: 5px;
-        border: 1px solid #E3E4E6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 58px;
-        margin-bottom: 0; }
-  @media (max-width: 600px) {
-    .product-categories-mobile {
-      display: block; } }
+.product-categories-mobile .module-category.module-category.border {
+  border: none !important; }
+  .product-categories-mobile .module-category.module-category.border .category_list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px; }
+    .product-categories-mobile .module-category.module-category.border .category_list li {
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #E3E4E6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 58px;
+      margin-bottom: 0; }
+@media (max-width: 600px) {
+  .product-categories-mobile {
+    display: block; } }
 
-.banner-box-5-mobile {
-  display: none; }
-  .banner-box-5-mobile .banner-wrapper {
-    min-height: 200px; }
-  .banner-box-5-mobile .module-banner .banner-content {
-    width: 80%;
-    margin: auto;
-    padding-bottom: 0;
-    bottom: -15px;
-    text-align: center; }
-    .banner-box-5-mobile .module-banner .banner-content .button {
-      height: 44px !important; }
-  @media (max-width: 600px) {
-    .banner-box-5-mobile {
-      display: block; } }
+.banner-box-5-mobile .banner-wrapper {
+  min-height: 200px; }
+.banner-box-5-mobile .module-banner .banner-content {
+  width: 80%;
+  margin: auto;
+  padding-bottom: 0;
+  bottom: -15px;
+  text-align: center; }
+  .banner-box-5-mobile .module-banner .banner-content .button {
+    height: 44px !important; }
 
 .button-cat-all-mobile {
   display: none; }
   @media (max-width: 600px) {
     .button-cat-all-mobile {
       display: block; } }
+
+.wrapper-breadcrum-custom {
+  padding-bottom: 40px; }
+
+.single-recipe-video .wrapper-breadcrum-custom {
+  padding-bottom: 0;
+  padding-top: 40px; }
+
+.wrapper-banner-box-custom .content {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 100%; }
+  .wrapper-banner-box-custom .content .overlay-bg {
+    position: absolute;
+    z-index: 2;
+    border-radius: 50%; }
+    @media (min-width: 768px) and (max-width: 992px) {
+      .wrapper-banner-box-custom .content .overlay-bg {
+        display: none; } }
+  .wrapper-banner-box-custom .content .content-detail {
+    padding: 30px 20px 20px 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2; }
+    @media (min-width: 768px) and (max-width: 992px) {
+      .wrapper-banner-box-custom .content .content-detail {
+        height: auto;
+        width: 100%;
+        padding: 10px;
+        top: auto;
+        bottom: 0; } }
+    .wrapper-banner-box-custom .content .content-detail .title {
+      color: #FFF;
+      font-size: 35px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 100%;
+      margin-bottom: 15px; }
+      @media (min-width: 768px) and (max-width: 992px) {
+        .wrapper-banner-box-custom .content .content-detail .title {
+          font-size: 20px;
+          margin-bottom: 5px; } }
+    .wrapper-banner-box-custom .content .content-detail .sub-title {
+      color: #FFF;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 100%; }
+      @media (min-width: 768px) and (max-width: 992px) {
+        .wrapper-banner-box-custom .content .content-detail .sub-title {
+          font-size: 12px;
+          margin-bottom: 5px; } }
 
 /*# sourceMappingURL=home.css.map */

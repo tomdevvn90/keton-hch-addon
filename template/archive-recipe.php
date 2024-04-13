@@ -11,6 +11,18 @@ if(!empty(get_queried_object()->name) && $slug_tax == '') {
 ?>
 <div class="wrapper-recipes-tax">
 	<div class="container-tax">
+		<div class="wrapper-breadcrum-custom">
+			<?php 
+				echo do_shortcode('[keton_breadcrumb]')
+			?>
+		</div>
+		<div class="page-archive-title">
+			<h2>
+				<?php 
+					echo get_field('page_recipe_archive_global','options')['title'];
+				?>
+			</h2>
+		</div>
 		<div class="list-filter-recipes-tax">
 			<?php
 				$all_cats = be_get_taxonomies('recipe-cat');

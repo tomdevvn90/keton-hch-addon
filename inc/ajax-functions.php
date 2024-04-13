@@ -12,7 +12,11 @@ function be_filter_products_on_carousel_callback() {
 	$settings = $_POST['settings'];
 	$filter_by = $_POST['filter_by'];
 
-	$more_products_url = "/shop-2/";
+	if(!empty(wc_get_page_permalink( 'shop' ))) {
+		$more_products_url = wc_get_page_permalink( 'shop' );
+	}else{
+		$more_products_url = "/shop/";
+	}
 	$products_html = '';	
 			
 	if ( get_query_var( 'paged' ) ) {
@@ -66,14 +70,14 @@ function be_filter_products_on_carousel_callback() {
 		$args['meta_key'] = 'total_sales';
 		$args['orderby'] = 'meta_value_num';
 
-		$more_products_url = "shop-2/?orderby=popularity";
+		$more_products_url = wc_get_page_permalink( 'shop' )."?orderby=popularity";
 	} else {
 		if( $filter_by == 'on_sale' ){
 			$args['meta_key'] = '_sale_price';
 			$args['meta_value'] = array('');
 			$args['meta_compare'] = 'NOT IN';
 
-			$more_products_url = "/shop-2/?on_sale=onsale";
+			$more_products_url = wc_get_page_permalink( 'shop' )."?on_sale=onsale";
 		} else {
 			if( $filter_by == 'featured' ){
 				$args['tax_query'] = array( array(
@@ -83,7 +87,7 @@ function be_filter_products_on_carousel_callback() {
 						'operator' => 'IN',
 				) );
 
-				$more_products_url = "/shop-2/?orderby=rating";
+				$more_products_url = wc_get_page_permalink( 'shop' )."?filter_product_visibility=featured";
 			} else {
 				// Do nothing
 			}
